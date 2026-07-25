@@ -218,21 +218,22 @@
                                 <a class="all-notification" href="#">See all notifications <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </li>
+                        
                          <!-- User Profile -->
                         <li class="nav-item dropdown user-profile">
                             <div class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="user-avatar me-0 me-lg-3">A</span>
                                 <div>
                                     <a href="#" class="d-none d-lg-block">
-                                        <span class="d-block auth-role">Adminitator</span>
-                                        <span class="auth-name">Adin Lauren</span>
+                                        <span class="d-block auth-role"><?= $_SESSION['user_role']; ?></span>
+                                        <span class="auth-name"><?= $_SESSION['user_name']; ?></span>
                                         <span class="ms-2 text-color-1 text-size-sm"><i class="fa-solid fa-angle-down"></i></span>
                                     </a>
                                     <ul class="dropdown-menu mt-3">
                                         <li><a class="dropdown-item" href="#">Profile</a></li>
                                         <li><a class="dropdown-item" href="#">Settings</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        <li><a class="dropdown-item" onclick="logout()" href="#">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
