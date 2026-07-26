@@ -1,5 +1,5 @@
 <?php
-    require_once "component/connection.php";
+    require_once $_SERVER['DOCUMENT_ROOT'] . "/technova_training_institute/component/connection.php";
     if(!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']){
         echo "<script>window.location='{$base_url}login.php'</script>";
         exit;
@@ -12,12 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Learn Admin Dashboard</title>
     <!-- Stylesheets -->
-    <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/icons/fontawesome/css/fontawesome.min.css" rel="stylesheet">
-    <link href="./assets/icons/fontawesome/css/brands.min.css" rel="stylesheet">
-    <link href="./assets/icons/fontawesome/css/solid.min.css" rel="stylesheet">
-    <link href="./assets/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<?= $base_url ?>assets/images/favicon.ico" type="image/x-icon">
+    <link href="<?= $base_url ?>assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?= $base_url ?>assets/icons/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="<?= $base_url ?>assets/icons/fontawesome/css/brands.min.css" rel="stylesheet">
+    <link href="<?= $base_url ?>assets/icons/fontawesome/css/solid.min.css" rel="stylesheet">
+    <link href="<?= $base_url ?>assets/css/style.css" rel="stylesheet">
 </head>
 <body>
     <!-- Preloader -->

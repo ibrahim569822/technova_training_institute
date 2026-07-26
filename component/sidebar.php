@@ -3,14 +3,14 @@
         <div class="sidebar">
                 <!-- Sidebar -->
                <div class="sidebar-header">
-                   <div class="lg-logo"><a href="index.html"><img src="./assets/images/logo.png" alt="logo large"></a></div>
-                   <div class="sm-logo"><a href="index.html"><img src="./assets/images/small-logo.png" alt="logo small"></a></div>
+                   <div class="lg-logo"><a href="<?= $base_url ?>dashboard.php"><img src="<?= $base_url ?>assets/images/logo.png" alt="logo large"></a></div>
+                   <div class="sm-logo"><a href="<?= $base_url ?>dashboard.php"><img src="<?= $base_url ?>assets/images/small-logo.png" alt="logo small"></a></div>
                </div>
                <div class="sidebar-body  custom-scrollbar">
                     <ul class="sidebar-menu">
-                        <li><a href="index.html" class=" sidebar-link active"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
+                        <li><a href="<?= $base_url ?>dashboard.php" class=" sidebar-link active"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
                         <li><a href="course.html" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Courses</p></a></li>
-                        <li><a href="students.html" class=" sidebar-link"><i class="fa-solid fa-user"></i><p>Students</p></a></li>
+                        <li><a href="<?= $base_url ?>trainees/list.php" class=" sidebar-link"><i class="fa-solid fa-user"></i><p>Trainees</p></a></li>
                         <li><a href="teacher.html" class=" sidebar-link"><i class="fa-solid fa-chalkboard-user"></i><p>Teachers</p></a></li>
                         <li><a href="library.html" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="department.html" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
@@ -71,7 +71,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/avatar-1.jpg">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/avatar-1.jpg">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">We talked about a project...</h6>
@@ -83,7 +83,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/avatar-2.jpg">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/avatar-2.jpg">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">You sent an email to the client...</h6>
@@ -95,7 +95,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/avatar-3.jpg">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/avatar-3.jpg">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">Meeting with the design team...</h6>
@@ -107,7 +107,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/avatar-4.jpg">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/avatar-4.jpg">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">Reviewed the project documents...</h6>
@@ -119,7 +119,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/avatar-5.jpg">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/avatar-5.jpg">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">Finalized the project timeline...</h6>
@@ -149,7 +149,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/profile.png">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/profile.png">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">Dr Smith uploaded a new report</h6>
@@ -182,7 +182,7 @@
                                         <li>
                                             <div class="timeline-panel">
                                                 <div class="media me-2">
-                                                    <img alt="image" width="50" src="./assets/images/profile.png">
+                                                    <img alt="image" width="50" src="<?= $base_url ?>assets/images/profile.png">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6 class="mb-1">Dr Alice shared a prescription</h6>

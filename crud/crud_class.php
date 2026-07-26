@@ -66,6 +66,17 @@ class crud_class{
         }
     }
 
+    public function number_of_records($table){
+        $sql = "SELECT COUNT(*) as total FROM $table";
+        $rs = $this->conn->query($sql);
+        if($rs->num_rows > 0){
+            $row = $rs->fetch_object();
+            return $row->total;
+        } else {
+            return 0;
+        }
+    }
+
     public function common_query($query){
         $result=[
             "status"=>false,

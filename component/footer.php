@@ -4,12 +4,12 @@
             </div>
     </div>
      <!-- Scripts -->
-    <script  src="./assets/js/jquery-3.6.0.min.js"></script>
-    <script  src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script  src="./assets/plugin/chart/chart.js"></script>
-    <script  src="./assets/js/chart.js"></script>
-    <script  src="./assets/js/main.js"></script>
-    <script  src="./assets/plugin/jquery.toaster-master/jquery.toaster.js"></script>
+    <script  src="<?= $base_url ?>assets/js/jquery-3.6.0.min.js"></script>
+    <script  src="<?= $base_url ?>assets/js/bootstrap.bundle.min.js"></script>
+    <script  src="<?= $base_url ?>assets/plugin/chart/chart.js"></script>
+    <script  src="<?= $base_url ?>assets/js/chart.js"></script>
+    <script  src="<?= $base_url ?>assets/js/main.js"></script>
+    <script  src="<?= $base_url ?>assets/plugin/jquery.toaster-master/jquery.toaster.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
