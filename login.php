@@ -6,7 +6,7 @@
                     <!-- Logo -->
                     <div class="text-center mb-4">
                         <div class="d-flex align-items-center justify-content-center gap-2">
-                            <a href="login.html"><img src="assets/images/logo.png" alt="logo"></a>
+                            <a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo"></a>
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <div class="row mb-4">
                             
                             <div class="col-12 col-lg-6 text-lg-end">
-                                <a href="forgot-password.html" class="text-primary">Forgot password</a>
+                                <a href="<?php echo $base_url; ?>forgot-password.php" class="text-primary">Forgot password</a>
                             </div>
                         </div>
 
@@ -48,7 +48,7 @@
 
                         <!-- Divider -->
                         <div class="text-center text-muted mb-4 text-size-14">
-                             Don't have an account yet? <a href="signup.php" class="text-primary">Sign Up</a>
+                             Don't have an account yet? <a href="<?php echo $base_url; ?>signup.php" class="text-primary">Sign Up</a>
                         </div>
                     </form>
                     <?php
