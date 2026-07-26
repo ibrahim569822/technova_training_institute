@@ -48,7 +48,7 @@
 
                         <!-- Divider -->
                         <div class="text-center text-muted mb-4 text-size-14">
-                             Don't have an account yet? <a href="signup.html" class="text-primary">Sign Up</a>
+                             Don't have an account yet? <a href="signup.php" class="text-primary">Sign Up</a>
                         </div>
                     </form>
                     <?php
