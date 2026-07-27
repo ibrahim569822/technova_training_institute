@@ -6,7 +6,7 @@
                     <!-- Logo -->
                     <div class="text-center mb-4">
                         <div class="d-flex align-items-center justify-content-center gap-2">
-                            <a href="login.html"><img src="assets/images/logo.png" alt="logo"></a>
+                            <a href="<?php echo $base_url; ?>login.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo"></a>
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@
 
                         <!-- Divider -->
                         <div class="text-center text-muted mb-4 text-size-14">
-                            You have an account? <a href="login.html" class="text-primary">Login</a>
+                            You have an account? <a href="<?php echo $base_url; ?>login.php" class="text-primary">Login</a>
                         </div>
                     </form>
                     <?php
