@@ -23,7 +23,7 @@
                                    </ul>
                                   </div>
                                   <!-- Reports Button -->
-                                   <a href="#" data-bs-toggle="modal" data-bs-target="#courseCreateModal" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
+                                   <a href="<?= $base_url; ?>courses/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
                                       <i class="fa-solid fa-plus me-3"></i>
                                       Add Course
                                    </a>
