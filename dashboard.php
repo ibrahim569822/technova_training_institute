@@ -50,7 +50,7 @@
                                           <div class="d-flex justify-content-between align-items-start">
                                               <div>
                                                   <div class="stats-label">Total Courses</div>
-                                                  <div class="stats-value">405</div>
+                                                  <div class="stats-value"><?php echo $crud->number_of_records("courses"); ?></div>
                                                   <div class="trend-wrapper">
                                                       This month 
                                                       <span class="trend-up">

@@ -43,7 +43,7 @@
                                 <th><input type="checkbox" id="select-all" class="custom-checkbox"></th>
                                 <th>Course Name</th>
                                 <th>Category</th>
-                                <th>Instructor</th>
+                                <th>Duration</th>
                                 <th>Price</th>
                                 <th>Status</th>
                                 <th class="text-center"><i class="fas fa-ellipsis-h"></i></th>
@@ -69,7 +69,9 @@
                                   <td><?php echo $course->description; ?></td>
                                   <td><?php echo $course->duration; ?></td>
                                   <td>$<?php echo $course->fee; ?></td>
-                                  <td><span class="badge bg-success">Active</span></td>
+                                  <td><?php if($course->status == 1) { echo '<span class="badge bg-success">Completed</span>'; }
+                                  elseif($course->status == 0){echo '<span class="badge bg-warning">Running</span>';} 
+                                  else { echo '<span class="badge bg-danger">Upcoming</span>'; } ?></td>
                                   <td>
                                     <a href="course-details.html" class="btn btn-sm btn-info me-2"><i class="fa-solid fa-eye"></i></a>
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#courseEditModal" class="btn btn-sm btn-primary me-2"><i class="fa-regular fa-pen-to-square"></i></a>
