@@ -17,7 +17,8 @@ class crud_class{
 
 
 
-    public function common_select($table, $columns = "*", $where = [],$where_condition = "AND", $order_by = "",$sort_order = "ASC",$limit = "",$offset = ""){
+    public function common_select($table, $columns = "*", $where = [],$where_condition = "AND", $order_by = "",
+        $sort_order = "ASC",$limit = "",$offset = ""){
         $result=[
             "status"=>false,
             "data"=>[],
