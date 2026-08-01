@@ -28,6 +28,14 @@
                 window.location.href = "<?= $base_url ?>logout.php";
             }
         }
+        function courseDetails(id) {
+            window.location.href = "<?= $base_url ?>courses/course_details.php?id=" + id;
+        }
+        function deleteCourse(id) {
+            if (confirm("Are you sure you want to delete this course?")) {
+                window.location.href = "<?= $base_url ?>courses/delete.php?id=" + id;
+            }
+        }
     </script>
 </body>
 </html>

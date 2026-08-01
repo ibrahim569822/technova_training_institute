@@ -30,7 +30,7 @@ class crud_class{
         if(!empty($where)){
             $where_clauses = [];
             foreach($where as $column => $value){
-                $where_clauses[] = "$column = '$value'";
+                $where_clauses[] = "$table" . "." . "$column = '" . $this->conn->real_escape_string($value) . "'";
                 //$where_clauses[] = "id='1'"
                 //$where_clauses[] = "name='kamal'"
             }
@@ -78,14 +78,24 @@ class crud_class{
         }
     }
 
-    public function common_query($query){
+    public function common_query($query,$limit = "",$offset = ""){
         $result=[
             "status"=>false,
             "data"=>[],
             "message"=>""
         ];
 
-        $rs = $this->conn->query($query);
+        if(!empty($limit)){
+            $sql .= " LIMIT $limit";
+            if(!empty($offset)){
+                $sql .= " OFFSET $offset";
+            }
+
+            // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
+        }
+
+        $rs = $this->conn->query($sql);
+
         if($rs->num_rows > 0){
             $result["status"] = true;
             $result["message"] = "Records found";
@@ -108,7 +118,7 @@ class crud_class{
         ];
 
         $columns = implode(", ", array_keys($data));
-        $values = implode("', '", array_values($data));
+        $values = implode("', '", array_map([$this->conn, 'real_escape_string'], array_values($data)));
         $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
         if($this->conn->query($sql)){
             $result["status"] = true;
@@ -140,7 +150,7 @@ class crud_class{
         if(!empty($where)){
             $where_clauses = [];
             foreach($where as $column => $value){
-                $where_clauses[] = "$column = '$value'";
+                $where_clauses[] = "$column = '" . $this->conn->real_escape_string($value) . "'";
             }
             $sql .= " WHERE " . implode(" $where_condition ", $where_clauses);
         }
@@ -166,7 +176,7 @@ class crud_class{
         if(!empty($where)){
             $where_clauses = [];
             foreach($where as $column => $value){
-                $where_clauses[] = "$column = '$value'";
+                $where_clauses[] = "$column = '" . $this->conn->real_escape_string($value) . "'";
             }
             $sql .= " WHERE " . implode(" $where_condition ", $where_clauses);
         }
