@@ -1,4 +1,4 @@
-<?phpmmon
+<?php
     require_once "../component/connection.php";
 
         $_POST['password'] = sha1($_POST['password']);
