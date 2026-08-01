@@ -78,7 +78,7 @@ class crud_class{
         }
     }
 
-    public function common_query($query,$limit = "",$offset = ""){
+    public function common_query($sql,$limit = "",$offset = ""){
         $result=[
             "status"=>false,
             "data"=>[],
