@@ -27,8 +27,8 @@
               </div>
              <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="gender" class="form-label">Category</label>
-                <select class="form-select" id="gender" name="gender" required>
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" id="category" name="category" required>
                   <option value="">Select Category</option>
                   <option value="1">Technology</option>
                   <option value="2">Programming</option>
@@ -37,6 +37,42 @@
                   <option value="5">Designing</option>
                   <option value="6">Development</option>
                 </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" class="form-control" id="image" name="image" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="duration" class="form-label">Duration</label>
+                <input type="text" class="form-control" id="duration" name="duration" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="fee" class="form-label">Fee</label>
+                <input type="number" class="form-control" id="fee" name="fee" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="trainer_id" class="form-label">Trainer Id</label>
+                <input type="text" class="form-control" id="trainer_id" name="trainer_id" required>
               </div>
             </div>
             <div class="row">
@@ -50,7 +86,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12 mb-3">
+              <div class="col-md-12 co-mb-12">
                 <button type="submit" class="btn btn-primary">Add Course</button>
               </div>
             </div>

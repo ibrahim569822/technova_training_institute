@@ -44,7 +44,7 @@
                                 <th>Course Name</th>
                                 <th>Category</th>
                                 <th>Duration</th>
-                                <th>Price</th>
+                                <th>Fee</th>
                                 <th>Status</th>
                                 <th class="text-center"><i class="fas fa-ellipsis-h"></i></th>
                               </tr>
@@ -66,16 +66,16 @@
                                 <tr>
                                   <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
                                   <td><?php echo $course->course_name; ?></td>
-                                  <td><?php echo $course->description; ?></td>
+                                  <td><?php echo $course->category; ?></td>
                                   <td><?php echo $course->duration; ?></td>
                                   <td>$<?php echo $course->fee; ?></td>
                                   <td><?php if($course->status == 1) { echo '<span class="badge bg-success">Completed</span>'; }
                                   elseif($course->status == 0){echo '<span class="badge bg-warning">Running</span>';} 
                                   else { echo '<span class="badge bg-danger">Upcoming</span>'; } ?></td>
                                   <td>
-                                    <a href="course-details.html" class="btn btn-sm btn-info me-2"><i class="fa-solid fa-eye"></i></a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#courseEditModal" class="btn btn-sm btn-primary me-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="#" class="btn btn-sm btn-danger me-2"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a onclick="courseDetails(<?= $course->id ?>)" href="#" class="btn btn-sm btn-info me-2"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="<?= $base_url ?>courses/edit.php?id=<?= $course->id ?>" class="btn btn-sm btn-primary mb-2 mb-lg-0 me-0 me-lg-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a href="#" class="btn btn-sm btn-danger" onclick="deleteCourse(<?= $course->id ?>)"><i class="fa-solid fa-trash-can"></i></a>
                                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                       <span class="btn btn-sm btn-success"><i class="fas fa-ellipsis-h"></i></span>
                                       <ul class="dropdown-menu">
@@ -103,7 +103,7 @@
                       <li class="page-item"><a class="page-link" href="#">6</a></li>
                       <li class="page-item"><a class="page-link" href="#">7</a></li>
                       <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next"><i class="fa-solid fa-chevron-right text-size-12"></i></a>
+                      <a class="page-link" href="#" aria-label="Next"><i class="fa-solid fa-chevron-right text-size-12"></i></a>
                       </li>
                     </ul>
                   </nav>
