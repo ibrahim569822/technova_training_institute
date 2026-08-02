@@ -36,6 +36,8 @@
                   <option value="4">Networking</option>
                   <option value="5">Designing</option>
                   <option value="6">Development</option>
+                  <option value="7">Marketing</option>
+                  <option value="8">Fundamentals</option>
                 </select>
               </div>
               <div class="col-md-6 mb-3">
