@@ -1,37 +1,59 @@
 <?php
-    require_once "../component/connection.php";
+require_once "../component/connection.php";
+// add database transaction
+ $crud->conn->begin_transaction();
+$id=$_POST['id'];
+$user_id=$_POST['user_id'];
+$users['full_name'] = $_POST['full_name'];
+$users['email'] = $_POST['email'];
+$users['phone'] = $_POST['phone'];
 
-    $id = $_GET['id'];
+$users['status'] = $_POST['status'];
+if (isset($_POST['password']) && !empty($_POST['password'])) {
+    $users['password'] = sha1($_POST['password']);
+}
 
-        if (isset($_POST['password']) && !empty($_POST['password'])) {
-            $_POST['password'] = sha1($_POST['password']);
-        } else {
-            unset($_POST['password']); // Remove password from POST data if it's empty
+$result = $crud->common_update("users", $users, ['id' => $user_id]);
+if ($result['status']) {
+    $trainers['dob'] = $_POST['dob'];
+    $trainers['joining_date'] = $_POST['joining_date'];
+    $trainers['gender'] = $_POST['gender'];
+    $trainers['address'] = $_POST['address'];
+    $trainers['qualification'] = $_POST['qualification'];
+    $trainers['specialization'] = $_POST['specialization'];
+    $trainers['experience'] = $_POST['experience'];
+    $trainers['salary'] = $_POST['salary'];
+    $trainers['updated_by'] = $_SESSION['user_id'];
+
+    // Handle file upload
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = '../assets/uploads/trainers/images/';
+        // check if the directory exists, if not create it
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
-      
 
-        // Handle file upload
-        if (isset($_FILES['image']) && !empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/uploads/trainees/images/';
-            $imageName = rand(1, 999999). time() . '_' . basename($_FILES['image']['name']);
-            $uploadFile = $uploadDir . $imageName ;
+        $imageName = rand(1, 999999) . time() . '_' . basename($_FILES['image']['name']);
+        $uploadFile = $uploadDir . $imageName;
 
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                $_POST['image'] = $imageName;
-            } else {
-                echo "Error uploading file.";
-                exit;
-            }
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+            $trainers['image'] = $imageName;
         } else {
-            unset($_POST['image']);
+            echo "Error uploading file.";
+            exit;
         }
+    }
 
-        $result = $crud->common_update("trainees", $_POST, ['id' => $id]);
-        if ($result['status']) {
-            $_SESSION['message'] = array('success','Success', $result['message']);
-        } else {
-            $_SESSION['message'] = array('danger','Error', $result['message']);
-        }
+    $result = $crud->common_update("trainers", $trainers, ['id' => $id]);
+    if ($result['status']) {
+        $crud->conn->commit();
+        $_SESSION['message'] = array('success', 'Success', $result['message']);
+    } else {
+        $crud->conn->rollback();
+        $_SESSION['message'] = array('danger', 'Error', $result['message']);
+    }
+}else{
+    $_SESSION['message'] = array('danger', 'Error', $result['message']);
+}
 
-        echo "<script>window.location.href = '".$base_url."trainees/list.php';</script>";
-    
+echo "<script>window.location.href = '" . $base_url . "teacher/list.php';</script>";
