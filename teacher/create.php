@@ -18,7 +18,7 @@
   <div class="mt-4">
     <div class="card shadow-sm border-0">
       <div class="card-body p-0">
-        <form action="<?= $base_url; ?>trainees/store.php" method="POST" enctype="multipart/form-data" class="p-4">
+        <form action="<?= $base_url; ?>teacher/store.php" method="POST" enctype="multipart/form-data" class="p-4">
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="full_name" class="form-label">Full Name</label>
