@@ -75,7 +75,7 @@
                         } else {
                           
                             // check if the email already exists in the database
-                            $existingUser = $crud->common_query("SELECT * FROM users WHERE email = '{$_POST['email']}'");
+                            $existingUser = $crud->common_query("SELECT * FROM users WHERE email = '{$_POST['email']}'", 'users');
                             if ($existingUser['status'] && count($existingUser['data']) > 0) {
                                  $_SESSION['message'] = array('danger','Error', 'Email already exists. Please use a different email.');
                             } else {

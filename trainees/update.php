@@ -1,7 +1,7 @@
 <?php
     require_once "../component/connection.php";
 
-    $id = $_GET['id'];
+    $id = $_POST['id'];
 
         if (isset($_POST['password']) && !empty($_POST['password'])) {
             $_POST['password'] = sha1($_POST['password']);
