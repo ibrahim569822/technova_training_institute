@@ -5,18 +5,18 @@
 
 <?php
 $id = $_GET['id'];
-$sql = "SELECT batch.*, courses.course_name, users.full_name as trainer_name 
-        FROM batch 
-        JOIN courses ON batch.course_id = courses.course_id 
-        JOIN trainers ON batch.trainer_id = trainers.id 
+$sql = "SELECT batches.*, courses.course_name, users.full_name as trainer_name 
+        FROM batches
+        JOIN courses ON batches.course_id = courses.id 
+        JOIN trainers ON batches.trainer_id = trainers.id 
         JOIN users ON trainers.user_id = users.id 
-        WHERE batch.id = $id AND batch.deleted_at IS NULL";
+        WHERE batches.id = $id AND batches.deleted_at IS NULL";
 
 $data = $crud->common_query($sql);
 
 if (!$data['status'] || empty($data['data'])) {
     $_SESSION['message'] = array('danger', 'Error', 'Batch not found.');
-    echo "<script>window.location.href = '" . $base_url . "batch/list.php';</script>";
+    echo "<script>window.location.href = '" . $base_url . "batches/list.php';</script>";
     exit;
 }
 $batch = $data['data'][0];
@@ -30,7 +30,7 @@ $batch = $data['data'][0];
                     <h3 class="mb-2 text-size-26 text-color-2">Batch Details</h3>
                 </div>
                 <div class="mt-3 mt-lg-0">
-                    <a href="<?= $base_url; ?>batch/list.php" class="btn btn-secondary">Back to List</a>
+                    <a href="<?= $base_url; ?>batches/list.php" class="btn btn-secondary">Back to List</a>
                 </div>
             </div>
         </div>
