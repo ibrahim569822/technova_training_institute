@@ -12,6 +12,7 @@
                         <li><a href="<?php echo $base_url; ?>courses/courselist.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Courses</p></a></li>
                         <li><a href="<?php echo $base_url; ?>trainees/list.php" class=" sidebar-link"><i class="fa-solid fa-user"></i><p>Students</p></a></li>
                         <li><a href="<?php echo $base_url; ?>teacher/list.php" class=" sidebar-link"><i class="fa-solid fa-chalkboard-user"></i><p>Teachers</p></a></li>
+                        <li><a href="<?php echo $base_url; ?>batch/list.php" class="sidebar-link"><i class="fa-solid fa-layer-group"></i><p>Batches</p></a></li>
                         <li><a href="<?php echo $base_url; ?>library.php" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="<?php echo $base_url; ?>department.php" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
                         <li><a href="<?php echo $base_url; ?>staff.php" class="sidebar-link"><i class="fa-solid fa-users"></i><p>Staff</p></a></li>
