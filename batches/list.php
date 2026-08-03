@@ -12,18 +12,7 @@
                 </div>
                 <div class="mt-3 mt-lg-0">
                     <div class="d-flex align-items-center">
-                        <!-- Filter Button -->
-                        <div class="cursor-pointer bg-white d-flex align-items-center text-color-1 px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-filter me-3"></i> Filter by
-                            <i class="fa-solid fa-chevron-right ms-3 text-size-sm"></i>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Upcoming</a></li>
-                                <li><a class="dropdown-item" href="#">Running</a></li>
-                                <li><a class="dropdown-item" href="#">Completed</a></li>
-                            </ul>
-                        </div>
-                        <!-- Add Button -->
-                        <a href="<?= $base_url; ?>batches/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
+                        <a href="create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
                             <i class="fa-solid fa-plus me-3"></i> Add Batch
                         </a>
                     </div>
@@ -50,13 +39,13 @@
                         </thead>
                         <tbody>
                             <?php
-                       
-                            $sql = "SELECT batch.*, courses.course_name, users.full_name as trainer_name 
-                                    FROM batch 
-                                    JOIN courses ON batches.course_id = courses.course_id 
+                            
+                            $sql = "SELECT batches.*, courses.course_name, users.full_name as trainer_name 
+                                    FROM batches 
+                                    JOIN courses ON batches.course_id = courses.id 
                                     JOIN trainers ON batches.trainer_id = trainers.id 
                                     JOIN users ON trainers.user_id = users.id 
-                                    WHERE batch.deleted_at IS NULL";
+                                    WHERE batches.deleted_at IS NULL";
 
                             $result = $crud->common_query($sql);
                             if ($result['status']) {
@@ -77,9 +66,8 @@
                                     ?>
                                 </td>
                                 <td class="text-center">
-                                    <a href="<?= $base_url; ?>batch/view.php?id=<?= $batch->id ?>" class="btn btn-sm btn-info mb-2"><i class="fa-regular fa-eye"></i></a>
-                                    <a href="<?= $base_url; ?>batch/edit.php?id=<?= $batch->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="<?= $base_url; ?>batch/delete.php?id=<?= $batch->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this batch?')"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="<?= $base_url; ?>batches/edit.php?id=<?= $batch->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a href="<?= $base_url; ?>batches/delete.php?id=<?= $batch->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                             <?php
@@ -90,20 +78,6 @@
                             ?>
                         </tbody>
                     </table>
-                </div>
-              
-                <div class="pb-3 ps-3 mt-3 d-flex justify-content-center justify-content-md-between justify-content-lg-between flex-wrap flex-md-nowrap">
-                    <nav aria-label="Page navigation" class="mb-3 mb-md-0 mb-lg-0">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><i class="fa-solid fa-chevron-left text-size-12"></i></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-ellipsis-h"></i></a></li>
-                            <li class="page-item"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item"><a class="page-link" href="#">7</a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><i class="fa-solid fa-chevron-right text-size-12"></i></a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
