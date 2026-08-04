@@ -51,12 +51,12 @@
                         <tbody>
                             <?php
                        
-                            $sql = "SELECT batch.*, courses.course_name, users.full_name as trainer_name 
-                                    FROM batch 
+                            $sql = "SELECT batches.*, courses.course_name, users.full_name as trainer_name 
+                                    FROM batches 
                                     JOIN courses ON batches.course_id = courses.course_id 
                                     JOIN trainers ON batches.trainer_id = trainers.id 
                                     JOIN users ON trainers.user_id = users.id 
-                                    WHERE batch.deleted_at IS NULL";
+                                    WHERE batches.deleted_at IS NULL";
 
                             $result = $crud->common_query($sql);
                             if ($result['status']) {
@@ -77,9 +77,9 @@
                                     ?>
                                 </td>
                                 <td class="text-center">
-                                    <a href="<?= $base_url; ?>batch/view.php?id=<?= $batch->id ?>" class="btn btn-sm btn-info mb-2"><i class="fa-regular fa-eye"></i></a>
-                                    <a href="<?= $base_url; ?>batch/edit.php?id=<?= $batch->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="<?= $base_url; ?>batch/delete.php?id=<?= $batch->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this batch?')"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="<?= $base_url; ?>batches/view.php?id=<?= $batch->id ?>" class="btn btn-sm btn-info mb-2"><i class="fa-regular fa-eye"></i></a>
+                                    <a href="<?= $base_url; ?>batches/edit.php?id=<?= $batch->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a href="<?= $base_url; ?>batches/delete.php?id=<?= $batch->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this batch?')"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                             <?php
