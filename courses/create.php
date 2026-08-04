@@ -18,7 +18,7 @@
     <div class="mt-4">
       <div class="card shadow-sm border-0">
         <div class="card-body p-0">
-          <form action="<?= $base_url; ?>courses/store.php" method="POST" enctype="multipart/form-data" class="p-4">
+          <form action="<?= $base_url; ?>courses/store.php" method="POST" class="p-4">
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="course_name" class="form-label">Course Name</label>
@@ -44,8 +44,9 @@
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" id="status" name="status" required>
                   <option value="">Select Status</option>
-                  <option value="1">Active</option>
-                  <option value="0">Inactive</option>
+                  <option value="1">Running</option>
+                  <option value="0">Upcoming</option>
+                  <option value="2">Completed</option>
                 </select>
               </div>
             </div>
