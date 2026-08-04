@@ -29,7 +29,8 @@
     <div class="mt-4">
       <div class="card shadow-sm border-0">
         <div class="card-body p-0">
-          <form action="<?= $base_url; ?>trainees/update.php?id=<?= $trainee->id ?>" method="POST" enctype="multipart/form-data" class="p-4">
+          <form action="<?= $base_url; ?>trainees/update.php" method="POST" enctype="multipart/form-data" class="p-4">
+            <input type="hidden" name="id" value="<?= $trainee->id ?>">
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="registration_date" class="form-label">Registration Date</label>

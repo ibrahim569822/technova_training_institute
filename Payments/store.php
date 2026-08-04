@@ -1,17 +1,10 @@
 <?php
     require_once "../component/connection.php";
 
-    $id = $_POST['id'];
-
-        if (isset($_POST['password']) && !empty($_POST['password'])) {
-            $_POST['password'] = sha1($_POST['password']);
-        } else {
-            unset($_POST['password']); // Remove password from POST data if it's empty
-        }
-      
+        $_POST['password'] = sha1($_POST['password']);
 
         // Handle file upload
-        if (isset($_FILES['image']) && !empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../assets/uploads/trainees/images/';
             $imageName = rand(1, 999999). time() . '_' . basename($_FILES['image']['name']);
             $uploadFile = $uploadDir . $imageName ;
@@ -23,10 +16,10 @@
                 exit;
             }
         } else {
-            unset($_POST['image']);
+            $_POST['image'] = null; // No file uploaded
         }
 
-        $result = $crud->common_update("trainees", $_POST, ['id' => $id]);
+        $result = $crud->common_insert("trainees", $_POST);
         if ($result['status']) {
             $_SESSION['message'] = array('success','Success', $result['message']);
         } else {

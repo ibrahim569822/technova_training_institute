@@ -1,11 +1,9 @@
-<?phpmmon
+<?php
     require_once "../component/connection.php";
-
-        $_POST['password'] = sha1($_POST['password']);
 
         // Handle file upload
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/uploads/trainees/images/';
+            $uploadDir = '../assets/uploads/courses/images/';
             $imageName = rand(1, 999999). time() . '_' . basename($_FILES['image']['name']);
             $uploadFile = $uploadDir . $imageName ;
 
@@ -19,12 +17,12 @@
             $_POST['image'] = null; // No file uploaded
         }
 
-        $result = $crud->common_insert("trainees", $_POST);
+        $result = $crud->common_insert("courses", $_POST);
         if ($result['status']) {
             $_SESSION['message'] = array('success','Success', $result['message']);
         } else {
             $_SESSION['message'] = array('danger','Error', $result['message']);
         }
 
-        echo "<script>window.location.href = '".$base_url."trainees/list.php';</script>";
+        echo "<script>window.location.href = '".$base_url."courses/courselist.php';</script>";
     
