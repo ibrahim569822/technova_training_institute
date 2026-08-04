@@ -75,7 +75,7 @@
                             <td><?= $trainer->joining_date ?></td>
                             <td>
                               <?php if ($trainer->status == 1) { ?>
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success  mb-2">Active</span>
                               <?php } else { ?>
                                 <span class="badge bg-danger">Inactive</span>
                               <?php } ?>
