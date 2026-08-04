@@ -2,14 +2,25 @@
 <!-- Sidebar Start -->
 <?php require_once "../component/sidebar.php"; ?>
 <!-- Sidebar End -->
+<?php
+  $id = $_GET['id'];
+  $course = $crud->common_select("courses", "*", ['id' => $id]);
+  if (!$course['status'] || empty($course['data'])) {
+    $_SESSION['message'] = array('danger','Error', 'Course not found.');
+    echo "<script>window.location.href = '".$base_url."courses/courseslist.php';</script>";
+    exit;
+  }
 
+  $course = $course['data'][0];
+
+?>
   <!-- Main Content -->
   <div class="main-content">
     <div class="row">
       <div class="col-12">
         <div class="d-flex align-items-lg-center  flex-column flex-md-row flex-lg-row mt-3">
           <div class="flex-grow-1">
-            <h3 class="mb-2 text-size-26 text-color-2">Add New Course</h3>
+            <h3 class="mb-2 text-size-26 text-color-2">Edit Course</h3>
           </div>
         </div><!-- end card header -->
       </div>
@@ -77,7 +88,7 @@
             </div>
             <div class="row">
               <div class="col-md-12 co-mb-12">
-                <button type="submit" class="btn btn-primary">Add Course</button>
+                <button type="submit" class="btn btn-primary">Update Course</button>
               </div>
             </div>
           </form>

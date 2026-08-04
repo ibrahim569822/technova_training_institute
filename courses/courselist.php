@@ -68,7 +68,7 @@
                                 <tr>
                                   <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
                                   <td><?php echo $course->course_name; ?></td>
-                                  <td><?php echo $course->category; ?></td>
+                                  <td><?php echo $course->category_id; ?></td>
                                   <td><?php echo $course->duration; ?></td>
                                   <td>$<?php echo $course->fee; ?></td>
                                   <td><?php if($course->status == 1) { echo '<span class="badge bg-success">Completed</span>'; }
