@@ -75,14 +75,14 @@
                             <td><?= $trainer->joining_date ?></td>
                             <td>
                               <?php if ($trainer->status == 1) { ?>
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success  mb-2">Active</span>
                               <?php } else { ?>
                                 <span class="badge bg-danger">Inactive</span>
                               <?php } ?>
                             </td>
                             <td class="text-center">
                               <a href="<?= $base_url; ?>teacher/edit.php?id=<?= $trainer->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                              <a href="<?= $base_url; ?>teacher/delete.php?id=<?= $trainer->id ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                              <a href="<?= $base_url; ?>teacher/delete.php?id=<?= $trainer->id ?>" class="btn btn-sm btn-danger mb-2"><i class="fa-solid fa-trash-can"></i></a>
                             </td>
                           </tr>
                           <?php

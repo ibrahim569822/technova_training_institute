@@ -1,7 +1,7 @@
 <?php
 require_once "../component/connection.php";
 
-// চেক করার সময় courses টেবিলে id চেক করা হচ্ছে
+
 $course_id = $_POST['course_id'];
 $check_course = $crud->common_query("SELECT id FROM courses WHERE id = $course_id AND deleted_at IS NULL");
 if (!$check_course['status'] || empty($check_course['data'])) {
@@ -34,7 +34,7 @@ if ($result['status']) {
     $_SESSION['message'] = array('success', 'Success', 'Batch added successfully!');
 } else {
     $crud->conn->rollback();
-    $_SESSION['message'] = array('danger', 'Error', $result['message']);
+   $_SESSION['message'] = array('danger','Error', $result['message']);
 }
 
 echo "<script>window.location.href = '" . $base_url . "batches/list.php';</script>";

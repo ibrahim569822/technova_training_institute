@@ -1,4 +1,4 @@
-<?php require_once "../component/header.php"; ?>
+<?php require_once "../../component/header.php"; ?>
 <!-- Sidebar Start -->
 <?php require_once "../component/sidebar.php"; ?>
 <!-- Sidebar End -->

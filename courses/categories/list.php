@@ -1,6 +1,6 @@
-<?php require_once "../component/header.php"; ?>
+<?php require_once "../../component/header.php"; ?>
 <!-- Sidebar Start -->
-<?php require_once "../component/sidebar.php"; ?>
+<?php require_once "../../component/sidebar.php"; ?>
 <!-- Sidebar End -->
 
   <!-- Main Content -->
@@ -9,7 +9,7 @@
           <div class="col-12">
               <div class="d-flex align-items-lg-center  flex-column flex-md-row flex-lg-row mt-3">
                   <div class="flex-grow-1">
-                      <h3 class="mb-2 text-size-26 text-color-2">Trainees</h3>
+                      <h3 class="mb-2 text-size-26 text-color-2">Categories</h3>
                   </div>
                   <div class="mt-3 mt-lg-0">
                       <div class="d-flex align-items-center">
@@ -24,9 +24,9 @@
                           </ul>
                         </div>
                         <!-- Reports Button -->
-                          <a href="<?php echo $base_url; ?>trainees/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
+                          <a href="<?php echo $base_url; ?>courses/categories/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
                             <i class="fa-solid fa-plus me-3"></i>
-                            Add Trainee
+                            Add Category
                           </a>
                       </div>
                   </div>
