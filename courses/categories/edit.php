@@ -1,6 +1,6 @@
 <?php require_once "../../component/header.php"; ?>
 <!-- Sidebar Start -->
-<?php require_once "../component/sidebar.php"; ?>
+<?php require_once "../../component/sidebar.php"; ?>
 <!-- Sidebar End -->
 <?php
   $id = $_GET['id'];
@@ -107,4 +107,4 @@
     </div>
   </div>
 
-<?php require_once "../component/footer.php" ?>      
+<?php require_once "../../component/footer.php" ?>      
