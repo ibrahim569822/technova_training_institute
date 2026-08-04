@@ -27,9 +27,9 @@
                                       <i class="fa-solid fa-plus me-3"></i>
                                       Add Course
                                    </a>
-                                   <a href="<?= $base_url; ?>courses/categories/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
-                                      <i class="fa-solid fa-plus me-3"></i>
-                                      Add Category
+                                   <a href="<?= $base_url; ?>courses/categories/list.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
+                                      <i class="fa-solid fa-list me-3"></i>
+                                      Categories
                                    </a>
                                 </div>
                             </div>

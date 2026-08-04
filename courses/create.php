@@ -27,19 +27,20 @@
               </div>
              <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="category" class="form-label">Category</label>
-                <select class="form-select" id="category" name="category" required>
-                  <option value="">Select Category</option>
-                  <option value="1">Technology</option>
-                  <option value="2">Programming</option>
-                  <option value="3">Hacking</option>
-                  <option value="4">Networking</option>
-                  <option value="5">Designing</option>
-                  <option value="6">Development</option>
-                  <option value="7">Marketing</option>
-                  <option value="8">Fundamentals</option>
-                </select>
-              </div>
+                            <label for="category_id" class="form-label">Category</label>
+                            <select class="form-select" id="category_id" name="category_id" required>
+                                <option value="">Select Category</option>
+                                <?php
+                              
+                                $categories = $crud->common_query("SELECT id, category_name FROM categories WHERE deleted_at IS NULL");
+                                if ($categories['status']) {
+                                    foreach ($categories['data'] as $category) {
+                                        echo "<option value='{$category->id}'>{$category->category_name}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
               <div class="col-md-6 mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" class="form-control" id="image" name="image" required>
