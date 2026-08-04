@@ -18,11 +18,17 @@
     <div class="mt-4">
       <div class="card shadow-sm border-0">
         <div class="card-body p-0">
-          <form action="<?= $base_url; ?>categories/store.php" method="POST" enctype="multipart/form-data" class="p-4">
+          <form action="<?= $base_url; ?>courses/categories/store.php" method="POST" enctype="multipart/form-data" class="p-4">
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="category_name" class="form-label">Category Name</label>
                 <input type="text" class="form-control" id="category_name" name="category_name" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 mb-3">
+                <label for="category_description" class="form-label">Category Description</label>
+                <input type="text" class="form-control" id="category_description" name="category_description" required>
               </div>
             </div>
             <div class="row">
