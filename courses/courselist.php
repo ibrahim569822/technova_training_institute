@@ -61,9 +61,7 @@
                               } else {
                                   $page = 1;
                               }
-                              $limit = 10; // Number of courses per page
-                              $offset = ($page - 1) * $limit;
-                              $courses = $crud->common_select("courses", "*", [], "LIMIT $limit OFFSET $offset");
+                              $courses = $crud->common_select("courses",'*',[],'AND','id','ASC',3,($page-1)*3);
                               if ($courses['status'] && !empty($courses['data'])) {
                                 foreach ($courses['data'] as $course) {
                               ?>
@@ -96,38 +94,41 @@
                         </div>
 
                 <div class="pb-3 ps-3 mt-3 d-flex justify-content-center justify-content-md-between justify-content-lg-between flex-wrap flex-md-nowrap">
-                  <nav aria-label="Page navigation" class="mb-3 mb-md-0 mb-lg-0">
-                    <ul class="pagination">
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous"><i class="fa-solid fa-chevron-left text-size-12"></i></a>
-                      </li>
-                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#"><i class="fas fa-ellipsis-h"></i></a></li>
-                      <li class="page-item"><a class="page-link" href="#">6</a></li>
-                      <li class="page-item"><a class="page-link" href="#">7</a></li>
-                      <li class="page-item">
+                <nav aria-label="Page navigation" class="mb-3 mb-md-0 mb-lg-0">
+                  <?php
+                      $total_records = $crud->number_of_records("courses");
+                      $records_per_page = 3;
+                      $total_pages = ceil($total_records / $records_per_page);
+                  ?>
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous"><i class="fa-solid fa-chevron-left text-size-12"></i></a>
+                    </li>
+                    <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+                      <li class="page-item <?= ($i == $page) ? 'active' : '' ?>"><a class="page-link" href="<?= $base_url ?>courses/courselist.php?page=<?= $i ?>"><?= $i ?></a></li>
+                    <?php } ?>
+                    
+                    <li class="page-item">
                       <a class="page-link" href="#" aria-label="Next"><i class="fa-solid fa-chevron-right text-size-12"></i></a>
-                      </li>
-                    </ul>
-                  </nav>
-                    <div class="d-flex justify-content-end">
-                        <div class="page-selector">
-                          <span>PAGE</span>
-                          <select class="form-select" aria-label="Select page">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                          </select>
-                          <span>OF 102</span>
-                        </div>
-                    </div>
-                </div>
-        </div> 
-        </div> 
-    </div>
+                    </li>
+                  </ul>
+              </nav>
+                  <!-- <div class="d-flex justify-content-end">
+                      <div class="page-selector">
+                        <span>PAGE</span>
+                        <select class="form-select" aria-label="Select page">
+                          <option value="1" selected>1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                        <span>OF 102</span>
+                      </div>
+                  </div> -->
+              </div>
+      </div> 
+      </div> 
+  </div>
 
-         
         <?php require_once "../component/footer.php"; ?>
