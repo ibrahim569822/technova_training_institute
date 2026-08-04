@@ -100,10 +100,14 @@ class crud_class
         ];
 
         //* find table name from query */
+<<<<<<< HEAD
         $table = "";
         if (preg_match('/FROM\s+([^\s]+)/i', $sql, $matches)) {
             $table = $matches[1];
         }
+=======
+        $table = $this->getMainTable($sql);
+>>>>>>> a3b75f246def62673f8bfacde7467476df5e7c01
 
         /* check if query has WHERE clause */
         if (stripos($sql, 'WHERE') !== false) {
@@ -120,6 +124,10 @@ class crud_class
 
             // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a3b75f246def62673f8bfacde7467476df5e7c01
         $rs = $this->conn->query($sql);
 
         if ($rs->num_rows > 0) {
@@ -133,6 +141,32 @@ class crud_class
             $result["message"] = "No records found";
             return $result;
         }
+    }
+
+    function getMainTable($sql)
+    {
+        $level = 0;
+        $length = strlen($sql);
+
+        for ($i = 0; $i < $length; $i++) {
+
+            if ($sql[$i] == '(') {
+                $level++;
+            } elseif ($sql[$i] == ')') {
+                $level--;
+            }
+
+            if ($level == 0 && strtoupper(substr($sql, $i, 5)) == 'FROM ') {
+
+                $rest = trim(substr($sql, $i + 5));
+
+                if (preg_match('/^`?([a-zA-Z0-9_]+)`?/i', $rest, $matches)) {
+                    return $matches[1];
+                }
+            }
+        }
+
+        return "";
     }
 
 

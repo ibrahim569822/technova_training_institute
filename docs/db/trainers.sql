@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2026 at 06:14 AM
+-- Generation Time: Aug 03, 2026 at 07:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,8 +39,19 @@ CREATE TABLE `trainers` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
+  `updated_by` int(11) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `gender` tinyint(4) DEFAULT NULL COMMENT '1=Male, 2=Female, 3=Other',
+  `address` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `trainers`
+--
+
+INSERT INTO `trainers` (`id`, `user_id`, `specialization`, `qualification`, `experience`, `salary`, `joining_date`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `dob`, `gender`, `address`, `image`) VALUES
+(4, 12, 'tujty', 'tuhfykj', 0, 0.00, '2026-08-06', '2026-08-03 17:33:12', '2026-08-03 17:33:12', NULL, 3, NULL, '2026-08-14', 3, 'eterhfjy', '');
 
 --
 -- Indexes for dumped tables
@@ -61,17 +72,7 @@ ALTER TABLE `trainers`
 -- AUTO_INCREMENT for table `trainers`
 --
 ALTER TABLE `trainers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `trainers`
---
-ALTER TABLE `trainers`
-  ADD CONSTRAINT `trainers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
