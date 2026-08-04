@@ -7,7 +7,7 @@
 
         // Handle file upload
         if (isset($_FILES['image']) && !empty($_FILES['image']['name']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../assets/uploads/trainees/images/';
+            $uploadDir = '../assets/uploads/courses/images/';
             $imageName = rand(1, 999999). time() . '_' . basename($_FILES['image']['name']);
             $uploadFile = $uploadDir . $imageName ;
 
@@ -28,5 +28,5 @@
             $_SESSION['message'] = array('danger','Error', $result['message']);
         }
 
-        echo "<script>window.location.href = '".$base_url."courses/courseslist.php';</script>";
+        echo "<script>window.location.href = '".$base_url."courses/courselist.php';</script>";
     
