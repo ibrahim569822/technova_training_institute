@@ -17,7 +17,7 @@
     <div class="mt-4">
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
-                <form action="<?= $base_url; ?>batch/store.php" method="POST" class="p-4">
+                <form action="<?= $base_url; ?>batches/store.php" method="POST" class="p-4">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="batch_name" class="form-label">Batch Name</label>
@@ -28,10 +28,11 @@
                             <select class="form-select" id="course_id" name="course_id" required>
                                 <option value="">Select Course</option>
                                 <?php
-                                $courses = $crud->common_query("SELECT course_id, course_name FROM courses WHERE deleted_at IS NULL");
+                              
+                                $courses = $crud->common_query("SELECT id, course_name FROM courses WHERE deleted_at IS NULL");
                                 if ($courses['status']) {
                                     foreach ($courses['data'] as $course) {
-                                        echo "<option value='{$course->course_id}'>{$course->course_name}</option>";
+                                        echo "<option value='{$course->id}'>{$course->course_name}</option>";
                                     }
                                 }
                                 ?>
@@ -44,6 +45,7 @@
                             <select class="form-select" id="trainer_id" name="trainer_id" required>
                                 <option value="">Select Trainer</option>
                                 <?php
+                                
                                 $trainers = $crud->common_query("SELECT trainers.id, users.full_name FROM trainers JOIN users ON trainers.user_id = users.id WHERE trainers.deleted_at IS NULL");
                                 if ($trainers['status']) {
                                     foreach ($trainers['data'] as $trainer) {
@@ -53,6 +55,7 @@
                                 ?>
                             </select>
                         </div>
+                        
                         <div class="col-md-6 mb-3">
                             <label for="total_seats" class="form-label">Total Seats</label>
                             <input type="number" class="form-control" id="total_seats" name="total_seats" required>

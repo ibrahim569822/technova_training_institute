@@ -1,9 +1,17 @@
 <?php
 require_once "../component/connection.php";
 
-$crud->conn->begin_transaction();
-
 $id = $_POST['id'];
+$course_id = $_POST['course_id'];
+
+$check_course = $crud->common_query("SELECT id FROM courses WHERE id = $course_id AND deleted_at IS NULL");
+if (!$check_course['status'] || empty($check_course['data'])) {
+    $_SESSION['message'] = array('danger', 'Error', 'Selected Course does not exist!');
+    echo "<script>window.location.href = '" . $base_url . "batches/edit.php?id=$id';</script>";
+    exit;
+}
+
+$crud->conn->begin_transaction();
 
 $batches['batch_name'] = $_POST['batch_name'];
 $batches['course_id'] = $_POST['course_id'];
@@ -20,7 +28,7 @@ $batches['end_time'] = $_POST['end_time'];
 $batches['room'] = $_POST['room'];
 $batches['updated_by'] = $_SESSION['user_id'];
 
-$result = $crud->common_update("batch", $batch, ['id' => $id]);
+$result = $crud->common_update("batches", $batches, ['id' => $id]);
 
 if ($result['status']) {
     $crud->conn->commit();
@@ -30,4 +38,4 @@ if ($result['status']) {
     $_SESSION['message'] = array('danger', 'Error', $result['message']);
 }
 
-echo "<script>window.location.href = '" . $base_url . "batch/list.php';</script>";
+echo "<script>window.location.href = '" . $base_url . "batches/list.php';</script>";
