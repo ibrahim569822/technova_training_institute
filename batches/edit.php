@@ -41,7 +41,7 @@ $batch = $data['data'][0];
                             <label for="course_id" class="form-label">Course</label>
                             <select class="form-select" id="course_id" name="course_id" required>
                                 <?php
-                                // এখানে id সিলেক্ট করা হয়েছে
+                                
                                 $courses = $crud->common_query("SELECT id, course_name FROM courses WHERE deleted_at IS NULL");
                                 if ($courses['status']) {
                                     foreach ($courses['data'] as $course) {
@@ -58,7 +58,7 @@ $batch = $data['data'][0];
                             <label for="trainer_id" class="form-label">Trainer</label>
                             <select class="form-select" id="trainer_id" name="trainer_id" required>
                                 <?php
-                                // এখানেও id সিলেক্ট করা হয়েছে
+                               
                                 $trainers = $crud->common_query("SELECT trainers.id, users.full_name FROM trainers JOIN users ON trainers.user_id = users.id WHERE trainers.deleted_at IS NULL");
                                 if ($trainers['status']) {
                                     foreach ($trainers['data'] as $trainer) {
@@ -69,7 +69,7 @@ $batch = $data['data'][0];
                                 ?>
                             </select>
                         </div>
-                        <!-- বাকি ইনপুট ফিল্ডগুলো আগের মতোই থাকবে -->
+                       
                         <div class="col-md-6 mb-3">
                             <label for="total_seats" class="form-label">Total Seats</label>
                             <input type="number" class="form-control" id="total_seats" name="total_seats" value="<?= $batch->total_seats ?>" required>

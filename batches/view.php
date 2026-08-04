@@ -16,8 +16,7 @@ $data = $crud->common_query($sql);
 
 if (!$data['status'] || empty($data['data'])) {
     $_SESSION['message'] = array('danger', 'Error', 'Batch not found.');
-    echo "<script>window.location.href = '" . $base_url . "batches/list.php';</script>";
-    exit;
+   exit;
 }
 $batch = $data['data'][0];
 ?>
