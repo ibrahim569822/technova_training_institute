@@ -34,7 +34,7 @@ if ($result['status']) {
     $_SESSION['message'] = array('success', 'Success', 'Batch added successfully!');
 } else {
     $crud->conn->rollback();
-    $_SESSION['message'] = array('danger', 'Error', $result['message']);
+   $_SESSION['message'] = array('danger','Error', $result['message']);
 }
 
 echo "<script>window.location.href = '" . $base_url . "batches/list.php';</script>";
