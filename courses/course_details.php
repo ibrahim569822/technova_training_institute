@@ -41,8 +41,11 @@
                                     <button class="btn btn-light"><i class="fas fa-bookmark"></i></button>
                                 </div>
                             </div>
-                            <div class="text-muted"><?=$course->id ?></div>
-                            <div class="badge bg-primary mt-2"><?= $course->category ?></div>
+                            <div class="badge bg-primary mt-2"><?php 
+                            $sql = "SELECT category_name FROM categories WHERE id = " . $course->category_id;
+                            $category = $crud->common_query($sql);
+                            echo !empty($category['data']) ? $category['data'][0]->category_name : 'Unknown Category';
+                            ?></div>
                         </div>
                         <div class="mb-4">
                             <img
@@ -60,7 +63,6 @@
                             <h3 class="text-size-18">About this course</h3>
                             <p class="text-muted text-size-15"><?= $course->description ?></p>
                         </div>
-        
                         
                         <!-- Course Features -->
                          <!-- <div>
