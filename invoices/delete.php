@@ -1,23 +1,12 @@
 <?php
 require_once "../component/connection.php";
 
-$id = $_GET['id'];
-
-// Check if enrollment exists
-$enrollment = $crud->common_select("enrollment", "id", ['id' => $id]);
-if (!$enrollment['status'] || empty($enrollment['data'])) {
-    $_SESSION['message'] = array('danger', 'Error', 'Enrollment not found.');
-    echo "<script>window.location.href = '" . $base_url . "enrollments/list.php';</script>";
-    exit;
-}
-
-$result = $crud->common_delete("enrollment", ['id' => $id]);
+$result = $crud->common_update("invoices", ['deleted_at' => date('Y-m-d H:i:s')], ['id' => $_GET['id']]);
 
 if ($result['status']) {
-    $_SESSION['message'] = array('success', 'Success', 'Enrollment deleted successfully.');
+    $_SESSION['message'] = array('success', 'Success', 'Invoice deleted successfully!');
 } else {
     $_SESSION['message'] = array('danger', 'Error', $result['message']);
 }
 
-echo "<script>window.location.href = '" . $base_url . "enrollments/list.php';</script>";
-?>
+echo "<script>window.location.href = '" . $base_url . "invoices/list.php';</script>";

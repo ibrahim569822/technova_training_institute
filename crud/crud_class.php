@@ -87,12 +87,15 @@ class crud_class{
             "message"=>""
         ];
 
-        //* find table name from query */
+                //* find table name from query */
         $table = $this->getMainTable($sql);
 
         /* check if query has WHERE clause */
         if(stripos($sql, 'WHERE') !== false){
-            $sql .= " AND $table.deleted_at IS NULL";
+            // 🔥 আগে থেকে deleted_at IS NULL আছে কিনা চেক করা হচ্ছে
+            if(stripos($sql, 'deleted_at') === false){
+                $sql .= " AND $table.deleted_at IS NULL";
+            }
         }else{
             $sql .= " WHERE $table.deleted_at IS NULL";
         }
@@ -102,8 +105,6 @@ class crud_class{
             if(!empty($offset)){
                 $sql .= " OFFSET $offset";
             }
-
-            // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
         }
 
         $rs = $this->conn->query($sql);
@@ -119,6 +120,7 @@ class crud_class{
             $result["message"] = "No records found";
             return $result;
         }
+        
     }
 
     function getMainTable($sql)
