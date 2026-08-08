@@ -9,11 +9,11 @@
         <div class="col-12">
             <div class="d-flex align-items-lg-center flex-column flex-md-row flex-lg-row mt-3">
                 <div class="flex-grow-1">
-                    <h3 class="mb-2 text-size-26 text-color-2">Enrollments</h3>
+                    <h3 class="mb-2 text-size-26 text-color-2">Invoices</h3>
                 </div>
                 <div class="mt-3 mt-lg-0">
-                    <a href="<?= $base_url; ?>enrollments/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
-                        <i class="fa-solid fa-plus me-3"></i> Add Enrollment
+                    <a href="<?= $base_url; ?>invoices/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
+                        <i class="fa-solid fa-plus me-3"></i> Add Invoice
                     </a>
                 </div>
             </div>
