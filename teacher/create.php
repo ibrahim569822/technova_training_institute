@@ -9,7 +9,7 @@
     <div class="col-12">
       <div class="d-flex align-items-lg-center  flex-column flex-md-row flex-lg-row mt-3">
         <div class="flex-grow-1">
-          <h3 class="mb-2 text-size-26 text-color-2">Add New Trainee</h3>
+          <h3 class="mb-2 text-size-26 text-color-2">Add New Teacher</h3>
         </div>
       </div><!-- end card header -->
     </div>
