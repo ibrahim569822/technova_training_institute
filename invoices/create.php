@@ -81,6 +81,14 @@
                                 <td><input type="number" class="form-control" name="grand_total" id="grand_total" readonly></td>
                             </tr>
                             <tr>
+                                <th>Payment Method</th>
+                                <td><input type="number" class="form-control" name="payment_method" id="payment_method" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>Transaction Id:</th>
+                                <td><input type="number" class="form-control" name="transaction_id" id="transaction_id" readonly></td>
+                            </tr>
+                            <tr>
                                 <th>Paid Amount</th>
                                 <td><input type="number" class="form-control" name="paid_amount" id="paid_amount" required></td>
                             </tr>
