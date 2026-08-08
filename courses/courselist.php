@@ -27,9 +27,9 @@
                                       <i class="fa-solid fa-plus me-3"></i>
                                       Add Course
                                    </a>
-                                   <a href="<?= $base_url; ?>courses/categories/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
-                                      <i class="fa-solid fa-plus me-3"></i>
-                                      Add Category
+                                   <a href="<?= $base_url; ?>courses/categories/list.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
+                                      <i class="fa-solid fa-list me-3"></i>
+                                      Categories
                                    </a>
                                 </div>
                             </div>
@@ -68,12 +68,26 @@
                                 <tr>
                                   <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
                                   <td><?php echo $course->course_name; ?></td>
-                                  <td><?php echo $course->category; ?></td>
+                                  <td><?php 
+                            $sql = "SELECT category_name FROM categories WHERE id = " . $course->category_id;
+                            $category = $crud->common_query($sql);
+                            echo !empty($category['data']) ? $category['data'][0]->category_name : 'Unknown Category';
+                            ?></td>
                                   <td><?php echo $course->duration; ?></td>
                                   <td>$<?php echo $course->fee; ?></td>
-                                  <td><?php if($course->status == 1) { echo '<span class="badge bg-success">Completed</span>'; }
-                                  elseif($course->status == 0){echo '<span class="badge bg-warning">Running</span>';} 
-                                  else { echo '<span class="badge bg-danger">Upcoming</span>'; } ?></td>
+                                  <td>
+                                      <?php
+                                      if ($course->status == 0) {
+                                          echo '<span class="badge bg-warning">Upcoming</span>';
+                                      } elseif ($course->status == 1) {
+                                          echo '<span class="badge bg-success">Running</span>';
+                                      } elseif ($course->status == 2) {
+                                          echo '<span class="badge bg-danger">Completed</span>';
+                                      } else {
+                                          echo '<span class="badge bg-secondary">Unknown</span>';
+                                      }
+                                      ?>
+                                  </td>
                                   <td>
                                     <a onclick="courseDetails(<?= $course->id ?>)" href="#" class="btn btn-sm btn-info me-2"><i class="fa-solid fa-eye"></i></a>
                                     <a href="<?= $base_url ?>courses/edit.php?id=<?= $course->id ?>" class="btn btn-sm btn-primary mb-2 mb-lg-0 me-0 me-lg-2"><i class="fa-regular fa-pen-to-square"></i></a>
