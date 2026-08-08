@@ -81,6 +81,7 @@
                               <?php } ?>
                             </td>
                             <td class="text-center">
+                              <a href="<?= $base_url; ?>teacher/view.php?id=<?= $trainer->id ?>" class="btn btn-sm btn-info mb-2"><i class="fa-regular fa-eye"></i></a>
                               <a href="<?= $base_url; ?>teacher/edit.php?id=<?= $trainer->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
                               <a href="<?= $base_url; ?>teacher/delete.php?id=<?= $trainer->id ?>" class="btn btn-sm btn-danger mb-2"><i class="fa-solid fa-trash-can"></i></a>
                             </td>

@@ -25,14 +25,13 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="course_id" class="form-label">Course</label>
-                            <select class="form-select" id="course_id" name="course_id" required>
+                            <select class="form-select" id="course_id" name="course_id" onchange="loadCourseData()" required>
                                 <option value="">Select Course</option>
                                 <?php
-                              
-                                $courses = $crud->common_query("SELECT id, course_name FROM courses WHERE deleted_at IS NULL");
+                                $courses = $crud->common_query("SELECT id, course_name, fee FROM courses WHERE deleted_at IS NULL");
                                 if ($courses['status']) {
                                     foreach ($courses['data'] as $course) {
-                                        echo "<option value='{$course->id}'>{$course->course_name}</option>";
+                                        echo "<option value='{$course->id}' data-price='{$course->fee}'>{$course->course_name}</option>";
                                     }
                                 }
                                 ?>
@@ -43,38 +42,28 @@
                         <div class="col-md-6 mb-3">
                             <label for="trainer_id" class="form-label">Trainer</label>
                             <select class="form-select" id="trainer_id" name="trainer_id" required>
-                                <option value="">Select Trainer</option>
-                                <?php
-                                
-                                $trainers = $crud->common_query("SELECT trainers.id, users.full_name FROM trainers JOIN users ON trainers.user_id = users.id WHERE trainers.deleted_at IS NULL");
-                                if ($trainers['status']) {
-                                    foreach ($trainers['data'] as $trainer) {
-                                        echo "<option value='{$trainer->id}'>{$trainer->full_name}</option>";
-                                    }
-                                }
-                                ?>
+                                <option value="">Select Course First</option>
                             </select>
                         </div>
-                        
+                        <div class="col-md-6 mb-3">
+                            <label for="Price" class="form-label">Price</label>
+                            <input type="number" step="0.01" class="form-control" id="Price" name="Price" required>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="total_seats" class="form-label">Total Seats</label>
                             <input type="number" class="form-control" id="total_seats" name="total_seats" required>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="Start_date" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="Start_date" name="Start_date" required>
+                            <input type="date" class="form-control" id="Start_date" name="Start_date" onchange="autoSetStatus()" required>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="End_date" class="form-label">End Date</label>
                             <input type="date" class="form-control" id="End_date" name="End_date" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="Price" class="form-label">Price</label>
-                            <input type="number" step="0.01" class="form-control" id="Price" name="Price" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="Discount" class="form-label">Discount</label>
@@ -91,7 +80,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status" required>
+                            <select class="form-select" id="status" name="status">
                                 <option value="0">Upcoming</option>
                                 <option value="1">Running</option>
                                 <option value="2">Completed</option>
@@ -122,4 +111,76 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+function loadCourseData() {
+    var courseId = document.getElementById('course_id').value;
+    var batchNameInput = document.getElementById('batch_name'); 
+    var priceInput = document.getElementById('Price');
+    var seatsInput = document.getElementById('total_seats'); 
+    var trainerSelect = document.getElementById('trainer_id');
+    
+    var selectedOption = document.getElementById('course_id').options[document.getElementById('course_id').selectedIndex];
+    var courseName = selectedOption.text; 
+    var price = selectedOption.getAttribute('data-price');
+    
+    
+    if(courseId) {
+        var now = new Date();
+        var monthNames = ["Jan", "Feb", "Mar", "Ap", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+        var currentMonth = monthNames[now.getMonth()];
+        var currentYear = now.getFullYear();
+        batchNameInput.value = courseName + " - " + currentMonth + " " + currentYear;
+    } else {
+        batchNameInput.value = '';
+    }
+
+    
+    if(price) {
+        priceInput.value = price;
+    } else {
+        priceInput.value = '';
+    }
+
+    
+    seatsInput.value = ''; 
+
+    
+    if(courseId) {
+        fetch('<?= $base_url; ?>batches/get_trainers_by_course.php?course_id=' + courseId)
+            .then(response => response.text())
+            .then(data => {
+                trainerSelect.innerHTML = data;
+            });
+    } else {
+        trainerSelect.innerHTML = '<option value="">Select Course First</option>';
+    }
+}
+
+
+function autoSetStatus() {
+    var startDate = document.getElementById('Start_date').value;
+    var statusSelect = document.getElementById('status');
+    
+    if(startDate) {
+        var today = new Date();
+        var start = new Date(startDate);
+        
+        today.setHours(0,0,0,0);
+        start.setHours(0,0,0,0);
+        
+        
+        if(start.getTime() === today.getTime()) {
+            statusSelect.value = '1'; 
+        } else if(start < today) {
+            statusSelect.value = '2'; 
+        } else {
+            statusSelect.value = '0';
+        }
+    }
+}
+</script>
+
 <?php require_once "../component/footer.php" ?>
