@@ -19,14 +19,14 @@
                             Filter by
                           <i class="fa-solid fa-chevron-right ms-3 text-size-sm"></i>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Active</a></li>
+                            <li><a class="dropdown-item" href="#"></a></li>
                             <li><a class="dropdown-item" href="#">Inactive</a></li>
                           </ul>
                         </div>
                         <!-- Reports Button -->
                           <a href="<?php echo $base_url; ?>courses/categories/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
                             <i class="fa-solid fa-plus me-3"></i>
-                            Add Category
+                            Add New
                           </a>
                       </div>
                   </div>
@@ -41,48 +41,30 @@
                   <table class="table align-middle">
                       <thead>
                         <tr>
-                          <th><input type="checkbox" id="select-all" class="custom-checkbox"></th>
                           <th>Name</th>
-                          <th>Email</th>
-                          <th>Mobile</th>
-                          <th>Education</th>
-                          <th>Status</th>
+                          <th>Description</th>
                           <th class="text-center"><i class="fas fa-ellipsis-h"></i></th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
-                        // Fetch trainees from the database
+                        // Fetch categories from the database
                         if(isset($_GET['page']) && is_numeric($_GET['page'])){
                             $page = (int)$_GET['page'];
                         } else {
                             $page = 1;
                         }
-                        $trainees = $crud->common_select("trainees",'*',[],'AND','id','ASC',10,($page-1)*10);
+                        $categories = $crud->common_select("categories",'*',[],'AND','id','ASC',10,($page-1)*10);
                         
-                        if($trainees['status']){
-                        foreach ($trainees['data'] as $trainee) { ?>
+                        if($categories['status']){
+                        foreach ($categories['data'] as $category) { ?>
                         <tr>
-                          <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
-                          <td>
-                            <div class="d-flex justify-content-start align-items-center">
-                              <img src="<?= $trainee->image ? '../assets/uploads/trainees/images/' . $trainee->image : '../assets/images/avatar-1.jpg' ?>" class="tbl-img" alt="">
-                              <span class="ms-2"><?= $trainee->full_name ?></span>
-                            </div>
-                          </td>
-                          <td><?= $trainee->email ?></td>
-                          <td><?= $trainee->phone ?></td>
-                          <td><?= $trainee->education ?></td>
-                          <td>
-                            <?php if ($trainee->status == '1') { ?>
-                              <span class="badge bg-success">Active</span>
-                            <?php } else { ?>
-                              <span class="badge bg-danger">Inactive</span>
-                            <?php } ?>
-                          </td>
+                          
+                          <td><?= $category->category_name ?></td>
+                          <td><?= $category->description ?></td>
                           <td class="text-center">
-                            <a href="<?= $base_url ?>trainees/edit.php?id=<?= $trainee->id ?>" class="btn btn-sm btn-primary mb-2 mb-lg-0 me-0 me-lg-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                            <a href="<?= $base_url ?>trainees/delete.php?id=<?= $trainee->id ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="<?= $base_url ?>courses/categories/edit.php?id=<?= $category->id ?>" class="btn btn-sm btn-primary mb-2 mb-lg-0 me-0 me-lg-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="<?= $base_url ?>courses/categories/delete.php?id=<?= $category->id ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                           </td>
                         </tr>
                         <?php } } ?>
@@ -94,7 +76,7 @@
               <div class="pb-3 ps-3 mt-3 d-flex justify-content-center justify-content-md-between justify-content-lg-between flex-wrap flex-md-nowrap">
                 <nav aria-label="Page navigation" class="mb-3 mb-md-0 mb-lg-0">
                   <?php
-                      $total_records = $crud->number_of_records("trainees");
+                      $total_records = $crud->number_of_records("categories");
                       $records_per_page = 10;
                       $total_pages = ceil($total_records / $records_per_page);
                   ?>
@@ -103,7 +85,7 @@
                       <a class="page-link" href="#" aria-label="Previous"><i class="fa-solid fa-chevron-left text-size-12"></i></a>
                     </li>
                     <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
-                      <li class="page-item <?= ($i == $page) ? 'active' : '' ?>"><a class="page-link" href="<?= $base_url ?>trainees/list.php?page=<?= $i ?>"><?= $i ?></a></li>
+                      <li class="page-item <?= ($i == $page) ? 'active' : '' ?>"><a class="page-link" href="<?= $base_url ?>courses/categories/list.php?page=<?= $i ?>"><?= $i ?></a></li>
                     <?php } ?>
                     
                     <li class="page-item">
@@ -129,4 +111,4 @@
       </div> 
   </div>
 
-<?php require_once "../component/footer.php" ?>      
+<?php require_once "../../component/footer.php" ?>      

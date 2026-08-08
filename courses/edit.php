@@ -2,14 +2,25 @@
 <!-- Sidebar Start -->
 <?php require_once "../component/sidebar.php"; ?>
 <!-- Sidebar End -->
+<?php
+  $id = $_GET['id'];
+  $course = $crud->common_select("courses", "*", ['id' => $id]);
+  if (!$course['status'] || empty($course['data'])) {
+    $_SESSION['message'] = array('danger','Error', 'Course not found.');
+    echo "<script>window.location.href = '".$base_url."courses/courseslist.php';</script>";
+    exit;
+  }
 
+  $course = $course['data'][0];
+
+?>
   <!-- Main Content -->
   <div class="main-content">
     <div class="row">
       <div class="col-12">
         <div class="d-flex align-items-lg-center  flex-column flex-md-row flex-lg-row mt-3">
           <div class="flex-grow-1">
-            <h3 class="mb-2 text-size-26 text-color-2">Add New Course</h3>
+            <h3 class="mb-2 text-size-26 text-color-2">Edit Course</h3>
           </div>
         </div><!-- end card header -->
       </div>
@@ -18,11 +29,11 @@
     <div class="mt-4">
       <div class="card shadow-sm border-0">
         <div class="card-body p-0">
-          <form action="<?= $base_url; ?>courses/store.php" enctype="multipart/form-data" method="POST" class="p-4">
+          <form action="<?= $base_url; ?>courses/update.php" method="POST" class="p-4">
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="course_name" class="form-label">Course Name</label>
-                <input type="text" class="form-control" id="course_name" name="course_name" required>
+                <input type="text" class="form-control" id="course_name" value="<?= $course->course_name; ?>" name="course_name" required>
               </div>
               </div>
              <div class="row">
@@ -43,42 +54,41 @@
                         </div>
               <div class="col-md-6 mb-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="file" class="form-control" id="image" name="image" required>
+                <input type="file" class="form-control" id="image" name="image">
               </div>
             </div>
             
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="duration" class="form-label">Duration</label>
-                <input type="text" class="form-control" id="duration" name="duration" required>
+                <input type="text" class="form-control" id="duration" value="<?= $course->duration; ?>" name="duration" required>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="fee" class="form-label">Fee</label>
-                <input type="number" class="form-control" id="fee" name="fee" required>
+                <input type="number" class="form-control" id="fee" value="<?= $course->fee; ?>" name="fee" required>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                <textarea class="form-control" id="description" name="description" rows="4" required><?= $course->description; ?></textarea>
               </div>
             </div>
             
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="status" class="form-label">Status</label>
-                    <select class="form-select" id="status" name="status" required>
-                        <option value="">Select Status</option>
-                        <option value="1">Running</option>
-                        <option value="0">Upcoming</option>
-                        <option value="2">Completed</option>
-                    </select>
-                </div>
+              <div class="col-md-6 mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                  <option value="">Select Status</option>
+                  <option value="1">Running</option>
+                  <option value="0">Upcoming</option>
+                  <option value="2">Completed</option>
+                </select>
+              </div>
             </div>
-
             <div class="row">
               <div class="col-md-12 co-mb-12">
-                <button type="submit" class="btn btn-primary">Add Course</button>
+                <button type="submit" class="btn btn-primary">Update Course</button>
               </div>
             </div>
           </form>
