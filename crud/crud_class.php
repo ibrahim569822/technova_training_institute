@@ -80,31 +80,12 @@ class crud_class{
         }
     }
 
-    public function common_query($sql,$limit = "",$offset = ""){
+    public function common_query($sql){
         $result=[
             "status"=>false,
             "data"=>[],
             "message"=>""
         ];
-
-        //* find table name from query */
-        $table = $this->getMainTable($sql);
-
-        /* check if query has WHERE clause */
-        if(stripos($sql, 'WHERE') !== false){
-            $sql .= " AND $table.deleted_at IS NULL";
-        }else{
-            $sql .= " WHERE $table.deleted_at IS NULL";
-        }
-
-        if(!empty($limit)){
-            $sql .= " LIMIT $limit";
-            if(!empty($offset)){
-                $sql .= " OFFSET $offset";
-            }
-
-            // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
-        }
 
         $rs = $this->conn->query($sql);
 
@@ -119,34 +100,8 @@ class crud_class{
             $result["message"] = "No records found";
             return $result;
         }
+        
     }
-
-    function getMainTable($sql)
-    {
-        $level = 0;
-        $length = strlen($sql);
-
-        for ($i = 0; $i < $length; $i++) {
-
-            if ($sql[$i] == '(') {
-                $level++;
-            } elseif ($sql[$i] == ')') {
-                $level--;
-            }
-
-            if ($level == 0 && strtoupper(substr($sql, $i, 5)) == 'FROM ') {
-
-                $rest = trim(substr($sql, $i + 5));
-
-                if (preg_match('/^`?([a-zA-Z0-9_]+)`?/i', $rest, $matches)) {
-                    return $matches[1];
-                }
-            }
-        }
-
-        return "";
-    }
-
 
     public function common_insert($table, $data){
         $result=[

@@ -61,6 +61,7 @@
                                     ?>
                                 </td>
                                 <td class="text-center">
+                                    <a href="<?= $base_url; ?>enrollments/invoice.php?id=<?= $enroll->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-file-invoice"></i></a>
                                     <a href="<?= $base_url; ?>enrollments/edit.php?id=<?= $enroll->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
                                     <a href="<?= $base_url; ?>enrollments/delete.php?id=<?= $enroll->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
