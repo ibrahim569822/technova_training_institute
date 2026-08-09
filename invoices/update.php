@@ -1,24 +1,27 @@
 <?php
 require_once "../component/connection.php";
 
-$crud->conn->begin_transaction();
-
 $id = $_POST['id'];
 
-$enroll['trainee_id'] = $_POST['trainee_id'];
-$enroll['batch_id'] = $_POST['batch_id'];
-$enroll['course_id'] = $_POST['course_id'] ?? null;
-$enroll['status'] = $_POST['status'];
-$enroll['updated_by'] = $_SESSION['user_id'];
+$crud->conn->begin_transaction();
 
-$result = $crud->common_update("enrollments", $enroll, ['id' => $id]);
+$invoices['trainee_id'] = $_POST['trainee_id'];
+$invoices['invoice_date'] = $_POST['invoice_date'];
+$invoices['sub_total'] = $_POST['sub_total'];
+$invoices['discount_amount'] = $_POST['discount_amount'] ?? 0;
+$invoices['discount_type'] = $_POST['discount_type'] ?? 1;
+$invoices['vat'] = $_POST['vat'] ?? 0;
+$invoices['payment_status'] = $_POST['payment_status'];
+$invoices['updated_by'] = $_SESSION['user_id'];
+
+$result = $crud->common_update("invoices", $invoices, ['id' => $id]);
 
 if ($result['status']) {
     $crud->conn->commit();
-    $_SESSION['message'] = array('success', 'Success', 'Enrollment updated successfully!');
+    $_SESSION['message'] = array('success', 'Success', 'Invoice updated successfully!');
 } else {
     $crud->conn->rollback();
     $_SESSION['message'] = array('danger', 'Error', $result['message']);
 }
 
-echo "<script>window.location.href = '" . $base_url . "enrollments/list.php';</script>";
+echo "<script>window.location.href = '" . $base_url . "invoices/list.php';</script>";

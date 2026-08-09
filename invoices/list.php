@@ -12,13 +12,14 @@
                     <h3 class="mb-2 text-size-26 text-color-2">Invoices</h3>
                 </div>
                 <div class="mt-3 mt-lg-0">
-                    <a href="<?= $base_url; ?>invoices/create.php" class="cursor-pointer ms-4 bg-white bg-primary text-white d-flex align-items-center px-3 py-2 rounded-2 text-normal fw-bolder letter-spacing-26">
-                        <i class="fa-solid fa-plus me-3"></i> Add Invoice
+                    <a href="<?= $base_url; ?>invoices/create.php" class="btn btn-primary">
+                        <i class="fa-solid fa-plus me-2"></i> Add Invoice
                     </a>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="mt-4">
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
@@ -26,50 +27,68 @@
                     <table class="table align-middle">
                         <thead>
                             <tr>
-                                <th>Sl.No</th>
+                                <th>Invoice No</th>
                                 <th>Trainee Name</th>
-                                <th>Batch</th>
-                                <th>Enrollment Date</th>
-                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Paid Amount</th>  
+                                <th>Invoice Date</th>
+                                <th>Payment Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                           
-                            $sql = "SELECT enrollments.*, trainees.full_name as trainee_name, batches.batch_name 
-                                    FROM enrollments 
-                                    JOIN trainees ON enrollments.trainee_id = trainees.id 
-                                    JOIN batches ON enrollments.batch_id = batches.id 
-                                    WHERE enrollments.deleted_at IS NULL";
+                                $sql = "SELECT invoices.*, trainees.full_name as trainee_name 
+                                        FROM invoices 
+                                        JOIN trainees ON invoices.trainee_id = trainees.id 
+                                        WHERE invoices.deleted_at IS NULL 
+                                        ORDER BY invoices.id DESC";
 
-                            $result = $crud->common_query($sql);
-                            if ($result['status']) {
-                                $i = 1;
-                                foreach ($result['data'] as $enroll) {
+                                $result = $crud->common_query($sql);
+
+                            if ($result['status'] && !empty($result['data'])) {
+                                foreach ($result['data'] as $invoice) {
                             ?>
                             <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= $enroll->trainee_name ?></td>
-                                <td><?= $enroll->batch_name ?></td>
-                                <td><?= $enroll->enrollment_date ?></td>
+                                <td>
+                                    <a href="<?= $base_url; ?>invoices/view.php?id=<?= $invoice->id ?>" class="text-primary fw-bold">
+                                        <?= htmlspecialchars($invoice->invoice_no) ?>
+                                    </a>
+                                </td>
+                                <td><?= htmlspecialchars($invoice->trainee_name) ?></td>
+                                <td><?= number_format($invoice->grand_total, 2) ?> BDT</td>
+                                <td><?= number_format($invoice->paid_amount, 2) ?> BDT</td>  
+                                <td><?= date('d-m-Y', strtotime($invoice->invoice_date)) ?></td>
                                 <td>
                                     <?php 
-                                    if ($enroll->status == 0) { echo '<span class="badge bg-warning text-dark">Enrolled</span>'; }
-                                    elseif ($enroll->status == 1) { echo '<span class="badge bg-success">Completed</span>'; }
-                                    elseif ($enroll->status == 2) { echo '<span class="badge bg-danger">Dropped</span>'; }
+                                    if ($invoice->payment_status == 0) { 
+                                        echo '<span class="badge bg-warning text-dark">Pending</span>';
+                                    } elseif ($invoice->payment_status == 1) { 
+                                        echo '<span class="badge bg-success">Paid</span>';
+                                    } elseif ($invoice->payment_status == 2) { 
+                                        echo '<span class="badge bg-info">Partial</span>';
+                                    }
                                     ?>
                                 </td>
                                 <td class="text-center">
-                                    <a href="<?= $base_url; ?>enrollments/invoice.php?id=<?= $enroll->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-file-invoice"></i></a>
-                                    <a href="<?= $base_url; ?>enrollments/edit.php?id=<?= $enroll->id ?>" class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="<?= $base_url; ?>enrollments/delete.php?id=<?= $enroll->id ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="<?= $base_url; ?>invoices/view.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-info mb-1" title="View">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a>
+                                    <a href="<?= $base_url; ?>invoices/edit.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-primary mb-1" title="Edit">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="<?= $base_url; ?>invoices/generate.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-success mb-1" title="Print/PDF" target="_blank">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                    <a href="<?= $base_url; ?>invoices/delete.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-danger mb-1" onclick="return confirm('Are you sure?')" title="Delete">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
                                 </td>
                             </tr>
                             <?php
                                 }
                             } else {
-                                echo "<tr><td colspan='6'>No enrollments found</td></tr>";
+                                echo "<tr><td colspan='7' class='text-center py-4'>No invoices found</td></tr>";
                             }
                             ?>
                         </tbody>
@@ -79,4 +98,5 @@
         </div>
     </div>
 </div>
-<?php require_once "../component/footer.php" ?>
+
+<?php require_once "../component/footer.php"; ?>
