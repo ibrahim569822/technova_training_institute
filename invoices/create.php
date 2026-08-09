@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     
-                    <!-- 🔥 hidden transaction id field -->
+                    <!--  hidden transaction id field -->
                     <input type="hidden" name="transaction_id" id="transaction_id">
 
                     <div class="row">
@@ -151,7 +151,7 @@
 <script>
     var batches = '';
 
-    // 🔥 Transaction ID Auto Generator
+    // Transaction ID Auto Generator
     function generateTransactionId() {
         var paidAmount = parseFloat(document.getElementById('paid_amount').value);
         if (paidAmount > 0) {
