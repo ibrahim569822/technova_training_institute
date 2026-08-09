@@ -32,7 +32,7 @@ $invoice_date = date('d-m-Y', strtotime($invoice->invoice_date));
                 <div class="flex-grow-1">
                     <h3 class="mb-2 text-size-26 text-color-2">Invoice #<?= $invoice->invoice_no ?></h3>
                 </div>
-                <div class="mt-3 mt-lg-0">
+                <div class="mt-3 mt-lg-0 no-print">
                     <a href="<?= $base_url; ?>invoices/list.php" class="btn btn-secondary">
                         <i class="fa-solid fa-arrow-left"></i> Back
                     </a>
@@ -91,7 +91,7 @@ $invoice_date = date('d-m-Y', strtotime($invoice->invoice_date));
             </div>
 
             
-            <div class="table-responsive mb-4">
+            <div class="w-100 mb-4">
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>

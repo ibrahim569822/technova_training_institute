@@ -1,6 +1,6 @@
 <!-- Main Wrapper -->
     <div id="main-wrapper" class="d-flex">
-        <div class="sidebar">
+        <div class="sidebar no-print">
                 <!-- Sidebar -->
                <div class="sidebar-header">
                    <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo_main.png" alt="logo large"></a></div>
@@ -57,7 +57,7 @@
        <!-- Content Wrapper -->
         <div class="content-wrapper">
             <!-- Header -->
-            <div class="header d-flex align-items-center justify-content-between">
+            <div class="no-print header d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <div class="collapse-sidebar me-3 d-none d-lg-block text-color-1"><span><i class="fa-solid fa-bars font-size-24"></i></span></div>
                     <div class="menu-toggle me-3 d-block d-lg-none text-color-1"><span><i class="fa-solid fa-bars font-size-24"></i></span></div>
