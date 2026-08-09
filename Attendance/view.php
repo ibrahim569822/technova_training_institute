@@ -56,7 +56,6 @@ if (!$data['status'] || empty($data['data'])) {
                                 <td><?= $batch->status == 0 ? 'Present' : 'Absent' ?></td>
                             </tr>
                         <?php endforeach; ?>
-                               
                     </tbody>
                 </table>
             </div>
