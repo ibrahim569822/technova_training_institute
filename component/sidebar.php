@@ -3,7 +3,7 @@
         <div class="sidebar no-print">
                 <!-- Sidebar -->
                <div class="sidebar-header">
-                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo large"></a></div>
+                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo_main.png" alt="logo large"></a></div>
                    <div class="sm-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/small-logo.png" alt="logo small"></a></div>
                </div>
                <div class="sidebar-body  custom-scrollbar">
