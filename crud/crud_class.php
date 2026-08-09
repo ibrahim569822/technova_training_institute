@@ -91,14 +91,14 @@ class crud_class
         }
     }
 
-    public function common_query($sql){
-        $result=[
-            "status"=>false,
-            "data"=>[],
-            "message"=>""
+    public function common_query($sql)
+    {
+        $result = [
+            "status" => false,
+            "data" => [],
+            "message" => ""
         ];
 
->>>>>>> a3b75f246def62673f8bfacde7467476df5e7c01
         $rs = $this->conn->query($sql);
 
         if ($rs->num_rows > 0) {
@@ -141,18 +141,19 @@ class crud_class
     }
 
 
-    public function common_insert($table, $data){
-        $result=[
-            "status"=>false,
-            "data"=>[],
-            "message"=>""
+    public function common_insert($table, $data)
+    {
+        $result = [
+            "status" => false,
+            "data" => [],
+            "message" => ""
         ];
 
         $columns = implode(", ", array_keys($data));
         $values = implode("', '", array_map([$this->conn, 'real_escape_string'], array_values($data)));
         $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
         echo $sql; // Debugging line to check the generated SQL query
-        if($this->conn->query($sql)){
+        if ($this->conn->query($sql)) {
             $result["status"] = true;
             $result["data"] = $this->conn->insert_id;
             $result["message"] = "Record inserted successfully";
