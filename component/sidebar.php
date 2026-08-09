@@ -1,9 +1,9 @@
 <!-- Main Wrapper -->
     <div id="main-wrapper" class="d-flex">
-        <div class="sidebar">
+        <div class="sidebar no-print">
                 <!-- Sidebar -->
                <div class="sidebar-header">
-                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo large"></a></div>
+                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo_main.png" alt="logo large"></a></div>
                    <div class="sm-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/small-logo.png" alt="logo small"></a></div>
                </div>
                <div class="sidebar-body  custom-scrollbar">
@@ -12,7 +12,21 @@
                         <li><a href="<?php echo $base_url; ?>courses/courselist.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Courses</p></a></li>
                         <li><a href="<?php echo $base_url; ?>trainees/list.php" class=" sidebar-link"><i class="fa-solid fa-user"></i><p>Students</p></a></li>
                         <li><a href="<?php echo $base_url; ?>teacher/list.php" class=" sidebar-link"><i class="fa-solid fa-chalkboard-user"></i><p>Teachers</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>batch/list.php" class="sidebar-link"><i class="fa-solid fa-layer-group"></i><p>Batches</p></a></li>
+                        <li><a href="<?php echo $base_url; ?>batches/list.php" class="sidebar-link"><i class="fa-solid fa-layer-group"></i><p>Batches</p></a></li>
+                        <li>
+                            <a href="<?php echo $base_url; ?>enrollments/list.php" class="sidebar-link">
+                                <i class="fa-solid fa-user-graduate"></i>
+                                <p>Enrollments</p>
+                                <?php
+                                    $enroll_count = $crud->common_query("SELECT COUNT(*) as total FROM enrollments WHERE status = 0 AND deleted_at IS NULL");
+                                    $count = $enroll_count['data'][0]->total ?? 0;
+                                    if($count > 0){
+                                        echo '<span class="badge bg-danger rounded-pill ms-auto">' . $count . '</span>';
+                                    }
+                                ?>
+                            </a>
+                        </li>
+                        <li><a href="<?php echo $base_url; ?>invoices/list.php" class="sidebar-link"><i class="fa-solid fa-file-invoice"></i><p>Invoices</p></a></li>
                         <li><a href="<?php echo $base_url; ?>library.php" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="<?php echo $base_url; ?>department.php" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
                         <li><a href="<?php echo $base_url; ?>staff.php" class="sidebar-link"><i class="fa-solid fa-users"></i><p>Staff</p></a></li>
@@ -43,7 +57,7 @@
        <!-- Content Wrapper -->
         <div class="content-wrapper">
             <!-- Header -->
-            <div class="header d-flex align-items-center justify-content-between">
+            <div class="no-print header d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <div class="collapse-sidebar me-3 d-none d-lg-block text-color-1"><span><i class="fa-solid fa-bars font-size-24"></i></span></div>
                     <div class="menu-toggle me-3 d-block d-lg-none text-color-1"><span><i class="fa-solid fa-bars font-size-24"></i></span></div>

@@ -91,41 +91,12 @@ class crud_class
         }
     }
 
-    public function common_query($sql, $limit = "", $offset = "")
-    {
-        $result = [
-            "status" => false,
-            "data" => [],
-            "message" => ""
+    public function common_query($sql){
+        $result=[
+            "status"=>false,
+            "data"=>[],
+            "message"=>""
         ];
-
-        //* find table name from query */
-<<<<<<< HEAD
-        $table = "";
-        if (preg_match('/FROM\s+([^\s]+)/i', $sql, $matches)) {
-            $table = $matches[1];
-        }
-=======
-        $table = $this->getMainTable($sql);
->>>>>>> a3b75f246def62673f8bfacde7467476df5e7c01
-
-        /* check if query has WHERE clause */
-        if (stripos($sql, 'WHERE') !== false) {
-            $sql .= " AND $table.deleted_at IS NULL";
-        } else {
-            $sql .= " WHERE $table.deleted_at IS NULL";
-        }
-
-        if (!empty($limit)) {
-            $sql .= " LIMIT $limit";
-            if (!empty($offset)) {
-                $sql .= " OFFSET $offset";
-            }
-
-            // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
-        }
-<<<<<<< HEAD
-=======
 
 >>>>>>> a3b75f246def62673f8bfacde7467476df5e7c01
         $rs = $this->conn->query($sql);
@@ -170,19 +141,18 @@ class crud_class
     }
 
 
-    public function common_insert($table, $data)
-    {
-        $result = [
-            "status" => false,
-            "data" => [],
-            "message" => ""
+    public function common_insert($table, $data){
+        $result=[
+            "status"=>false,
+            "data"=>[],
+            "message"=>""
         ];
 
         $columns = implode(", ", array_keys($data));
         $values = implode("', '", array_map([$this->conn, 'real_escape_string'], array_values($data)));
         $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
-        //echo $sql; // Debugging line to check the generated SQL query
-        if ($this->conn->query($sql)) {
+        echo $sql; // Debugging line to check the generated SQL query
+        if($this->conn->query($sql)){
             $result["status"] = true;
             $result["data"] = $this->conn->insert_id;
             $result["message"] = "Record inserted successfully";

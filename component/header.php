@@ -18,6 +18,17 @@
     <link href="<?= $base_url ?>assets/icons/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="<?= $base_url ?>assets/icons/fontawesome/css/solid.min.css" rel="stylesheet">
     <link href="<?= $base_url ?>assets/css/style.css" rel="stylesheet">
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .main-content{
+                margin: 0 !important;
+                padding: 15px !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Preloader -->

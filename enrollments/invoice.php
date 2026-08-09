@@ -1,0 +1,136 @@
+<?php require_once "../component/header.php"; ?>
+<!-- Sidebar Start -->
+<?php require_once "../component/sidebar.php"; ?>
+<!-- Sidebar End -->
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-lg-center flex-column flex-md-row flex-lg-row mt-3">
+                <div class="flex-grow-1">
+                    <h3 class="mb-2 text-size-26 text-color-2">Invoice</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <form action="<?= $base_url; ?>invoices/store.php" method="POST" class="p-4">
+                    <?php
+                    if (isset($_GET['id'])) {
+                        $enrollment_id = $_GET['id'];
+                        $enrollment = $crud->common_query("SELECT enrollments.*, batches.Start_date, batches.End_date, batches.Price, batches.batch_name, trainees.full_name, trainees.phone, courses.course_name FROM `enrollments` JOIN batches on batches.id=enrollments.batch_id JOIN courses on courses.id=enrollments.course_id join trainees on trainees.id=enrollments.trainee_id WHERE enrollments.id = '$enrollment_id'");
+                        if ($enrollment['status'] && !empty($enrollment['data'])) {
+                            $enrollment_data = $enrollment['data'][0];
+                        } else {
+                            echo "<div class='alert alert-danger'>Enrollment not found.</div>";
+                            exit;
+                        }
+                    } else {
+                        echo "<div class='alert alert-danger'>No enrollment ID provided.</div>";
+                        exit;
+                    }
+                    
+                    ?>
+                
+                    <!-- all hidden fields -->
+                    <input type="hidden" name="enrollment_id" value="<?= $enrollment_data->id ?>">
+                    <input type="hidden" name="trainee_id" value="<?= $enrollment_data->trainee_id ?>">
+                    <input type="hidden" name="batch_id" value="<?= $enrollment_data->batch_id ?>">
+                    <input type="hidden" name="course_id" value="<?= $enrollment_data->course_id ?>">
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="mb-3">
+                                <b>Trainee Name: </b> <?= $enrollment_data->full_name ?>
+                            </div>
+                            <div class="mb-3">
+                                <b>Phone: </b> <?= $enrollment_data->phone ?>
+                            </div>
+                            <div class="mb-3">
+                                <b>Batch Name: </b> <?= $enrollment_data->batch_name ?>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <b>Course Name: </b> <?= $enrollment_data->course_name ?>
+                            </div>
+                            <div class="mb-3">
+                                <b>Batch Start Date: </b> <?= $enrollment_data->Start_date ?>
+                            </div>
+                            <div class="mb-3">
+                                <b>Batch End Date: </b> <?= $enrollment_data->End_date ?>
+                            </div>
+                            <div class="mb-3">
+                                <b>Batch Price: </b> <?= $enrollment_data->Price ?>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="trainee_id" class="form-label">Select Trainee</label>
+                            <select class="form-select" id="trainee_id" name="trainee_id" required>
+                                <option value="">Select Trainee</option>
+                                <?php
+                                $trainees = $crud->common_query("SELECT id, full_name FROM trainees WHERE deleted_at IS NULL");
+                                if ($trainees['status']) {
+                                    foreach ($trainees['data'] as $trainee) {
+                                        echo "<option value='{$trainee->id}'>{$trainee->full_name}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="batch_id" class="form-label">Select Batch</label>
+                            <select class="form-select" id="batch_id" name="batch_id" required>
+                                <option value="">Select Batch</option>
+                                <?php
+                                $batches = $crud->common_query("SELECT id, batch_name FROM batches WHERE deleted_at IS NULL AND status != 2"); // শুধু Upcoming/Running ব্যাচ দেখাবে
+                                if ($batches['status']) {
+                                    foreach ($batches['data'] as $batch) {
+                                        echo "<option value='{$batch->id}'>{$batch->batch_name}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="course_id" class="form-label">Course (Optional)</label>
+                            <select class="form-select" id="course_id" name="course_id">
+                                <option value="">Select Course</option>
+                                <?php
+                                $courses = $crud->common_query("SELECT id, course_name FROM courses WHERE deleted_at IS NULL");
+                                if ($courses['status']) {
+                                    foreach ($courses['data'] as $course) {
+                                        echo "<option value='{$course->id}'>{$course->course_name}</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="0">Enrolled</option>
+                                <option value="1">Completed</option>
+                                <option value="2">Dropped</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <button type="submit" class="btn btn-primary">Save Enrollment</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php require_once "../component/footer.php" ?>
