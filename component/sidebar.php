@@ -13,6 +13,20 @@
                         <li><a href="<?php echo $base_url; ?>trainees/list.php" class=" sidebar-link"><i class="fa-solid fa-user"></i><p>Students</p></a></li>
                         <li><a href="<?php echo $base_url; ?>teacher/list.php" class=" sidebar-link"><i class="fa-solid fa-chalkboard-user"></i><p>Teachers</p></a></li>
                         <li><a href="<?php echo $base_url; ?>batches/list.php" class="sidebar-link"><i class="fa-solid fa-layer-group"></i><p>Batches</p></a></li>
+                        <li>
+                            <a href="<?php echo $base_url; ?>enrollments/list.php" class="sidebar-link">
+                                <i class="fa-solid fa-user-graduate"></i>
+                                <p>Enrollments</p>
+                                <?php
+                                    $enroll_count = $crud->common_query("SELECT COUNT(*) as total FROM enrollments WHERE status = 0 AND deleted_at IS NULL");
+                                    $count = $enroll_count['data'][0]->total ?? 0;
+                                    if($count > 0){
+                                        echo '<span class="badge bg-danger rounded-pill ms-auto">' . $count . '</span>';
+                                    }
+                                ?>
+                            </a>
+                        </li>
+                        <li><a href="<?php echo $base_url; ?>invoices/list.php" class="sidebar-link"><i class="fa-solid fa-file-invoice"></i><p>Invoices</p></a></li>
                         <li><a href="<?php echo $base_url; ?>library.php" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="<?php echo $base_url; ?>department.php" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
                         <li><a href="<?php echo $base_url; ?>staff.php" class="sidebar-link"><i class="fa-solid fa-users"></i><p>Staff</p></a></li>
