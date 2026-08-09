@@ -20,9 +20,9 @@ foreach ($sub_totals as $sub) {
 }
 
 
-$last_invoice = $crud->common_query("SELECT invoice_no FROM invoices WHERE deleted_at IS NULL ORDER BY id DESC LIMIT 1");
+$last_invoice = $crud->common_query("SELECT max(id) as id FROM invoices");
 if ($last_invoice['status'] && !empty($last_invoice['data'])) {
-    $last_no = (int) substr($last_invoice['data'][0]->invoice_no, -4);
+    $last_no = (int) $last_invoice['data'][0]->id;
     $new_no = $last_no + 1;
 } else {
     $new_no = 1;
