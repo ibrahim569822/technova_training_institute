@@ -61,7 +61,9 @@
                         <!-- About description -->
                         <div class="mb-5">
                             <h3 class="text-size-18">About this course</h3>
-                            <p class="text-muted text-size-15"><?= $course->description ?></p>
+                            <p class="text-muted text-size-15" style="white-space: pre-line">
+                                    <?= htmlspecialchars($course->description) ?>
+                            </p>
                         </div>
                         
                         <!-- Course Features -->
