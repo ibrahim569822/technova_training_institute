@@ -58,7 +58,7 @@
             <tbody>
               <?php
               $sql = "SELECT trainers.*, users.full_name, users.email, users.phone, users.status FROM trainers
-                            JOIN users ON trainers.user_id = users.id";
+                            JOIN users ON trainers.user_id = users.id where trainers.deleted_at is null";
 
               $result = $crud->common_query($sql);
               if ($result['status']) {
@@ -85,7 +85,7 @@
                       <?php } ?>
                     </td>
                     <td class="text-center">
-                      <a href="<?= $base_url; ?>teacher/edit.php?id=<?= $trainer->id ?>"
+                      <a href="<?= $base_url; ?>teacher/view.php?id=<?= $trainer->id ?>"
                         class="btn btn-sm btn-primary mb-2"><i class="fa-solid fa-eye"></i></a>
                       <a href="<?= $base_url; ?>teacher/edit.php?id=<?= $trainer->id ?>"
                         class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
