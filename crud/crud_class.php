@@ -152,13 +152,8 @@ class crud_class
         $columns = implode(", ", array_keys($data));
         $values = implode("', '", array_map([$this->conn, 'real_escape_string'], array_values($data)));
         $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
-<<<<<<< HEAD
-        echo $sql; // Debugging line to check the generated SQL query
-        if ($this->conn->query($sql)) {
-=======
         //echo $sql; // Debugging line to check the generated SQL query
         if($this->conn->query($sql)){
->>>>>>> 416cb58c36958394cf45a6ff8afc1c9d4be26a57
             $result["status"] = true;
             $result["data"] = $this->conn->insert_id;
             $result["message"] = "Record inserted successfully";
