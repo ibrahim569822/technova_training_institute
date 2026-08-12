@@ -65,26 +65,28 @@
                                       </div>
                                   </div>
                       
-                                  <!-- Overall Revenue Card -->
+                                  <!-- Overall batch -->
                                   <div class="col-12 col-md-6 col-lg-12 mb-4">
                                       <div class="stats-card">
                                           <div class="d-flex justify-content-between align-items-start">
                                               <div>
-                                                  <div class="stats-label">Overall Revenue</div>
-                                                  <div class="stats-value">₹64,364</div>
+                                                  <div class="stats-label">Total Batches</div>
+                                                  <div class="stats-value"><?php echo $crud->number_of_records("batches"); ?></div>
                                                   <div class="trend-wrapper">
-                                                      This month 
+                                                      Active batches
                                                       <span class="trend-up">
                                                           <i class="fas fa-arrow-up"></i> 8.5%
                                                       </span>
                                                   </div>
                                               </div>
-                                              <div class="icon-wrapper icon-green">
-                                                  <i class="fas fa-rupee-sign"></i>
+                                              <div class="icon-wrapper icon-red">
+                                                  <i class="fas fa-play-circle"></i>
                                               </div>
                                           </div>
                                       </div>
                                   </div>
+
+                                  
                                 </div>
                             </div>
                              <div class="col-lg-5 mb-4 mb-lg-0">
@@ -133,91 +135,22 @@
                                 </div>
                                 <div class="card-body p-0">
                                   <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-primary text-white me-3">AB</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Sofnio</h6>
-                                        <small class="text-color-3">info@softnio.com</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <div class="rating-stars text-size-13">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <small class="d-block text-color-3">25 Reviews</small>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-info text-white me-3">AL</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Ashley Lawson</h6>
-                                        <small class="text-color-3">ashley@softnio.com</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <div class="rating-stars text-size-13">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <small class="d-block text-color-3">22 Reviews</small>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-success text-white me-3">JM</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Jane Montgomery</h6>
-                                        <small class="text-color-3">jane84@example.com</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <div class="rating-stars text-size-13">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                        <small class="d-block text-color-3">19 Reviews</small>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-secondary text-white me-3">LH</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Larry Henry</h6>
-                                        <small class="text-color-3">larry108@example.com</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <div class="rating-stars text-size-13">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                        <small class="d-block text-color-3">24 Reviews</small>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-secondary text-white me-3">LH</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Larry Henry</h6>
-                                        <small class="text-color-3">larry108@example.com</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <div class="rating-stars text-size-13">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                        <small class="d-block text-color-3">24 Reviews</small>
-                                      </div>
-                                    </li>
+                                    <?php
+                                    $sql = "select user.full_name as trainer_name, user.email from trainers as trainer join users as user on trainer.user_id = user.id ";
+                                    $instructors = $crud->common_query($sql);
+
+                                    foreach ($instructors['data'] as $instructor) {
+                                        echo '<li class="list-group-item d-flex align-items-center py-3">
+                                                <div class="avatar rounded-circle bg-primary text-white me-3">'.$instructor->trainer_name .'</div>
+                                                <div class="flex-grow-1">
+                                                  <h6 class="mb-0 text-color-2">'.$instructor->trainer_name.'</h6>
+                                                  <small class="text-color-3">'.$instructor->email.'</small>
+                                                </div>
+                                                <div class="text-end">
+                                                  <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                                              </li>';
+                                    }
+                                    ?>
                                   </ul>
                                 </div>
                               </div>
@@ -246,46 +179,31 @@
                                 </div>
                                 <div class="card-body p-0">
                                   <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-primary text-white me-3">AB</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Digital Marketing</h6>
-                                        <small class="text-color-3">16+ Courses</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-info text-white me-3">AL</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Web Development</h6>
-                                        <small class="text-color-3">16+ Courses</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-success text-white me-3">JM</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">UI/UX Design</h6>
-                                        <small class="text-color-3">16+ Courses</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
-                                      </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-3">
-                                      <div class="avatar rounded-circle bg-secondary text-white me-3">LH</div>
-                                      <div class="flex-grow-1">
-                                        <h6 class="mb-0 text-color-2">Graphic Design</h6>
-                                        <small class="text-color-3">16+ Courses</small>
-                                      </div>
-                                      <div class="text-end">
-                                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
-                                      </div>
-                                    </li>
+
+                                  <?php
+                                  $categories = $crud->common_select("categories", '*', [], 'AND', 'id', 'ASC', 10, 0);
+                                  if ($categories['status']) {
+                                      foreach ($categories['data'] as $category) {
+                                          echo '<li class="list-group-item d-flex align-items-center py-3">
+                                                  <div class="avatar rounded-circle bg-primary text-white me-3">'. $category->category_name .'</div>
+                                                  <div class="flex-grow-1">
+                                                    <h6 class="mb-0 text-color-2">'.$category->category_name.'</h6>
+                                                    <small class="text-color-3">'. $crud->common_select("courses", "COUNT(*) as total", ["category_id" => $category->id])['data'][0]->total .' Courses</small>
+                                                  </div>
+                                                  <div class="text-end">
+                                                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                                                  </div>
+                                                </li>';
+                                      } ?>
+                                  <?php } else { ?>
+                                      <li class="list-group-item d-flex align-items-center py-3">
+                                          <div class="flex-grow-1">
+                                              <h6 class="mb-0 text-color-2">No categories found</h6>
+                                          </div>
+                                      </li>
+                                  <?php } ?>
+
+
                                   </ul>
                                 </div>
                               </div>

@@ -3,8 +3,8 @@
         <div class="sidebar no-print">
                 <!-- Sidebar -->
                <div class="sidebar-header">
-                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo_main.png" alt="logo large"></a></div>
-                   <div class="sm-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/small-logo.png" alt="logo small"></a></div>
+                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo large" width="100%" height="50"></a></div>
+                   <div class="sm-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/small_logo.png" alt="logo small" width="100%" height="50"></a></div>
                </div>
                <div class="sidebar-body  custom-scrollbar">
                     <ul class="sidebar-menu">
@@ -28,6 +28,7 @@
                             </a>
                         </li>
                         <li><a href="<?php echo $base_url; ?>invoices/list.php" class="sidebar-link"><i class="fa-solid fa-file-invoice"></i><p>Invoices</p></a></li>
+                        <!--
                         <li><a href="<?php echo $base_url; ?>library.php" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="<?php echo $base_url; ?>department.php" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
                         <li><a href="<?php echo $base_url; ?>staff.php" class="sidebar-link"><i class="fa-solid fa-users"></i><p>Staff</p></a></li>
@@ -51,7 +52,7 @@
                             <ul class="sidebar-submenu">
                                 <li><a href="<?php echo $base_url; ?>form.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">Form Element</p></a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     </ul>
                </div>
         </div>

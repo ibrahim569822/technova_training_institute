@@ -92,14 +92,14 @@
                                     <a onclick="courseDetails(<?= $course->id ?>)" href="#" class="btn btn-sm btn-info me-2"><i class="fa-solid fa-eye"></i></a>
                                     <a href="<?= $base_url ?>courses/edit.php?id=<?= $course->id ?>" class="btn btn-sm btn-primary mb-2 mb-lg-0 me-0 me-lg-2"><i class="fa-regular fa-pen-to-square"></i></a>
                                     <a href="#" class="btn btn-sm btn-danger" onclick="deleteCourse(<?= $course->id ?>)"><i class="fa-solid fa-trash-can"></i></a>
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <!-- <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                       <span class="btn btn-sm btn-success"><i class="fas fa-ellipsis-h"></i></span>
                                       <ul class="dropdown-menu">
                                         <li><a class="dropdown-item py-2" href="#">Active</a></li>
                                         <li><a class="dropdown-item py-2" href="#">Inactive</a></li>
                                         <li><a class="dropdown-item py-2" href="#">Pending</a></li>
                                       </ul>
-                                    </a>
+                                    </a> -->
                                   </td>
                                 </tr>
                                 <?php } } ?>
