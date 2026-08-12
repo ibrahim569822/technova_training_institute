@@ -5,7 +5,11 @@
 
 <?php
 $id = $_GET['id'];
-$sql = "SELECT * FROM invoices WHERE id = $id AND deleted_at IS NULL";
+$sql = "SELECT invoices.*, trainees.full_name as trainee_name 
+        FROM invoices 
+        JOIN trainees ON invoices.trainee_id = trainees.id 
+        WHERE invoices.id = $id AND invoices.deleted_at IS NULL";
+
 $data = $crud->common_query($sql);
 
 if (!$data['status'] || empty($data['data'])) {
@@ -14,6 +18,9 @@ if (!$data['status'] || empty($data['data'])) {
     exit;
 }
 $invoice = $data['data'][0];
+
+//  Due Amount Calculation
+$due_amount = $invoice->grand_total - $invoice->paid_amount;
 ?>
 
 <div class="main-content">
@@ -31,6 +38,7 @@ $invoice = $data['data'][0];
             <div class="card-body p-0">
                 <form action="<?= $base_url; ?>invoices/update.php" method="POST" class="p-4">
                     <input type="hidden" name="id" value="<?= $invoice->id ?>">
+                    
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="trainee_id" class="form-label">Select Trainee</label>
@@ -88,6 +96,41 @@ $invoice = $data['data'][0];
                             </select>
                         </div>
                     </div>
+
+                    <!--  Payment Summary Section -->
+                    <div class="row mt-4 border-top pt-3">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Grand Total</label>
+                            <input type="text" class="form-control" value="<?= number_format($invoice->grand_total, 2) ?> BDT" disabled>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold">Already Paid</label>
+                            <input type="text" class="form-control" value="<?= number_format($invoice->paid_amount, 2) ?> BDT" disabled>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold text-danger">Due Amount</label>
+                            <input type="text" class="form-control text-danger fw-bold" value="<?= number_format($due_amount, 2) ?> BDT" disabled>
+                        </div>
+                    </div>
+
+                    <!--  Additional Payment Section -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="additional_payment" class="form-label">Additional Payment (Due)</label>
+                            <input type="number" step="0.01" class="form-control" id="additional_payment" name="additional_payment" value="0.00" oninput="updatePaymentStatus()">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="new_payment_method" class="form-label">Payment Method</label>
+                            <select class="form-select" id="new_payment_method" name="new_payment_method">
+                                <option value="0">Bkash</option>
+                                <option value="1">Cash</option>
+                                <option value="2">Nagad</option>
+                                <option value="3">Card</option>
+                                <option value="4">Bank</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <button type="submit" class="btn btn-primary">Update Invoice</button>
@@ -98,4 +141,25 @@ $invoice = $data['data'][0];
         </div>
     </div>
 </div>
+
 <?php require_once "../component/footer.php"; ?>
+
+<!--  JavaScript for Auto Payment Status Update -->
+<script>
+function updatePaymentStatus() {
+    const grandTotal = <?= $invoice->grand_total ?>;
+    const alreadyPaid = <?= $invoice->paid_amount ?>;
+    const additionalPayment = parseFloat(document.getElementById('additional_payment').value) || 0;
+    const statusSelect = document.getElementById('payment_status');
+    
+    const totalPaid = alreadyPaid + additionalPayment;
+    
+    if (totalPaid >= grandTotal) {
+        statusSelect.value = '1'; // Paid
+    } else if (totalPaid > 0) {
+        statusSelect.value = '2'; // Partial
+    } else {
+        statusSelect.value = '0'; // Pending
+    }
+}
+</script>

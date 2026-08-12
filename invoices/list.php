@@ -77,7 +77,7 @@
                                     <a href="<?= $base_url; ?>invoices/edit.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-primary mb-1" title="Edit">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
-                                    <a href="<?= $base_url; ?>invoices/generate.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-success mb-1" title="Print/PDF" target="_blank">
+                                    <a href="<?= $base_url; ?>invoices/view.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-success mb-1" title="Print/PDF" target="_blank">
                                         <i class="fa-solid fa-print"></i>
                                     </a>
                                     <a href="<?= $base_url; ?>invoices/delete.php?id=<?= $invoice->id ?>" class="btn btn-sm btn-danger mb-1" onclick="return confirm('Are you sure?')" title="Delete">
