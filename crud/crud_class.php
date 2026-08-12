@@ -105,7 +105,7 @@ class crud_class{
 
             // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
         }
-
+//echo $sql; // Debugging line to check the generated SQL query
         $rs = $this->conn->query($sql);
 
         if($rs->num_rows > 0){
