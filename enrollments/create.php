@@ -38,7 +38,7 @@
                             <select class="form-select" id="batch_id" name="batch_id" required>
                                 <option value="">Select Batch</option>
                                 <?php
-                                $batches = $crud->common_query("SELECT id, batch_name FROM batches WHERE deleted_at IS NULL AND status != 2"); // শুধু Upcoming/Running ব্যাচ দেখাবে
+                                $batches = $crud->common_query("SELECT id, batch_name FROM batches WHERE deleted_at IS NULL AND status != 2"); 
                                 if ($batches['status']) {
                                     foreach ($batches['data'] as $batch) {
                                         echo "<option value='{$batch->id}'>{$batch->batch_name}</option>";

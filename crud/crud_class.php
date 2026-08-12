@@ -80,7 +80,7 @@ class crud_class{
         }
     }
 
-    public function common_query($sql,$limit = "",$offset = ""){
+    public function common_query($sql){
         $result=[
             "status"=>false,
             "data"=>[],
@@ -105,7 +105,7 @@ class crud_class{
 
             // "SELECT * FROM users WHERE id='1' AND name='kamal' ORDER BY name ASC LIMIT 10 OFFSET 5"
         }
-//echo $sql; // Debugging line to check the generated SQL query
+
         $rs = $this->conn->query($sql);
 
         if($rs->num_rows > 0){
@@ -119,34 +119,8 @@ class crud_class{
             $result["message"] = "No records found";
             return $result;
         }
+        
     }
-
-    function getMainTable($sql)
-    {
-        $level = 0;
-        $length = strlen($sql);
-
-        for ($i = 0; $i < $length; $i++) {
-
-            if ($sql[$i] == '(') {
-                $level++;
-            } elseif ($sql[$i] == ')') {
-                $level--;
-            }
-
-            if ($level == 0 && strtoupper(substr($sql, $i, 5)) == 'FROM ') {
-
-                $rest = trim(substr($sql, $i + 5));
-
-                if (preg_match('/^`?([a-zA-Z0-9_]+)`?/i', $rest, $matches)) {
-                    return $matches[1];
-                }
-            }
-        }
-
-        return "";
-    }
-
 
     public function common_insert($table, $data){
         $result=[
@@ -158,7 +132,7 @@ class crud_class{
         $columns = implode(", ", array_keys($data));
         $values = implode("', '", array_map([$this->conn, 'real_escape_string'], array_values($data)));
         $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
-        echo $sql; // Debugging line to check the generated SQL query
+        //echo $sql; // Debugging line to check the generated SQL query
         if($this->conn->query($sql)){
             $result["status"] = true;
             $result["data"] = $this->conn->insert_id;
