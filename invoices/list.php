@@ -94,6 +94,38 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="pb-3 ps-3 mt-3 d-flex justify-content-center justify-content-md-between justify-content-lg-between flex-wrap flex-md-nowrap">
+                    <nav aria-label="Page navigation" class="mb-3 mb-md-0 mb-lg-0">
+                        <?php
+                           
+                            $total_records = $crud->number_of_records("invoices");
+                            $records_per_page = 10;
+                            $total_pages = ceil($total_records / $records_per_page);
+                            
+                            
+                            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                            if ($page < 1) $page = 1;
+                            if ($page > $total_pages) $page = $total_pages;
+                        ?>
+                        <ul class="pagination">
+                            <li class="page-item <?= ($page <= 1) ? 'disabled' : '' ?>">
+                                <a class="page-link" href="<?= ($page > 1) ? $base_url . 'invoices/list.php?page=' . ($page - 1) : '#' ?>" aria-label="Previous">
+                                    <i class="fa-solid fa-chevron-left text-size-12"></i>
+                                </a>
+                            </li>
+                            <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+                                <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                    <a class="page-link" href="<?= $base_url ?>invoices/list.php?page=<?= $i ?>"><?= $i ?></a>
+                                </li>
+                            <?php } ?>
+                            <li class="page-item <?= ($page >= $total_pages) ? 'disabled' : '' ?>">
+                                <a class="page-link" href="<?= ($page < $total_pages) ? $base_url . 'invoices/list.php?page=' . ($page + 1) : '#' ?>" aria-label="Next">
+                                    <i class="fa-solid fa-chevron-right text-size-12"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
