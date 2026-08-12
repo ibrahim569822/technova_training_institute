@@ -6,7 +6,7 @@
                     <!-- Logo -->
                     <div class="text-center mb-4">
                         <div class="d-flex align-items-center justify-content-center gap-2">
-                            <a href="<?php echo $base_url; ?>login.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo"></a>
+                            <a href="<?php echo $base_url; ?>login.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo" width="100%" height="50"></a>
                         </div>
                     </div>
 
