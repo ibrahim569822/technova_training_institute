@@ -28,10 +28,10 @@
                             <select class="form-select" id="course_id" name="course_id" onchange="loadCourseData()" required>
                                 <option value="">Select Course</option>
                                 <?php
-                                $courses = $crud->common_query("SELECT id, course_name, fee FROM courses WHERE deleted_at IS NULL");
+                                $courses = $crud->common_query("SELECT id, course_name, fee,duration FROM courses WHERE deleted_at IS NULL");
                                 if ($courses['status']) {
                                     foreach ($courses['data'] as $course) {
-                                        echo "<option value='{$course->id}' data-price='{$course->fee}'>{$course->course_name}</option>";
+                                        echo "<option value='{$course->id}' data-price='{$course->fee}' data-duration='{$course->duration}'>{$course->course_name}</option>";
                                     }
                                 }
                                 ?>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="Start_date" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="Start_date" name="Start_date" onchange="autoSetStatus()" required>
+                            <input type="date" class="form-control" id="Start_date" name="Start_date" onchange="autoSetEndDate()" required>
                         </div>
                     </div>
                     <div class="row">
@@ -125,6 +125,7 @@ function loadCourseData() {
     var selectedOption = document.getElementById('course_id').options[document.getElementById('course_id').selectedIndex];
     var courseName = selectedOption.text; 
     var price = selectedOption.getAttribute('data-price');
+    var duration = parseInt(selectedOption.getAttribute('data-duration'));
     
     
     if(courseId) {
@@ -160,24 +161,40 @@ function loadCourseData() {
 }
 
 
-function autoSetStatus() {
+function autoSetEndDate() {
     var startDate = document.getElementById('Start_date').value;
+    var endDateInput = document.getElementById('End_date');
     var statusSelect = document.getElementById('status');
     
+    var selectedOption = document.getElementById('course_id').options[document.getElementById('course_id').selectedIndex];
+    var duration = parseInt(selectedOption.getAttribute('data-duration'));
+    
     if(startDate) {
-        var today = new Date();
         var start = new Date(startDate);
+        var today = new Date();
+        
+        
+        if(duration && !isNaN(duration)) {
+            start.setMonth(start.getMonth() + duration);
+            var year = start.getFullYear();
+            var month = String(start.getMonth() + 1).padStart(2, '0');
+            var day = String(start.getDate()).padStart(2, '0');
+            endDateInput.value = year + '-' + month + '-' + day;
+        } else {
+            endDateInput.value = '';
+        }
+
         
         today.setHours(0,0,0,0);
+        start = new Date(startDate);
         start.setHours(0,0,0,0);
         
-        
         if(start.getTime() === today.getTime()) {
-            statusSelect.value = '1'; 
+            statusSelect.value = '1'; // Running
         } else if(start < today) {
-            statusSelect.value = '2'; 
+            statusSelect.value = '2'; // Completed
         } else {
-            statusSelect.value = '0';
+            statusSelect.value = '0'; // Upcoming
         }
     }
 }
