@@ -61,7 +61,9 @@
                         <tr>
                           
                           <td><?= $category->category_name ?></td>
-                          <td><?= $category->description ?></td>
+                          <td><span class="d-inline-block text-truncate" style="max-width: 250px;" title="<?= htmlspecialchars($category->description) ?>">
+                                <?= htmlspecialchars($category->description) ?>
+                              </span></td>
                           <td class="text-center">
                             <a href="<?= $base_url ?>courses/categories/edit.php?id=<?= $category->id ?>" class="btn btn-sm btn-primary mb-2 mb-lg-0 me-0 me-lg-2"><i class="fa-regular fa-pen-to-square"></i></a>
                             <a href="<?= $base_url ?>courses/categories/delete.php?id=<?= $category->id ?>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>

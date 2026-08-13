@@ -81,14 +81,14 @@
                             echo !empty($category['data']) ? $category['data'][0]->category_name : 'Unknown Category';
                             ?></td>
                                   <td><?php echo $course->duration; ?></td>
-                                  <td>$<?php echo $course->fee; ?></td>
+                                  <td>৳<?php echo $course->fee; ?></td>
                                   <td>
                                       <?php
-                                      if ($course->status == 0) {
+                                      if ($course->status == 2) {
                                           echo '<span class="badge bg-warning">Upcoming</span>';
-                                      } elseif ($course->status == 1) {
+                                      } elseif ($course->status == 0) {
                                           echo '<span class="badge bg-success">Running</span>';
-                                      } elseif ($course->status == 2) {
+                                      } elseif ($course->status == 1) {
                                           echo '<span class="badge bg-danger">Completed</span>';
                                       } else {
                                           echo '<span class="badge bg-secondary">Unknown</span>';
