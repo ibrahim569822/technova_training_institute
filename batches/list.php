@@ -83,12 +83,12 @@
                 <div class="pb-3 ps-3 mt-3 d-flex justify-content-center justify-content-md-between justify-content-lg-between flex-wrap flex-md-nowrap">
                     <nav aria-label="Page navigation" class="mb-3 mb-md-0 mb-lg-0">
                         <?php
-                            // 🔥 enrollments টেবিলের মোট রেকর্ড সংখ্যা বের করা
+                        
                             $total_records = $crud->number_of_records("batches");
                             $records_per_page = 10;
                             $total_pages = ceil($total_records / $records_per_page);
                             
-                            // বর্তমান পৃষ্ঠা (page) বের করা
+                 
                             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                             if ($page < 1) $page = 1;
                             if ($page > $total_pages) $page = $total_pages;
