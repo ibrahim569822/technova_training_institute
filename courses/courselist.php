@@ -18,8 +18,15 @@
                                       Filter by
                                     <i class="fa-solid fa-chevron-right ms-3 text-size-sm"></i>
                                     <ul class="dropdown-menu">
-                                      <li><a class="dropdown-item" href="#">Active</a></li>
-                                      <li><a class="dropdown-item" href="#">Inactive</a></li>
+                                      <li><a class="dropdown-item" href="<?= $base_url; ?>courses/courselist.php">All</a></li>
+                                      <?php
+                                      $categories = $crud->common_query("SELECT id, category_name FROM categories WHERE deleted_at IS NULL");
+                                      if ($categories['status']) {
+                                          foreach ($categories['data'] as $category) {
+                                              echo "<li><a class='dropdown-item' href='?category_id={$category->id}'>{$category->category_name}</a></li>";
+                                          }
+                                      }
+                                      ?>
                                    </ul>
                                   </div>
                                   <!-- Reports Button -->
@@ -74,14 +81,14 @@
                             echo !empty($category['data']) ? $category['data'][0]->category_name : 'Unknown Category';
                             ?></td>
                                   <td><?php echo $course->duration; ?></td>
-                                  <td>$<?php echo $course->fee; ?></td>
+                                  <td>৳<?php echo $course->fee; ?></td>
                                   <td>
                                       <?php
-                                      if ($course->status == 0) {
+                                      if ($course->status == 2) {
                                           echo '<span class="badge bg-warning">Upcoming</span>';
-                                      } elseif ($course->status == 1) {
+                                      } elseif ($course->status == 0) {
                                           echo '<span class="badge bg-success">Running</span>';
-                                      } elseif ($course->status == 2) {
+                                      } elseif ($course->status == 1) {
                                           echo '<span class="badge bg-danger">Completed</span>';
                                       } else {
                                           echo '<span class="badge bg-secondary">Unknown</span>';

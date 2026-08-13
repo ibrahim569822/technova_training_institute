@@ -187,7 +187,7 @@ function loadCourseDetails(batchId, element) {
                 const popup = element.querySelector('.course-popup');
                 popup.innerHTML = `
                     <h6>${course.course_name}</h6>
-                    <p><span class="label">Duration:</span> ${course.duration} months</p>
+                    <p><span class="label">Duration:</span> ${course.duration}</p>
                     <p><span class="label">Fee:</span> ${parseFloat(course.fee).toFixed(2)} BDT</p>
                    <p><span class="label">Status:</span> 
                         <span class="badge ${course.status_class}">

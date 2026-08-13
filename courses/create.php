@@ -69,9 +69,9 @@
                     <label for="status" class="form-label">Status</label>
                     <select class="form-select" id="status" name="status" required>
                         <option value="">Select Status</option>
-                        <option value="1">Running</option>
-                        <option value="0">Upcoming</option>
-                        <option value="2">Completed</option>
+                        <option value="0">Running</option>
+                        <option value="2">Upcoming</option>
+                        <option value="1">Completed</option>
                     </select>
                 </div>
             </div>
