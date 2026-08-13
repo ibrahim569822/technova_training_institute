@@ -86,7 +86,7 @@ class crud_class{
             "data"=>[],
             "message"=>""
         ];
-
+   
         $rs = $this->conn->query($sql);
 
         if($rs->num_rows > 0){

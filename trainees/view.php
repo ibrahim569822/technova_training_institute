@@ -4,22 +4,16 @@
 <!-- Sidebar End -->
 
 <?php
-$id = $_GET['id'];
-$sql = "SELECT trainees.*, users.full_name, users.email, users.phone, users.status 
-        FROM trainees
-        JOIN users ON trainees.user_id = users.id 
-        WHERE trainees.id = $id AND trainees.deleted_at IS NULL";
-
-$data = $crud->common_query($sql);
-
-if (!$data['status'] || empty($data['data'])) {
-    $_SESSION['message'] = array('danger', 'Error', 'Trainee not found.');
-    echo "<script>window.location.href = '" . $base_url . "trainees/list.php';</script>";
+  $id = $_GET['id'];
+  $trainee = $crud->common_select("trainees", "*", ['id' => $id]);
+  if (!$trainee['status'] || empty($trainee['data'])) {
+    echo "<script>window.location.href = '".$base_url."trainees/list.php';</script>";
     exit;
-}
-$trainee = $data['data'][0];
-?>
+  }
 
+  $trainee = $trainee['data'][0];
+
+?>
 <div class="main-content">
     <div class="row">
         <div class="col-12">
@@ -77,10 +71,10 @@ $trainee = $data['data'][0];
                                 <label class="text-muted mb-1">Date of Birth</label>
                                 <p class="fw-bold text-color-2"><?= date('d M, Y', strtotime($trainee->dob)) ?></p>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <!-- <div class="col-md-6 mb-3">
                                 <label class="text-muted mb-1">Enrollment Date</label>
                                 <p class="fw-bold text-color-2"><?= date('d M, Y', strtotime($trainee->enrollment_date)) ?></p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
