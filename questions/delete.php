@@ -1,13 +1,19 @@
 <?php
-    require_once "../component/connection.php";
+require_once "../component/connection.php";
 
-    //$result = $crud->common_delete("trainees", ['id' => $_GET['id']]);
-    $result = $crud->common_update("questions", ['deleted_at' => date('Y-m-d H:i:s')], ['id' => $_GET['id']]);
-    if ($result['status']) {
-        $_SESSION['message'] = array('success','Success', $result['message']);
-    } else {
-        $_SESSION['message'] = array('danger','Error', $result['message']);
-    }
+$id = $_GET['id'];
 
-    echo "<script>window.location.href = '".$base_url."questions/list.php';</script>";
-    
+
+$exam_query = $crud->common_query("SELECT exam_id FROM questions WHERE id = $id");
+$exam_id = $exam_query['data'][0]->exam_id ?? 0;
+
+$result = $crud->common_update("questions", ['deleted_at' => date('Y-m-d H:i:s')], ['id' => $id]);
+
+if ($result['status']) {
+    $_SESSION['message'] = ['success', 'Success', 'Question deleted successfully!'];
+} else {
+    $_SESSION['message'] = ['danger', 'Error', $result['message']];
+}
+
+
+echo "<script>window.location.href = '" . $base_url . "questions/list.php?exam_id=" . $exam_id . "';</script>";

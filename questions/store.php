@@ -1,16 +1,24 @@
 <?php
-    require_once "../component/connection.php";
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-        $result = $crud->common_insert("questions", $_POST);
-        var_dump($_POST); // Debugging line to check the POST data
-        var_dump($result); // Debugging line to check the result of the insert operation
-        if ($result['status']) {
-            $_SESSION['message'] = array('success','Success', $result['message']);
-        } else {
-            $_SESSION['message'] = array('danger','Error', $result['message']);
-        }
+require_once "../component/connection.php";
 
-        echo "<script>window.location.href = '".$base_url."questions/list.php';</script>";
-    }
-    
+$q_data = [
+    'exam_id' => $_POST['exam_id'],
+    'question' => $_POST['question'],
+    'option_a' => $_POST['option_a'],
+    'option_b' => $_POST['option_b'],
+    'option_c' => $_POST['option_c'],
+    'option_d' => $_POST['option_d'],
+    'correct_answer' => $_POST['correct_answer'],
+    'created_by' => $_SESSION['user_id']
+];
+
+$result = $crud->common_insert("questions", $q_data);
+
+if ($result['status']) {
+    $_SESSION['message'] = ['success', 'Success', 'Question added successfully!'];
+} else {
+    $_SESSION['message'] = ['danger', 'Error', $result['message']];
+}
+
+// 🔥 সঠিক রিডাইরেক্ট: list.php-তে ফিরে যাওয়া (exam_id সহ)
+echo "<script>window.location.href = '" . $base_url . "questions/list.php?exam_id=" . $_POST['exam_id'] . "';</script>";
