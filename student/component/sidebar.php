@@ -9,7 +9,7 @@
                <div class="sidebar-body  custom-scrollbar">
                     <ul class="sidebar-menu">
                         <li><a href="<?php echo $base_url; ?>dashboard.php" class=" sidebar-link active"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>exam/exam.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Exams</p></a></li>
+                        <li><a href="<?php echo $base_url; ?>exams/list.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Exams</p></a></li>
                     </ul>
                </div>
         </div>
