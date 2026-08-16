@@ -11,7 +11,7 @@
                     </div>
 
                     <!-- Sign In Form -->
-                    <h2 class="mb-4 text-dark h4">Sign In</h2>
+                    <h2 class="mb-4 text-dark h4">Student Portal</h2>
                     <form action="" method="POST">
                         <!-- Email Input -->
                         <div class="mb-3 position-relative">
