@@ -14,7 +14,7 @@
                         <li><a href="<?php echo $base_url; ?>teacher/list.php" class=" sidebar-link"><i class="fa-solid fa-chalkboard-user"></i><p>Teachers</p></a></li>
                         <li><a href="<?php echo $base_url; ?>exams/list.php" class="sidebar-link"><i class="fa-solid fa-pen-to-square"></i><p>Exams</p></a></li>
                         <li><a href="<?php echo $base_url; ?>batches/list.php" class="sidebar-link"><i class="fa-solid fa-layer-group"></i><p>Batches</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>attendance/list.php" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i><p>Attendance</p></a></li>
+                        <li><a href="<?php echo $base_url; ?>questions/list.php" class="sidebar-link"><i class="fa-solid fa-question"></i><p>Questions</p></a></li>
                         <li>
                             <a href="<?php echo $base_url; ?>enrollments/list.php" class="sidebar-link">
                                 <i class="fa-solid fa-user-graduate"></i>
@@ -29,6 +29,7 @@
                             </a>
                         </li>
                         <li><a href="<?php echo $base_url; ?>invoices/list.php" class="sidebar-link"><i class="fa-solid fa-file-invoice"></i><p>Invoices</p></a></li>
+                        <li><a href="<?php echo $base_url; ?>attendance/list.php" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i><p>Attendance</p></a></li>
                         <!--
                         <li><a href="<?php echo $base_url; ?>library.php" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="<?php echo $base_url; ?>department.php" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
