@@ -4,7 +4,7 @@
 <!-- Sidebar End -->
 
 <?php
-// আয়ের (Income) একাউন্টগুলো থেকে মোট ক্রেডিট বের করা
+
 $income_query = $crud->common_query("
     SELECT SUM(cr) as total 
     FROM ledger 
@@ -14,7 +14,7 @@ $income_query = $crud->common_query("
 ");
 $total_income = $income_query['data'][0]->total ?? 0;
 
-// খরচের (Expense) একাউন্টগুলো থেকে মোট ডেবিট বের করা
+
 $expense_query = $crud->common_query("
     SELECT SUM(dr) as total 
     FROM ledger 
@@ -24,7 +24,7 @@ $expense_query = $crud->common_query("
 ");
 $total_expense = $expense_query['data'][0]->total ?? 0;
 
-// লাভ বা ক্ষতি নির্ণয়
+
 $profit_loss = $total_income - $total_expense;
 ?>
 
