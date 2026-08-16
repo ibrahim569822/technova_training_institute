@@ -30,20 +30,55 @@
                         </li>
                         <li><a href="<?php echo $base_url; ?>invoices/list.php" class="sidebar-link"><i class="fa-solid fa-file-invoice"></i><p>Invoices</p></a></li>
                         <li><a href="<?php echo $base_url; ?>attendance/list.php" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i><p>Attendance</p></a></li>
+                        
+                            
                         <!--
                         <li><a href="<?php echo $base_url; ?>library.php" class=" sidebar-link"><i class="fa-solid fa-book"></i><p>Library</p></a></li>
                         <li><a href="<?php echo $base_url; ?>department.php" class=" sidebar-link"><i class="fa-solid fa-building"></i><p>Department</p></a></li>
                         <li><a href="<?php echo $base_url; ?>staff.php" class="sidebar-link"><i class="fa-solid fa-users"></i><p>Staff</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>fees.php" class="sidebar-link"><i class="fa-solid fa-dollar-sign"></i><p>Fees</p></a></li>
-                        <li><a href="#" class=" sidebar-link submenu-parent"><i class="fa-solid fa-list"></i><p>Pages <i class="fa-solid fa-chevron-right right-icon"></i></p></a>
+                        <li><a href="<?php echo $base_url; ?>fees.php" class="sidebar-link"><i class="fa-solid fa-dollar-sign"></i><p>Fees</p></a></li>-->
+                        <li><a href="#" class=" sidebar-link submenu-parent"><i class="fa-solid fa-coins"></i>
+                                <p>Accounts <i class="fa-solid fa-chevron-right right-icon"></i></p></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="<?php echo $base_url; ?>login.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">Login</p></a></li>
-                                <li><a href="<?php echo $base_url; ?>signup.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">Register</p></a></li>
-                                <li><a href="<?php echo $base_url; ?>forgot-password.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">Forgot password</p></a></li>
-                                <li><a href="<?php echo $base_url; ?>404.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">404 page</p></a></li>
-                                <li><a href="<?php echo $base_url; ?>500.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">500 page</p></a></li>
+                                <li>
+                                    <a href="<?php echo $base_url; ?>accounts/account_heads.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Account Heads</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $base_url; ?>accounts/ledger.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Ledger</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $base_url; ?>accounts/payment_vouchers.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Payment Vouchers</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $base_url; ?>accounts/receive_vouchers.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Receive Vouchers</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $base_url; ?>accounts/journal_vouchers.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Journal Vouchers</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $base_url; ?>accounts/profit_loss.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Profit & Loss</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
+                       <!--
                         <li><a href="#" class=" sidebar-link submenu-parent"><i class="fa-solid fa-list"></i><p>Table <i class="fa-solid fa-chevron-right right-icon"></i></p></a>
                             <ul class="sidebar-submenu">
                                 <li><a href="<?php echo $base_url; ?>table-bootstrap.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">Bootstrap</p></a></li>

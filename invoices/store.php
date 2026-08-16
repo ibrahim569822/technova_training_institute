@@ -100,6 +100,75 @@ try {
         if (!$payment_result['status']) {
             throw new Exception("Failed to save payment: " . $payment_result['message']);
         }
+
+        // 🔥 ACCOUNTING: Auto Receive Voucher + Ledger
+        // Cash এবং Income একাউন্টের আইডি বের করা
+        $cash_account = $crud->common_query("SELECT id FROM account_heads WHERE account_name LIKE '%Cash%' LIMIT 1");
+        $income_account = $crud->common_query("SELECT id FROM account_heads WHERE account_type = 'Income' LIMIT 1");
+
+        if ($cash_account['status'] && $income_account['status']) {
+            $cash_id = $cash_account['data'][0]->id;
+            $income_id = $income_account['data'][0]->id;
+
+            // Voucher No জেনারেট
+            $last_voucher = $crud->common_query("SELECT max(id) as id FROM receive_vouchers");
+            $voucher_no = 'RV-' . date('Y') . '-' . str_pad(($last_voucher['data'][0]->id ?? 0) + 1, 4, '0', STR_PAD_LEFT);
+
+            // Receive Voucher তৈরি
+            $voucher_data = [
+                'voucher_no' => $voucher_no,
+                'voucher_date' => date('Y-m-d'),
+                'received_from' => 'Trainee ID: ' . $trainee_id,
+                'narration' => 'Payment received for Invoice: ' . $invoice_no,
+                'Invoice_id' => $invoice_id,
+                'dr' => 0,
+                'cr' => $paid_amount,
+                'created_by' => $_SESSION['user_id']
+            ];
+            $voucher_result = $crud->common_insert("receive_vouchers", $voucher_data);
+            if (!$voucher_result['status']) {
+                throw new Exception("Voucher creation failed: " . $voucher_result['message']);
+            }
+            $voucher_id = $voucher_result['data'];
+
+            // Voucher Details (Debit: Cash, Credit: Income)
+            $details_data = [
+                'receive_voucher_id' => $voucher_id,
+                'account_head_id' => $cash_id,
+                'dr' => $paid_amount,
+                'cr' => 0,
+                'remarks' => 'Cash received'
+            ];
+            $crud->common_insert("receive_voucher_details", $details_data);
+
+            $details_data = [
+                'receive_voucher_id' => $voucher_id,
+                'account_head_id' => $income_id,
+                'dr' => 0,
+                'cr' => $paid_amount,
+                'remarks' => 'Income from Invoice: ' . $invoice_no
+            ];
+            $crud->common_insert("receive_voucher_details", $details_data);
+
+            // Ledger Update
+            $ledger_data = [
+                'receive_voucher_id' => $voucher_id,
+                'account_head_id' => $cash_id,
+                'dr' => $paid_amount,
+                'cr' => 0,
+                'remarks' => 'Cash received for Invoice: ' . $invoice_no
+            ];
+            $crud->common_insert("ledger", $ledger_data);
+
+            $ledger_data = [
+                'receive_voucher_id' => $voucher_id,
+                'account_head_id' => $income_id,
+                'dr' => 0,
+                'cr' => $paid_amount,
+                'remarks' => 'Income from Invoice: ' . $invoice_no
+            ];
+            $crud->common_insert("ledger", $ledger_data);
+        }
     }
 
     $crud->conn->commit();
