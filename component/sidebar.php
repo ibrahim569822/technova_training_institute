@@ -29,7 +29,42 @@
                             </a>
                         </li>
                         <li><a href="<?php echo $base_url; ?>invoices/list.php" class="sidebar-link"><i class="fa-solid fa-file-invoice"></i><p>Invoices</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>attendance/list.php" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i><p>Attendance</p></a></li>
+                        <!-- Attendance Menu with Submenu -->
+                        <li><a href="#" class="sidebar-link submenu-parent">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                <p>Attendance <i class="fa-solid fa-chevron-right right-icon"></i></p>
+                            </a>
+                            <ul class="sidebar-submenu">
+                                <li>
+                                    <a href="<?php echo $base_url; ?>teacher/attendance/list.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Teachers</p>
+                                    </a>
+                                </li>
+                                <!--<li>
+                                    <a href="<?php echo $base_url; ?>Attendance/list.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>Trainers</p>
+                                    </a>
+                                </li>-->
+                                <li>
+                                    <a href="<?php echo $base_url; ?>teacher/leaves/list.php" class="submenu-link">
+                                        <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                        <p>
+                                            Leaves
+                                            <?php
+                                            
+                                            $pending_count = $crud->common_query("SELECT COUNT(*) as total FROM trainer_leaves WHERE status = 0 AND deleted_at IS NULL");
+                                            $count = $pending_count['data'][0]->total ?? 0;
+                                            if ($count > 0) {
+                                                echo '<span class="badge bg-danger rounded-pill ms-auto">' . $count . '</span>';
+                                            }
+                                            ?>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         
                             
                         <!--
@@ -90,6 +125,7 @@
                                 <li><a href="<?php echo $base_url; ?>form.php" class="submenu-link"><i class="fa-solid fa-circle me-4 font-size-12"></i><p class="m-0">Form Element</p></a></li>
                             </ul>
                         </li>-->
+                        
                     </ul>
                </div>
         </div>
