@@ -41,12 +41,12 @@
                                         <p>Teachers</p>
                                     </a>
                                 </li>
-                                <!--<li>
+                                
                                     <a href="<?php echo $base_url; ?>Attendance/list.php" class="submenu-link">
                                         <i class="fa-solid fa-circle me-3 font-size-12"></i>
                                         <p>Trainers</p>
                                     </a>
-                                </li>-->
+                                
                                 <li>
                                     <a href="<?php echo $base_url; ?>teacher/leaves/list.php" class="submenu-link">
                                         <i class="fa-solid fa-circle me-3 font-size-12"></i>
