@@ -86,7 +86,7 @@ class crud_class{
             "data"=>[],
             "message"=>""
         ];
-   echo $sql; // Debugging line to check the generated SQL query
+   //echo $sql; // Debugging line to check the generated SQL query
         $rs = $this->conn->query($sql);
 
         if($rs->num_rows > 0){
