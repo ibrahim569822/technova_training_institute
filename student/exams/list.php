@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12">
             <h3>Exams List
-                <?php print_r($_SESSION); ?>
+            
             </h3>
         </div>
     </div>

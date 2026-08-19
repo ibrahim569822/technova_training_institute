@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-12">
             <h3>Questions</h3>
-            <?php print_r($student_exam); ?>
+            
         </div>
     </div>
     <div class="mt-4">
