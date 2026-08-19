@@ -47,7 +47,10 @@
         <div class="mb-3">
             <label>Mark</label>
             <input type="number" name="mark" class="form-control" required>
+        </div>
+        <div class="mb-3">
         <button type="submit" class="btn btn-primary">Save Question</button>
+        </div>
     </form>
 </div>
 <?php require_once "../component/footer.php"; ?>
