@@ -10,7 +10,6 @@
         $total_correct += $is_correct;
         $total_marks = $questions['data'][0]->mark * $total_correct;
         $pass_status = ($total_marks >= $exam['data'][0]->pass_marks) ? 1 : 0;
-        $student_result = 
         $insert_data = [
             'exam_id' => $_POST['exam_id'],
             'question_id' => $q->id,

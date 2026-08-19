@@ -13,9 +13,9 @@
     $student_exam['pass_status']=0;
     $check_student_exam = $crud->common_query("SELECT * FROM student_exam WHERE student_id={$_SESSION['user_id']} AND exam_id={$_GET['exam_id']}");
     if(!$check_student_exam['data']) {
-        $result = $crud->common_insert("student_result", $student_exam);
+        $result = $crud->common_insert("student_exam", $student_exam);
     }else if($check_student_exam['data'][0]->finish_at!=0){
-        echo "<script>alert('You have already completed this exam. Your score is: " . $check_student_result['data'][0]->total_marks . "');window.location.href = '" . $base_url . "exams/list.php?exam_id=" . $_GET['exam_id'] . "';</script>";
+        echo "<script>alert('You have already completed this exam. Your score is: " . $check_student_exam['data'][0]->total_marks . "');window.location.href = '" . $base_url . "exams/list.php?exam_id=" . $_GET['exam_id'] . "';</script>";
     }
 ?>
 
