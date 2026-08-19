@@ -15,10 +15,10 @@
     if(!$check_student_exam['data']) {
         $result = $crud->common_insert("student_exam", $student_exam);
     }else if($check_student_exam['data'][0]->finish_at!=0){
-        echo "<script>alert('You have already completed this exam.');window.location.href = '" . $base_url . "exams/list.php';</script>";
+        echo "<script>alert('You have already completed this exam. Your score is: " . $check_student_exam['data'][0]->total_marks . "');window.location.href = '" . $base_url . "exams/list.php?exam_id=" . $_GET['exam_id'] . "';</script>";
     }
-
 ?>
+
 
 
 
@@ -27,6 +27,7 @@
     <div class="row">
         <div class="col-12">
             <h3>Questions</h3>
+            
         </div>
     </div>
     <div class="mt-4">
@@ -44,7 +45,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="card-title mb-2">
-                                    <h5 class="card-title mb-0">Question <?= $i ?>. <?= htmlspecialchars($q->question) ?></h5>
+                                    <h5 class="card-title mb-0">Question <?= $i++ ?>. <?= htmlspecialchars($q->question) ?></h5>
                                 </div>
                                 <div class="card-text">
                                     <label for="answer_<?= $q->id ?>_1"><input type="radio" id="answer_<?= $q->id ?>_1" name="answers[<?= $q->id ?>]" value="1">
