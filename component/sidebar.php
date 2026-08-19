@@ -11,7 +11,34 @@
                         <li><a href="<?php echo $base_url; ?>dashboard.php" class=" sidebar-link active"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
                         <li><a href="<?php echo $base_url; ?>courses/courselist.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Courses</p></a></li>
                         <li><a href="<?php echo $base_url; ?>trainees/list.php" class=" sidebar-link"><i class="fa-solid fa-user"></i><p>Students</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>teacher/list.php" class=" sidebar-link"><i class="fa-solid fa-chalkboard-user"></i><p>Teachers</p></a></li>
+                        <!-- Teachers Menu with Payroll Submenu -->
+                            <li><a href="#" class="sidebar-link submenu-parent">
+                                    <i class="fa-solid fa-chalkboard-user"></i>
+                                    <p>Teachers <i class="fa-solid fa-chevron-right right-icon"></i></p>
+                                </a>
+                                <ul class="sidebar-submenu">
+                                    
+                                    <li><a href="#" class="submenu-link submenu-parent">
+                                            <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                            <p>Payroll <i class="fa-solid fa-chevron-right right-icon"></i></p>
+                                        </a>
+                                        <ul class="sidebar-submenu" style="padding-left: 20px;">
+                                            <li>
+                                                <a href="<?php echo $base_url; ?>teacher/salary/list.php" class="submenu-link">
+                                                    <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                                    <p>Salary</p>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo $base_url; ?>teacher/salary/loan_list.php" class="submenu-link">
+                                                    <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                                    <p>Loan</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                         <li><a href="<?php echo $base_url; ?>exams/list.php" class="sidebar-link"><i class="fa-solid fa-pen-to-square"></i><p>Exams</p></a></li>
                         <li><a href="<?php echo $base_url; ?>batches/list.php" class="sidebar-link"><i class="fa-solid fa-layer-group"></i><p>Batches</p></a></li>
                        
@@ -44,7 +71,7 @@
                                 
                                     <a href="<?php echo $base_url; ?>Attendance/list.php" class="submenu-link">
                                         <i class="fa-solid fa-circle me-3 font-size-12"></i>
-                                        <p>Trainers</p>
+                                        <p>Trainees</p>
                                     </a>
                                 
                                 <li>

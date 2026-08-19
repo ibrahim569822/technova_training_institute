@@ -9,11 +9,19 @@ $teacher_id = $_GET['teacher_id'] ?? 0;
 
 <div class="main-content">
     <div class="row">
-        <div class="col-12">
-            <h3>Loan List</h3>
-            <a href="loan_create.php<?= $teacher_id ? '?teacher_id=' . $teacher_id : '' ?>" class="btn btn-primary">Add Loan</a>
+        <div class="d-flex align-items-lg-center flex-column flex-md-row flex-lg-row mt-3">
+                <div class="flex-grow-1">
+                    <h3 class="mb-2 text-size-26 text-color-2">Loan List</h3>
+                </div>
+                <div class="mt-3 mt-lg-0">
+                   
+                    <a href="loan_create.php<?= $teacher_id ? '?teacher_id=' . $teacher_id : '' ?>" class="btn btn-success">
+                        <i class="fa-solid fa-plus me-2"></i>Add Loan
+                    </a>
+                </div>
+            
         </div>
-    </div>
+    </div><br>
     <table class="table table-bordered">
         <thead>
             <tr>
