@@ -44,6 +44,9 @@
                 <option value="4">Option D</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label>Mark</label>
+            <input type="number" name="mark" class="form-control" required>
         <button type="submit" class="btn btn-primary">Save Question</button>
     </form>
 </div>
