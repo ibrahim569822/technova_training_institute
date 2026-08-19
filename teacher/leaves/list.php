@@ -22,7 +22,7 @@ $teacher_id = $_GET['teacher_id'] ?? 0;
                 </div>
             </div>
         </div>
-    </div>
+    </div><br>
     <table class="table table-bordered">
         <thead>
             <tr>
