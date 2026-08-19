@@ -2,9 +2,8 @@
 require_once "../component/connection.php";
 
 $id = $_POST['id'];
-$exam_id = $_POST['exam_id'];
-
 $q_data = [
+    'exam_id' => $_POST['exam_id'],
     'question' => $_POST['question'],
     'option_a' => $_POST['option_a'],
     'option_b' => $_POST['option_b'],
@@ -22,4 +21,4 @@ if ($result['status']) {
     $_SESSION['message'] = ['danger', 'Error', $result['message']];
 }
 
-echo "<script>window.location.href = '" . $base_url . "questions/list.php?exam_id=" . $exam_id . "';</script>";
+echo "<script>window.location.href = '" . $base_url . "questions/list.php?exam_id=" . $q_data['exam_id'] . "';</script>";
