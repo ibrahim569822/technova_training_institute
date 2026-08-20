@@ -29,7 +29,6 @@
                     <table class="table align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th>Date</th>
                                 <th>Certificate No</th>
                                 <th>Trainee Name</th>
                                 <th>Course Name</th>
@@ -41,47 +40,25 @@
 
                         </thead>
                         <?php
-                        $sql = "SELECT Date.*, users.Certificate no, users.Trainee Name, users.Course Name, users.Batch Name FROM Issue Date
-                                            JOIN users ON Status= where Action is null";
+                        $sql = "SELECT certificates.*, trainees.full_name,trainees.phone, courses.course_name, batches.batch_name FROM `certificates` join trainees on trainees.id=certificates.trainee_id JOIN courses on courses.id=certificates.course_id JOIN batches on batches.id=certificates.batch_id WHERE certificates.deleted_at is null";
 
                         $result = $crud->common_query($sql);
                         if ($result['status']) {
                             foreach ($result['data'] as $Certificate) {
                                 ?>
                                 <tr>
-                                    <td>
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <img src="<?= $base_url; ?>assets/uploads/trainers/images/<?= $Certificate->image ?? 'default.jpg' ?>"
-                                                class="tbl-img" alt="">
-                                            <span class="ms-2"><?= $Certificate->full_name ?></span>
-                                        </div>
-                                    </td>
-                                    <td><?= $Certificate->Date ?></td>
-                                    <td><?= $Certificate->Certificate
-                                    No ?></td>
-                                    <td><?= $Certificate->Trainee
-                                    Name ?></td>
-                                    <td><?= $Certificate->Course
-                                    Name ?></td>
-                                    <td><?= $Certificate->Batch
-                                    Name ?></td>
-                                    <td><?= $Certificate->Issue
-                                    Date ?></td>
-                                    <td><?= $Certificate->Status ?></td>
-                                    <td><?= $Certificate->Action ?></td>
-                                    <td>
-                                        <?php if ($Certificate->status == 1) { ?>
-                                            <span class="badge bg-success  mb-2">Active</span>
-                                        <?php } else { ?>
-                                            <span class="badge bg-danger">Inactive</span>
-                                        <?php } ?>
-                                    </td>
+                                    <td><?= $Certificate->certificate_no ?></td>
+                                    <td><?= $Certificate->full_name ?> - <?= $Certificate->phone ?></td>
+                                    <td><?= $Certificate->course_name ?></td>
+                                    <td><?= $Certificate->batch_name ?></td>
+                                    <td><?= $Certificate->issue_date ?></td>
+                                    <td><?= $Certificate->status ?></td>
                                     <td class="text-center">
-                                        <a href="<?= $base_url; ?>Certificate/view.php?id=<?= $Certificate->id ?>"
+                                        <a href="<?= $base_url; ?>certificates/certificate.php?id=<?= $Certificate->certificate_id ?>"
                                             class="btn btn-sm btn-primary mb-2"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="<?= $base_url; ?>Certificate/edit.php?id=<?= $Certificate->id ?>"
+                                        <a href="<?= $base_url; ?>certificates/edit.php?id=<?= $Certificate->certificate_id ?>"
                                             class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
-                                        <a href="<?= $base_url; ?>Certificate/delete.php?id=<?= $Certificate->id ?>"
+                                        <a href="<?= $base_url; ?>certificates/delete.php?id=<?= $Certificate->certificate_id ?>"
                                             class="btn btn-sm btn-danger mb-2"><i class="fa-solid fa-trash-can"></i></a>
                                     </td>
                                 </tr>

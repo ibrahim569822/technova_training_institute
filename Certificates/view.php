@@ -19,7 +19,7 @@ $sql = "SELECT
             ON certificates.course_id = courses.id
         JOIN batches 
             ON certificates.batch_id = batches.id
-        WHERE certificates.id = '$certificate_id'
+        WHERE certificates.certificate_id = '$certificate_id'
         AND certificates.deleted_at IS NULL";
 
 $data = $crud->common_query($sql);
