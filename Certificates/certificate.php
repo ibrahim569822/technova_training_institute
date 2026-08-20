@@ -182,6 +182,23 @@ require_once "../component/connection.php";
       min-width: 200px;
     }
 
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+    }
+
+    .qr-box .qr-label {
+      margin-top: 8px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: #15443E;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
     .signature-img {
       height: 55px;
       margin-bottom: 2px;
@@ -223,11 +240,13 @@ require_once "../component/connection.php";
   $certificate_id = $_GET['id'] ?? 0;
   $sql = "SELECT 
             certificates.certificate_no,
-            trainees.full_name,
-            courses.course_name,
-            batches.batch_name,
             certificates.issue_date,
-            certificates.status
+            certificates.status,
+            trainees.full_name,
+            trainees.phone,
+            trainees.dob,
+            courses.course_name,
+            batches.batch_name
         FROM certificates
         JOIN trainees 
             ON certificates.trainee_id = trainees.id
@@ -249,6 +268,12 @@ require_once "../component/connection.php";
     exit;
   } else {
     $certificate = $data['data'][0];
+    $issue_date = !empty($certificate->issue_date)
+      ? date('d M, Y', strtotime($certificate->issue_date))
+      : 'N/A';
+    $completion_date = !empty($certificate->issue_date)
+      ? date('d M, Y', strtotime($certificate->issue_date))
+      : 'N/A';
   }
   ?>
 
@@ -267,24 +292,49 @@ require_once "../component/connection.php";
       </div>
 
       <div class="description">
-        For successfully completing the
-        <?= htmlspecialchars($certificate->course_name); ?> Course.
+        This certificate is awarded to
+        <strong><?= htmlspecialchars($certificate->full_name); ?></strong>
+        in recognition of successful completion of the
+        <strong><?= htmlspecialchars($certificate->course_name); ?></strong>
+        training program.
       </div>
 
       <div class="fields-row">
-        <div>Date of Birth: <span class="blank"></span></div>
-        <div>Mobile: <span class="blank"></span></div>
+        <div>Certificate No: <span class="blank"><?= htmlspecialchars($certificate->certificate_no); ?></span></div>
+        <div>Issue Date: <span class="blank"><?= htmlspecialchars($issue_date); ?></span></div>
       </div>
 
+      <div class="fields-row">
+        <div>Program: <span class="blank"><?= htmlspecialchars($certificate->course_name); ?></span></div>
+        <div>Batch: <span class="blank"><?= htmlspecialchars($certificate->batch_name); ?></span></div>
+      </div>
 
       <div class="footer">
         <div class="footer-block">
           <div class="footer-line">DIRECTOR</div>
           <div class="footer-sub">Technova Training Institute</div>
         </div>
+
+        <div class="qr-box">
+          <div id="certificate-qr"></div>
+          <div class="qr-label">Verify</div>
+        </div>
       </div>
     </div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const certificateUrl = "http://localhost/technova_training_institute/certificates/certificate.php?id=<?= (int) $certificate_id; ?>";
+    new QRCode(document.getElementById("certificate-qr"), {
+      text: certificateUrl,
+      width: 96,
+      height: 96,
+      colorDark: "#15443E",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
 
 </body>
 
