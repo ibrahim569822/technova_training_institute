@@ -6,7 +6,7 @@
 <?php
 $id = $_GET['id'] ?? 0;
 
-// 🔥 ডাটাবেস থেকে রেকর্ড বের করা
+
 $sql = "SELECT * FROM trainer_attendance WHERE id = $id";
 $data = $crud->common_query($sql);
 
