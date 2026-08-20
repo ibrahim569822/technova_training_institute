@@ -10,5 +10,5 @@
             $_SESSION['message'] = array('danger','Error', $result['message']);
         }
 
-        echo "<script>window.location.href = '".$base_url."categories/list.php';</script>";
+        echo "<script>window.location.href = '".$base_url."courses/categories/list.php';</script>";
     
