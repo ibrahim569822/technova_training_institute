@@ -3,13 +3,22 @@
 class crud_class
 {
 
-    private $host = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $database = "technova_training_institute";
+    private $host;
+    private $username;
+    private $password;
+    private $database;
     public $conn;
 
-    public function __construct()
+    public function __construct($host = "localhost", $username = "root", $password = "", $database = "technova_training_institute")
+    {
+        $this->host = $host;
+        $this->username = $username;
+        $this->password = $password;
+        $this->database = $database;
+        $this->connect();
+    }
+
+    private function connect()
     {
         $this->conn = new mysqli($this->host, $this->username, $this->password, $this->database);
         if ($this->conn->connect_error) {
