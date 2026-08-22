@@ -3,13 +3,13 @@
         <div class="sidebar no-print">
                 <!-- Sidebar -->
                <div class="sidebar-header">
-                   <div class="lg-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/logo.png" alt="logo large" width="100%" height="50"></a></div>
-                   <div class="sm-logo"><a href="<?php echo $base_url; ?>dashboard.php"><img src="<?php echo $base_url; ?>assets/images/small_logo.png" alt="logo small" width="100%" height="50"></a></div>
+                   <div class="lg-logo"><a href="<?= $base_url; ?>index.php"><img src="<?= $base_url; ?>assets/images/logo.png" alt="logo large" width="100%" height="50"></a></div>
+                   <div class="sm-logo"><a href="<?= $base_url; ?>index.php"><img src="<?= $base_url; ?>assets/images/small_logo.png" alt="logo small" width="100%" height="50"></a></div>
                </div>
                <div class="sidebar-body  custom-scrollbar">
                     <ul class="sidebar-menu">
-                        <li><a href="<?php echo $base_url; ?>dashboard.php" class=" sidebar-link active"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
-                        <li><a href="<?php echo $base_url; ?>exams/list.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Exams</p></a></li>
+                        <li><a href="<?= $base_url; ?>index.php" class=" sidebar-link active"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
+                        <li><a href="<?= $base_url; ?>exams/list.php" class="sidebar-link"><i class="fa-brands fa-discourse"></i><p>Exams</p></a></li>
                     </ul>
                </div>
         </div>
