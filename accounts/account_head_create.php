@@ -32,7 +32,6 @@
                                 <option value="3">Income</option>
                                 <option value="4">Expense</option>
                                 <option value="5">Equity</option>
-                                <option value="6">VAT</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">

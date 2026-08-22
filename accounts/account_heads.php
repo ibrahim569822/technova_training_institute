@@ -18,7 +18,7 @@
                     <th>Name</th>
                     <th>Type</th>
                     <th>Balance</th>
-                    <th>Status</th>
+                
                     <th>Action</th>
                 </tr>
             </thead>
@@ -33,7 +33,6 @@
                     <td><?= $acc->account_name ?></td>
                     <td><?= $acc->account_type ?></td>
                     <td><?= number_format($acc->current_balance, 2) ?></td>
-                    <td><?= $acc->status == 1 ? 'Active' : 'Inactive' ?></td>
                     <td>
                         
                         <a href="ledger.php?account_id=<?= $acc->id ?>" class="btn btn-sm btn-info">
