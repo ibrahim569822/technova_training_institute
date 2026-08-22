@@ -25,12 +25,14 @@
             </thead>
             <tbody>
                 <?php
-                $exam_id = $_GET['exam_id'] ?? null;
+                $student_id = $_SESSION['user_id'] ?? null;
                 $sql = "SELECT exams.*, batches.batch_name FROM exams LEFT JOIN batches ON exams.batch_id = batches.id WHERE exams.deleted_at IS NULL";
                 $result = $crud->common_query($sql);
-                $student_exams = $crud->common_query("SELECT * FROM student_exam where exam_id = $exam_id");
+                // $student_exams = $crud->common_query("SELECT * FROM student_exam WHERE student_id = $student_id");
+                // print_r($student_exams); // Debugging line to check the student exams data
                 if ($result['status']) {
                     foreach ($result['data'] as $exam) {
+                $student_exams = $crud->common_query("SELECT finish_at FROM student_exam WHERE student_id = $student_id AND exam_id = {$exam->id}");
                 ?>
                 <tr>
                     <td><?= $exam->exam_name ?></td>
@@ -40,7 +42,7 @@
                     <td><?= $exam->pass_marks ?></td>
                     <td>
                         <a href="<?= $base_url; ?>exams/questions.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-info">
-                            <?php if ($student_exams['data'][0]->finish_at == null) { ?>
+                            <?php if ($student_exams['data'][0]->finish_at == 0) { ?>
                                 View Questions
                             <?php } else { ?>
                                 Result
