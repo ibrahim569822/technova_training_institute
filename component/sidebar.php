@@ -29,7 +29,14 @@
                         <i class="fa-solid fa-chalkboard-user"></i>
                         <p>Teachers <i class="fa-solid fa-chevron-right right-icon"></i></p>
                     </a>
+
                     <ul class="sidebar-submenu">
+                        <li>
+                            <a href="<?php echo $base_url; ?>teacher/list.php" class="submenu-link">
+                                <i class="fa-solid fa-circle me-3 font-size-12"></i>
+                                <p>Trainer Management</p>
+                            </a>
+                        </li>
 
                         <li><a href="#" class="submenu-link submenu-parent">
                                 <i class="fa-solid fa-circle me-3 font-size-12"></i>
