@@ -13,19 +13,20 @@
             </div>
         </div>
     </div>
+
     <div class="mt-4">
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
                 <form action="voucher_store.php" method="POST" class="p-4">
-                    <input type="hidden" name="type" value="<?= $_GET['type'] ?? 'payment' ?>">
-                    
+                    <input type="hidden" name="type" value="<?= htmlspecialchars($current_type) ?>">
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="voucher_type" class="form-label">Voucher Type</label>
-                            <select name="voucher_type" id="voucher_type" class="form-select" onchange="window.location.href='?type='+this.value">
-                                <option value="payment" <?= ($_GET['type'] ?? 'payment') == 'payment' ? 'selected' : '' ?>>Payment Voucher</option>
-                                <option value="receive" <?= ($_GET['type'] ?? 'payment') == 'receive' ? 'selected' : '' ?>>Receive Voucher</option>
-                                <option value="journal" <?= ($_GET['type'] ?? 'payment') == 'journal' ? 'selected' : '' ?>>Journal Voucher</option>
+                            <select name="voucher_type" id="voucher_type" class="form-select" required>
+                                <option value="payment_vouchers" >Payment Voucher</option>
+                                <option value="receive_vouchers" >Receive Voucher</option>
+                                <option value="journal_vouchers" >Journal Voucher</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -33,7 +34,7 @@
                             <input type="date" name="voucher_date" id="voucher_date" class="form-control" value="<?= date('Y-m-d') ?>" required>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label for="narration" class="form-label">Narration</label>
@@ -79,9 +80,9 @@
                                 <select id="accountHeadSelector" class="form-select">
                                     <option value="">Select Account</option>
                                     <?php
-                                    $accounts = $crud->common_query("SELECT id, account_name FROM account_heads WHERE deleted_at IS NULL");
+                                    $accounts = $crud->common_query("SELECT id, account_name FROM account_heads WHERE deleted_at IS NULL AND is_active = 1");
                                     foreach ($accounts['data'] as $a) {
-                                        echo "<option value='{$a->id}' data-name='{$a->account_name}'>{$a->account_name}</option>";
+                                        echo "<option value='{$a->id}' data-name='" . htmlspecialchars($a->account_name) . "'>" . htmlspecialchars($a->account_name) . "</option>";
                                     }
                                     ?>
                                 </select>
@@ -91,7 +92,7 @@
 
                     <div class="col-lg-12 mt-4">
                         <div class="form-group mb-0">
-                            <button type="submit" class="btn btn-primary">Save Voucher</button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Save Voucher</button>
                             <a href="<?= $base_url; ?>accounts/payment_vouchers.php" class="btn btn-secondary">Cancel</a>
                         </div>
                     </div>
@@ -109,9 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const voucherItemsBody = document.getElementById('voucherItems');
     const totalDrInput = document.getElementById('totalDr');
     const totalCrInput = document.getElementById('totalCr');
+    const form = document.querySelector('form');
 
     let voucherRows = [];
-
 
     accountSelector.addEventListener('change', function() {
         const selected = this.options[this.selectedIndex];
@@ -129,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderTable();
             calculateTotals();
         }
-        this.value = ''; 
+        this.value = '';
     });
 
     function renderTable() {
@@ -164,11 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
             voucherItemsBody.appendChild(tr);
         });
 
-        
         document.querySelectorAll('.dr-input').forEach(input => {
             input.addEventListener('input', function() {
                 const idx = this.dataset.index;
                 voucherRows[idx].dr = parseFloat(this.value) || 0;
+                if (voucherRows[idx].dr > 0) voucherRows[idx].cr = 0; // prevent both filled
                 calculateTotals();
             });
         });
@@ -177,11 +178,18 @@ document.addEventListener('DOMContentLoaded', function() {
             input.addEventListener('input', function() {
                 const idx = this.dataset.index;
                 voucherRows[idx].cr = parseFloat(this.value) || 0;
+                if (voucherRows[idx].cr > 0) voucherRows[idx].dr = 0; // prevent both filled
                 calculateTotals();
             });
         });
 
-        
+        document.querySelectorAll('.remarks-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const idx = this.dataset.index;
+                voucherRows[idx].remarks = this.value;
+            });
+        });
+
         document.querySelectorAll('.remove-row').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = this.dataset.index;
@@ -198,5 +206,20 @@ document.addEventListener('DOMContentLoaded', function() {
         totalDrInput.value = totalDr.toFixed(2);
         totalCrInput.value = totalCr.toFixed(2);
     }
+
+    // Client-side guard before submit (server still re-validates - this is just UX)
+    form.addEventListener('submit', function(e) {
+        if (voucherRows.length < 2) {
+            e.preventDefault();
+            alert('Please add at least 2 account lines.');
+            return;
+        }
+        const totalDr = parseFloat(totalDrInput.value);
+        const totalCr = parseFloat(totalCrInput.value);
+        if (totalDr.toFixed(2) !== totalCr.toFixed(2)) {
+            e.preventDefault();
+            alert('Total Debit must equal Total Credit before saving.');
+        }
+    });
 });
 </script>

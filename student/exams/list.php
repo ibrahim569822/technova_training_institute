@@ -41,11 +41,11 @@
                     <td><?= $exam->total_marks ?></td>
                     <td><?= $exam->pass_marks ?></td>
                     <td>
-                        <a href="<?= $base_url; ?>exams/questions.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-info">
+                        
                             <?php if ($student_exams['data'][0]->finish_at == 0) { ?>
-                                View Questions
+                                <a href="<?= $base_url; ?>exams/questions.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-info">View Questions
                             <?php } else { ?>
-                                Result
+                                <a href="<?= $base_url; ?>exams/result.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-success">View Result</a>
                             <?php } ?>
                         </a>
                     </td>
