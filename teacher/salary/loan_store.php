@@ -2,7 +2,7 @@
 require_once "../../component/connection.php";
 
 $data = [
-    'teacher_id' => $_POST['teacher_id'],
+    'trainer_id' => $_POST['teacher_id'], 
     'loan_amount' => $_POST['loan_amount'],
     'remaining_amount' => $_POST['loan_amount'],
     'installment_count' => $_POST['installment_count'],

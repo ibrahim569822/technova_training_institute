@@ -20,5 +20,4 @@ if ($result['status']) {
     $_SESSION['message'] = ['danger', 'Error', $result['message']];
 }
 
-// 🔥 সঠিক রিডাইরেক্ট: list.php-তে ফিরে যাওয়া (exam_id সহ)
 echo "<script>window.location.href = '" . $base_url . "questions/list.php?exam_id=" . $_POST['exam_id'] . "';</script>";

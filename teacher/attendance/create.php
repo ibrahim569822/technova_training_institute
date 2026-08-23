@@ -6,41 +6,79 @@
 <div class="main-content">
     <div class="row">
         <div class="col-12">
-            <h3>Add Attendance</h3>
+            <div class="d-flex align-items-lg-center flex-column flex-md-row flex-lg-row mt-3">
+                <div class="flex-grow-1">
+                    <h3 class="mb-2 text-size-26 text-success">Add Attendance</h3>
+                </div>
+            </div>
         </div>
     </div>
-    <form action="store.php" method="POST">
-        <div class="row">
-            <div class="col-md-6">
-                <label>Teacher</label>
-                <select name="teacher_id" class="form-select" required>
-                    <option value="">Select Teacher</option>
-                    <?php
-                    $teachers = $crud->common_query("SELECT trainers.id, users.full_name FROM trainers JOIN users ON trainers.user_id = users.id WHERE trainers.deleted_at IS NULL");
-                    foreach ($teachers['data'] as $t) {
-                        echo "<option value='{$t->id}'>{$t->full_name}</option>";
-                    }
-                    ?>
-                </select>
+    <div class="mt-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <form action="store.php" method="POST" class="p-4">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="attendance_date" class="form-label">Attendance Date</label>
+                           
+                            <input type="date" class="form-control" id="attendance_date" name="attendance_date" value="<?= date('Y-m-d') ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <button type="button" class="btn btn-success" onclick="loadTeachers()">Load Teachers</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Teacher Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacherTableBody">
+                                    <!-- Teachers will be loaded here via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <button type="submit" class="btn btn-success">Save Attendance</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="col-md-6">
-                <label>Date</label>
-                
-                <input type="date" name="attendance_date" class="form-control" value="<?= date('Y-m-d') ?>" required>
-            </div>
-        
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <label>Status</label>
-                <select name="status" class="form-select" required>
-                    <option value="0">Present</option>
-                    <option value="1">Absent</option>
-                    <option value="2">Leave</option>
-                </select>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Save</button>
-    </form>
+    </div>
 </div>
-<?php require_once "../../component/footer.php"; ?>
+
+<script>
+    function loadTeachers() {
+        const attendanceDate = document.getElementById('attendance_date').value;
+        if (!attendanceDate) {
+            alert('Please select a date first.');
+            return;
+        }
+
+      
+        fetch(`<?= $base_url ?>teacher/attendance/get_all_teachers.php?attendance_date=${attendanceDate}`)
+            .then(response => response.text())
+            .then(data => {
+                if (data) {
+                    document.getElementById('teacherTableBody').innerHTML = data;
+                } else {
+                    document.getElementById('teacherTableBody').innerHTML = '<tr><td colspan="3">No teachers found.</td></tr>';
+                }
+            })
+            .catch(error => console.error('Error fetching teachers:', error));
+    }
+</script>
+
+<?php require_once "../../component/footer.php" ?>

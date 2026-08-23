@@ -70,9 +70,9 @@
                             $_SESSION['user_name'] = $user->full_name; // Store user name in session
                             $_SESSION['user_email'] = $user->email; // Store user email in session
                             $_SESSION['user_phone'] = $user->phone; // Store user phone in session
-                            $_SESSION['is_logged_in'] = true; // Set a flag to indicate the user is logged in
+                            $_SESSION['is_student_logged_in'] = true; // Set a flag to indicate the user is logged in
                             // Redirect to dashboard or home page
-                            echo '<script>window.location.href = "dashboard.php";</script>';
+                            echo '<script>window.location.href = "index.php";</script>';
                         } else {
                             echo '<div class="alert alert-danger">Invalid email or password.</div>';
                         }
