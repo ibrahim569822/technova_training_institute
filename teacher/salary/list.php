@@ -49,7 +49,11 @@ $teacher_id = $_GET['teacher_id'] ?? 0;
             <tr>
                 <td><?= $row->month ?></td>
                 <td><?= number_format($row->basic_salary, 2) ?></td>
-                <td> </td>
+                <td>
+                     <a href="view.php?month=<?= $row->month ?>" class="btn btn-sm btn-info">
+                        <i class="fa-regular fa-eye"></i>
+                    </a>
+                </td>
             </tr>
             <?php } ?>
         </tbody>
