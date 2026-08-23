@@ -6,7 +6,6 @@
 <?php
 $user_id = $_SESSION['user_id'];
 $id = $_GET['id'];
-$sql = "SELECT "
 $sql = "SELECT invoices.*, trainees.full_name as trainee_name, 
         payments.transaction_id, payments.payment_method, payments.amount as paid_amount 
         FROM invoices 
