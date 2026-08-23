@@ -6,6 +6,7 @@
 
 $exam_id = (int) ($_GET['exam_id'] ?? 0);
 $student_id = $_SESSION['user_id'] ?? null;
+$student_exam = $crud->common_query("SELECT total_marks, pass_status FROM student_exam WHERE student_id={$student_id} AND exam_id={$exam_id}");
 ?>
 
 
@@ -65,7 +66,7 @@ $student_id = $_SESSION['user_id'] ?? null;
                             </div>
                         </div>
                         <?php } ?>
-                        <button type="submit" class="btn btn-primary mb-3" disabled>Good Luck</button>
+                        <?php echo "Your Score: " . $student_exam->total_marks; echo "Student Pass Status: " . $student_exam->pass_status; ?>
                     </form>
                 </div>
             </div>
