@@ -6,6 +6,7 @@
 
 $exam_id = (int) ($_GET['exam_id'] ?? 0);
 $student_id = $_SESSION['user_id'] ?? null;
+$student_exam = $crud->common_query("SELECT total_marks, pass_status FROM student_exam WHERE student_id={$student_id} AND exam_id={$exam_id}");
 ?>
 
 
@@ -15,8 +16,19 @@ $student_id = $_SESSION['user_id'] ?? null;
 <div class="main-content">
     <div class="row">
         <div class="col-12">
-            <h3>Questions</h3>
-            
+            <h3>Result</h3>
+            <p class="border-bottom pb-2 mb-3">Your exam result details are shown below.</p>
+                <?php if ($student_exam['data']) { ?>
+                    Your total marks: <?= $student_exam['data'][0]->total_marks ?> <br>
+                    <?php if ($student_exam['data'][0]->pass_status) { ?>
+                        <span class="text-success">You have passed the exam.</span>
+                    <?php } else { ?>
+                        <span class="text-danger">You have failed the exam.</span>
+                    <?php } ?>
+                <?php } else { ?>
+                    No result found for this exam.
+                <?php } ?>
+            </p>
         </div>
     </div>
     <div class="mt-4">
@@ -38,25 +50,25 @@ $student_id = $_SESSION['user_id'] ?? null;
                             <div class="card-text">
                                 <label for="answer_<?= $q->id ?>_1" <?php if ($q->correct_answer == 1) echo "class='bg-success text-white'"; ?>>
                                     <input type="radio" id="answer_<?= $q->id ?>_1" name="answers[<?= $q->id ?>]" value="1"
-                                        <?= ($q->selected_option == 1) ? 'checked' : '' ?> >
+                                        <?= ($q->selected_option == 1) ? 'checked' : 'disabled' ?> >
                                     <strong>A.</strong> <?= htmlspecialchars($q->option_a) ?>
                                 </label>
                                 <br>
                                 <label for="answer_<?= $q->id ?>_2" <?php if ($q->correct_answer == 2) echo "class='bg-success text-white'"; ?>>
                                     <input type="radio" id="answer_<?= $q->id ?>_2" name="answers[<?= $q->id ?>]" value="2"
-                                        <?= ($q->selected_option == 2) ? 'checked' : '' ?> >
+                                        <?= ($q->selected_option == 2) ? 'checked' : 'disabled' ?> >
                                     <strong>B.</strong> <?= htmlspecialchars($q->option_b) ?>
                                 </label>
                                 <br>
                                 <label for="answer_<?= $q->id ?>_3" <?php if ($q->correct_answer == 3) echo "class='bg-success text-white'"; ?>>
                                     <input type="radio" id="answer_<?= $q->id ?>_3" name="answers[<?= $q->id ?>]" value="3"
-                                        <?= ($q->selected_option == 3) ? 'checked' : '' ?>>
+                                        <?= ($q->selected_option == 3) ? 'checked' : 'disabled' ?> >
                                     <strong>C.</strong> <?= htmlspecialchars($q->option_c) ?>
                                 </label>
                                 <br>
                                 <label for="answer_<?= $q->id ?>_4" <?php if ($q->correct_answer == 4) echo "class='bg-success text-white'"; ?>>
                                     <input type="radio" id="answer_<?= $q->id ?>_4" name="answers[<?= $q->id ?>]" value="4"
-                                        <?= ($q->selected_option == 4) ? 'checked' : '' ?> >
+                                        <?= ($q->selected_option == 4) ? 'checked' : 'disabled' ?> >
                                     <strong>D.</strong> <?= htmlspecialchars($q->option_d) ?>
                                 </label>
                                 <br>

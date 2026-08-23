@@ -35,8 +35,8 @@
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="account_subtype" class="form-label">Account Subtype</label>
-                            <input type="text" class="form-control" id="account_subtype" name="account_subtype">
+                            <label for="account_nature" class="form-label">Account Nature</label>
+                            <input type="text" class="form-control" id="account_nature" name="account_nature">
                         </div>
                     </div>
                     <div class="row">
