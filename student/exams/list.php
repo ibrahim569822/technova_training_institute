@@ -42,10 +42,11 @@
                     <td><?= $exam->pass_marks ?></td>
                     <td>
                         
-                            <?php if ($student_exams['data'][0]->finish_at == 0) { ?>
-                                <a href="<?= $base_url; ?>exams/questions.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-info">View Questions
-                            <?php } else { ?>
+                            <?php if ($student_exams['data'] && $student_exams['data'][0]->finish_at != 0) { ?>
                                 <a href="<?= $base_url; ?>exams/result.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-success">View Result</a>
+                            <?php } else { ?>
+                                <a href="<?= $base_url; ?>exams/questions.php?exam_id=<?= $exam->id ?>" class="btn btn-sm btn-info">View Questions</a>
+                                
                             <?php } ?>
                         </a>
                     </td>

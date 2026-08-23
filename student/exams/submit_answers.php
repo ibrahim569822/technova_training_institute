@@ -31,4 +31,4 @@
         $crud->common_update("student_exam", $student_exam, ["student_id" => $_SESSION['user_id'], "exam_id" => $_POST['exam_id']]);
     }
 
-echo "<script>alert('Your exam has been submitted successfully. You scored {$total_marks} marks.');window.location.href = '" . $base_url . "exams/result.php?exam_id=" . $_GET['exam_id'] . "'</script>";
+echo "<script>alert('Your exam has been submitted successfully. You scored {$total_marks} marks.');window.location.href = '" . $base_url . "exams/result.php?exam_id=" . $_POST['exam_id'] . "'</script>";
