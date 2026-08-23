@@ -9,7 +9,7 @@
     }
 
     
-    if(!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']){
+    if(!isset($_SESSION['is_student_logged_in']) || !$_SESSION['is_student_logged_in']){
         echo "<script>window.location='{$base_url}login.php'</script>";
         exit;
     }

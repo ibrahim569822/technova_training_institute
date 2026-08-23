@@ -24,50 +24,47 @@ $student_exam = $crud->common_query("SELECT total_marks, pass_status FROM studen
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
                 <div class="table-responsive table-rounded-top">
-                    <form action="submit_answers.php" method="POST">
-                        <input type="hidden" name="exam_id" value="<?= $_GET['exam_id'] ?>">
-                        <?php
-                            $sql = "SELECT questions.*, student_answers.selected_option FROM questions JOIN student_answers ON questions.id = student_answers.question_id WHERE deleted_at IS NULL";
-                            $result = $crud->common_query($sql);
-                            $i = 1;
-                            foreach ($result['data'] as $q) {
-                        ?>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="card-title mb-2">
-                                    <h5 class="card-title mb-0">Question <?= $i++ ?>. <?= htmlspecialchars($q->question) ?></h5>
-                                </div>
-                                <div class="card-text">
-                                    <label for="answer_<?= $q->id ?>_1" <?php if ($q->correct_answer == 1) echo "class='bg-success text-white'"; ?>>
-                                        <input type="radio" id="answer_<?= $q->id ?>_1" name="answers[<?= $q->id ?>]" value="1"
-                                            <?= ($q->selected_option == 1) ? 'checked' : '' ?> >
-                                        <strong>A.</strong> <?= htmlspecialchars($q->option_a) ?>
-                                    </label>
-                                    <br>
-                                    <label for="answer_<?= $q->id ?>_2" <?php if ($q->correct_answer == 2) echo "class='bg-success text-white'"; ?>>
-                                        <input type="radio" id="answer_<?= $q->id ?>_2" name="answers[<?= $q->id ?>]" value="2"
-                                            <?= ($q->selected_option == 2) ? 'checked' : '' ?> >
-                                        <strong>B.</strong> <?= htmlspecialchars($q->option_b) ?>
-                                    </label>
-                                    <br>
-                                    <label for="answer_<?= $q->id ?>_3" <?php if ($q->correct_answer == 3) echo "class='bg-success text-white'"; ?>>
-                                        <input type="radio" id="answer_<?= $q->id ?>_3" name="answers[<?= $q->id ?>]" value="3"
-                                            <?= ($q->selected_option == 3) ? 'checked' : '' ?>>
-                                        <strong>C.</strong> <?= htmlspecialchars($q->option_c) ?>
-                                    </label>
-                                    <br>
-                                    <label for="answer_<?= $q->id ?>_4" <?php if ($q->correct_answer == 4) echo "class='bg-success text-white'"; ?>>
-                                        <input type="radio" id="answer_<?= $q->id ?>_4" name="answers[<?= $q->id ?>]" value="4"
-                                            <?= ($q->selected_option == 4) ? 'checked' : '' ?> >
-                                        <strong>D.</strong> <?= htmlspecialchars($q->option_d) ?>
-                                    </label>
-                                    <br>
-                                </div>
+                    <?php
+                        $student_id = $_SESSION['user_id'] ?? null;
+                        $sql = "SELECT questions.*, student_answers.selected_option FROM questions JOIN student_answers ON questions.id = student_answers.question_id WHERE student_answers.student_id = $student_id AND questions.deleted_at IS NULL";
+                        $result = $crud->common_query($sql);
+                        $i = 1;
+                        foreach ($result['data'] as $q) {
+                    ?>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="card-title mb-2">
+                                <h5 class="card-title mb-0">Question <?= $i++ ?>. <?= htmlspecialchars($q->question) ?></h5>
+                            </div>
+                            <div class="card-text">
+                                <label for="answer_<?= $q->id ?>_1" <?php if ($q->correct_answer == 1) echo "class='bg-success text-white'"; ?>>
+                                    <input type="radio" id="answer_<?= $q->id ?>_1" name="answers[<?= $q->id ?>]" value="1"
+                                        <?= ($q->selected_option == 1) ? 'checked' : '' ?> >
+                                    <strong>A.</strong> <?= htmlspecialchars($q->option_a) ?>
+                                </label>
+                                <br>
+                                <label for="answer_<?= $q->id ?>_2" <?php if ($q->correct_answer == 2) echo "class='bg-success text-white'"; ?>>
+                                    <input type="radio" id="answer_<?= $q->id ?>_2" name="answers[<?= $q->id ?>]" value="2"
+                                        <?= ($q->selected_option == 2) ? 'checked' : '' ?> >
+                                    <strong>B.</strong> <?= htmlspecialchars($q->option_b) ?>
+                                </label>
+                                <br>
+                                <label for="answer_<?= $q->id ?>_3" <?php if ($q->correct_answer == 3) echo "class='bg-success text-white'"; ?>>
+                                    <input type="radio" id="answer_<?= $q->id ?>_3" name="answers[<?= $q->id ?>]" value="3"
+                                        <?= ($q->selected_option == 3) ? 'checked' : '' ?>>
+                                    <strong>C.</strong> <?= htmlspecialchars($q->option_c) ?>
+                                </label>
+                                <br>
+                                <label for="answer_<?= $q->id ?>_4" <?php if ($q->correct_answer == 4) echo "class='bg-success text-white'"; ?>>
+                                    <input type="radio" id="answer_<?= $q->id ?>_4" name="answers[<?= $q->id ?>]" value="4"
+                                        <?= ($q->selected_option == 4) ? 'checked' : '' ?> >
+                                    <strong>D.</strong> <?= htmlspecialchars($q->option_d) ?>
+                                </label>
+                                <br>
                             </div>
                         </div>
-                        <?php } ?>
-                        <?php echo "Your Score: " . $student_exam->total_marks; echo "Student Pass Status: " . $student_exam->pass_status; ?>
-                    </form>
+                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
