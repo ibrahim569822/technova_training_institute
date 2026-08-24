@@ -179,5 +179,22 @@ try {
     $_SESSION['message'] = ['danger', 'Error', 'Invoice creation failed: ' . $e->getMessage()];
 }
 
+$trainee_email=$crud->common_query("SELECT email FROM trainees WHERE id = $trainee_id");
+if($trainee_email['status'] && !empty($trainee_email['data'])){
+    $to = $trainee_email['data'][0]->email;
+    $subject = 'Invoice Created';
+    $message = 'An invoice has been created for you. Invoice No: ' . $invoice_no;
+   
+    $headers = "From: info@blognest.tech\r\n" .
+           "Reply-To: info@blognest.tech\r\n" .
+           "X-Mailer: PHP/" . phpversion();
+
+    if(mail($to, $subject, $message, $headers)) {
+        echo "Email successfully sent!";
+    } else {
+        echo "Email delivery failed.";
+    }
+}
+
 
 echo "<script>window.location.href = '" . $base_url . "invoices/list.php';</script>";
