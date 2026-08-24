@@ -6,11 +6,11 @@
         <div class="col-12">
             <div class="d-flex align-items-lg-center flex-column flex-md-row flex-lg-row mt-3">
                 <div class="flex-grow-1">
-                    <h3 class="mb-2 text-size-26 text-color-2">Payment Vouchers</h3>
+                    <h3 class="mb-2 text-size-26 text-color-2">Receipt Vouchers</h3>
                 </div>
                 <div>
                     <a href="voucher_create.php" class="btn btn-primary">
-                        <i class="fa-solid fa-plus"></i> New Payment Voucher
+                        <i class="fa-solid fa-plus"></i> New Receipt Voucher
                     </a>
                 </div>
             </div>
@@ -42,11 +42,11 @@
                                 SELECT
                                     pv.id, pv.voucher_no, pv.voucher_date, pv.narration,
                                     u.full_name AS created_by_name,
-                                    SUM(pvd.debit_amount) AS total_amount
+                                    SUM(pvd.credit_amount) AS total_amount
                                 FROM payment_vouchers pv
                                 JOIN users u ON u.id = pv.created_by
                                 JOIN payment_voucher_details pvd ON pvd.payment_voucher_id = pv.id
-                                WHERE pv.voucher_type = 1
+                                WHERE pv.voucher_type = 2
                                     AND pv.deleted_at IS NULL
                                     AND pvd.deleted_at IS NULL
                                 GROUP BY pv.id, pv.voucher_no, pv.voucher_date, pv.narration, u.full_name
@@ -56,7 +56,7 @@
                             ?>
 
                             <?php if (!$result['status']): ?>
-                                <tr><td colspan="6" class="text-center text-muted py-4">No payment vouchers found.</td></tr>
+                                <tr><td colspan="6" class="text-center text-muted py-4">No receipt vouchers found.</td></tr>
                             <?php else: foreach ($result['data'] as $v): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($v->voucher_no) ?></td>

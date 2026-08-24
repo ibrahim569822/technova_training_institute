@@ -142,12 +142,7 @@
                                 <p>Account Heads</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?php echo $base_url; ?>accounts/ledger.php" class="submenu-link">
-                                <i class="fa-solid fa-circle me-3 font-size-12"></i>
-                                <p>Ledger</p>
-                            </a>
-                        </li>
+                        
                         <li>
                             <a href="<?php echo $base_url; ?>accounts/payment_vouchers.php" class="submenu-link">
                                 <i class="fa-solid fa-circle me-3 font-size-12"></i>
@@ -155,17 +150,10 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo $base_url; ?>accounts/receive_vouchers.php" class="submenu-link">
+                            <a href="<?php echo $base_url; ?>accounts/receipt_vouchers.php" class="submenu-link">
                                 <i class="fa-solid fa-circle me-3 font-size-12"></i>
-                                <p>Receive Vouchers</p>
+                                <p>receipt Vouchers</p>
                             </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo $base_url; ?>accounts/journal_vouchers.php" class="submenu-link">
-                                <i class="fa-solid fa-circle me-3 font-size-12"></i>
-                                <p>Journal Vouchers</p>
-                            </a>
-                        </li>
                         <li>
                             <a href="<?php echo $base_url; ?>accounts/profit_loss.php" class="submenu-link">
                                 <i class="fa-solid fa-circle me-3 font-size-12"></i>
