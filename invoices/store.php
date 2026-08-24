@@ -1,7 +1,6 @@
 <?php
 require_once "../component/connection.php";
 
-
 $trainee_id = $_POST['trainee_id'];
 $invoice_date = $_POST['invoice_date'];
 $notes = $_POST['notes'] ?? '';
@@ -19,7 +18,6 @@ foreach ($sub_totals as $sub) {
     $grand_total += (float) $sub;
 }
 
-
 $last_invoice = $crud->common_query("SELECT max(id) as id FROM invoices");
 if ($last_invoice['status'] && !empty($last_invoice['data'])) {
     $last_no = (int) $last_invoice['data'][0]->id;
@@ -28,7 +26,6 @@ if ($last_invoice['status'] && !empty($last_invoice['data'])) {
     $new_no = 1;
 }
 $invoice_no = 'INV-' . date('Y') . '-' . str_pad($new_no, 4, '0', STR_PAD_LEFT);
-
 
 $crud->conn->begin_transaction();
 
@@ -55,7 +52,6 @@ try {
     }
     $invoice_id = $invoice_result['data'];
 
-    
     for ($i = 0; $i < count($batch_ids); $i++) {
         if (empty($batch_ids[$i])) continue;
 
@@ -84,7 +80,6 @@ try {
         }
     }
 
-    
     if ($paid_amount > 0) {
         $payment_data = [
             'invoice_id' => $invoice_id,
@@ -100,75 +95,6 @@ try {
         if (!$payment_result['status']) {
             throw new Exception("Failed to save payment: " . $payment_result['message']);
         }
-
-        // 🔥 ACCOUNTING: Auto Receive Voucher + Ledger
-        // Cash এবং Income একাউন্টের আইডি বের করা
-        $cash_account = $crud->common_query("SELECT id FROM account_heads WHERE account_name LIKE '%Cash%' LIMIT 1");
-        $income_account = $crud->common_query("SELECT id FROM account_heads WHERE account_type = 'Income' LIMIT 1");
-
-        if ($cash_account['status'] && $income_account['status']) {
-            $cash_id = $cash_account['data'][0]->id;
-            $income_id = $income_account['data'][0]->id;
-
-            // Voucher No জেনারেট
-            $last_voucher = $crud->common_query("SELECT max(id) as id FROM receive_vouchers");
-            $voucher_no = 'RV-' . date('Y') . '-' . str_pad(($last_voucher['data'][0]->id ?? 0) + 1, 4, '0', STR_PAD_LEFT);
-
-            // Receive Voucher তৈরি
-            $voucher_data = [
-                'voucher_no' => $voucher_no,
-                'voucher_date' => date('Y-m-d'),
-                'received_from' => 'Trainee ID: ' . $trainee_id,
-                'narration' => 'Payment received for Invoice: ' . $invoice_no,
-                'Invoice_id' => $invoice_id,
-                'dr' => 0,
-                'cr' => $paid_amount,
-                'created_by' => $_SESSION['user_id']
-            ];
-            $voucher_result = $crud->common_insert("receive_vouchers", $voucher_data);
-            if (!$voucher_result['status']) {
-                throw new Exception("Voucher creation failed: " . $voucher_result['message']);
-            }
-            $voucher_id = $voucher_result['data'];
-
-            // Voucher Details (Debit: Cash, Credit: Income)
-            $details_data = [
-                'receive_voucher_id' => $voucher_id,
-                'account_head_id' => $cash_id,
-                'dr' => $paid_amount,
-                'cr' => 0,
-                'remarks' => 'Cash received'
-            ];
-            $crud->common_insert("receive_voucher_details", $details_data);
-
-            $details_data = [
-                'receive_voucher_id' => $voucher_id,
-                'account_head_id' => $income_id,
-                'dr' => 0,
-                'cr' => $paid_amount,
-                'remarks' => 'Income from Invoice: ' . $invoice_no
-            ];
-            $crud->common_insert("receive_voucher_details", $details_data);
-
-            // Ledger Update
-            $ledger_data = [
-                'receive_voucher_id' => $voucher_id,
-                'account_head_id' => $cash_id,
-                'dr' => $paid_amount,
-                'cr' => 0,
-                'remarks' => 'Cash received for Invoice: ' . $invoice_no
-            ];
-            $crud->common_insert("ledger", $ledger_data);
-
-            $ledger_data = [
-                'receive_voucher_id' => $voucher_id,
-                'account_head_id' => $income_id,
-                'dr' => 0,
-                'cr' => $paid_amount,
-                'remarks' => 'Income from Invoice: ' . $invoice_no
-            ];
-            $crud->common_insert("ledger", $ledger_data);
-        }
     }
 
     $crud->conn->commit();
@@ -179,5 +105,46 @@ try {
     $_SESSION['message'] = ['danger', 'Error', 'Invoice creation failed: ' . $e->getMessage()];
 }
 
+
+$trainee_email = $crud->common_query("SELECT id, full_name, email FROM trainees WHERE id = $trainee_id");
+if ($trainee_email['status'] && !empty($trainee_email['data'])) {
+    $trainee = $trainee_email['data'][0];
+    $to = $trainee->email;
+    $subject = 'Invoice Created - ' . $invoice_no;
+
+    $invoice = (object) [
+        'invoice_no' => $invoice_no,
+        'invoice_date' => $invoice_date,
+        'sub_total' => $_POST['total'] ?? 0,
+        'discount_amount' => $_POST['total_discount'] ?? 0,
+        'vat' => $_POST['total_vat'] ?? 0,
+        'grand_total' => $grand_total,
+        'notes' => $notes,
+        'payment_status' => $payment_status,
+        'paid_amount' => $paid_amount,
+        'transaction_id' => $_POST['transaction_id'] ?? null,
+        'payment_method' => $_POST['payment_method'] ?? 0,
+        'trainee_name' => $trainee->full_name
+    ];
+
+    $details_query = $crud->common_query("SELECT invoice_details.*, batches.batch_name FROM invoice_details JOIN batches ON invoice_details.batch_id = batches.id WHERE invoice_details.invoice_id = $invoice_id ORDER BY invoice_details.id ASC");
+    $details = $details_query['status'] ? $details_query['data'] : [];
+
+    ob_start();
+    include __DIR__ . '/email_template.php';
+    $html_message = ob_get_clean();
+
+    $headers = "From: info@blognest.tech\r\n" .
+               "Reply-To: info@blognest.tech\r\n" .
+               "MIME-Version: 1.0\r\n" .
+               "Content-Type: text/html; charset=UTF-8\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+
+    if (mail($to, $subject, $html_message, $headers)) {
+        echo "Email successfully sent!";
+    } else {
+        echo "Email delivery failed.";
+    }
+}
 
 echo "<script>window.location.href = '" . $base_url . "invoices/list.php';</script>";
