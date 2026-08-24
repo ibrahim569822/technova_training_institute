@@ -179,17 +179,41 @@ try {
     $_SESSION['message'] = ['danger', 'Error', 'Invoice creation failed: ' . $e->getMessage()];
 }
 
-$trainee_email=$crud->common_query("SELECT email FROM trainees WHERE id = $trainee_id");
-if($trainee_email['status'] && !empty($trainee_email['data'])){
-    $to = $trainee_email['data'][0]->email;
-    $subject = 'Invoice Created';
-    $message = 'An invoice has been created for you. Invoice No: ' . $invoice_no;
-   
-    $headers = "From: info@blognest.tech\r\n" .
-           "Reply-To: info@blognest.tech\r\n" .
-           "X-Mailer: PHP/" . phpversion();
+$trainee_email = $crud->common_query("SELECT id, full_name, email FROM trainees WHERE id = $trainee_id");
+if ($trainee_email['status'] && !empty($trainee_email['data'])) {
+    $trainee = $trainee_email['data'][0];
+    $to = $trainee->email;
+    $subject = 'Invoice Created - ' . $invoice_no;
 
-    if(mail($to, $subject, $message, $headers)) {
+    $invoice = (object) [
+        'invoice_no' => $invoice_no,
+        'invoice_date' => $invoice_date,
+        'sub_total' => $_POST['total'] ?? 0,
+        'discount_amount' => $_POST['total_discount'] ?? 0,
+        'vat' => $_POST['total_vat'] ?? 0,
+        'grand_total' => $grand_total,
+        'notes' => $notes,
+        'payment_status' => $payment_status,
+        'paid_amount' => $paid_amount,
+        'transaction_id' => $_POST['transaction_id'] ?? null,
+        'payment_method' => $_POST['payment_method'] ?? 0,
+        'trainee_name' => $trainee->full_name
+    ];
+
+    $details_query = $crud->common_query("SELECT invoice_details.*, batches.batch_name FROM invoice_details JOIN batches ON invoice_details.batch_id = batches.id WHERE invoice_details.invoice_id = $invoice_id ORDER BY invoice_details.id ASC");
+    $details = $details_query['status'] ? $details_query['data'] : [];
+
+    ob_start();
+    include __DIR__ . '/email_template.php';
+    $html_message = ob_get_clean();
+
+    $headers = "From: info@blognest.tech\r\n" .
+               "Reply-To: info@blognest.tech\r\n" .
+               "MIME-Version: 1.0\r\n" .
+               "Content-Type: text/html; charset=UTF-8\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+
+    if (mail($to, $subject, $html_message, $headers)) {
         echo "Email successfully sent!";
     } else {
         echo "Email delivery failed.";
