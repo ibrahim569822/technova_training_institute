@@ -18,15 +18,15 @@
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
                 <form action="voucher_store.php" method="POST" class="p-4">
-                    <input type="hidden" name="type" value="<?= htmlspecialchars($current_type) ?>">
+              
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="voucher_type" class="form-label">Voucher Type</label>
                             <select name="voucher_type" id="voucher_type" class="form-select" required>
-                                <option value="payment_vouchers" >Payment Voucher</option>
-                                <option value="receive_vouchers" >Receive Voucher</option>
-                                <option value="journal_vouchers" >Journal Voucher</option>
+                                <option value="1" >Payment Voucher</option>
+                                <option value="2" >receipt Voucher</option>
+                                <option value="3" >Journal Voucher</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label for="narration" class="form-label">Narration</label>
-                            <input type="text" name="narration" id="narration" class="form-control" placeholder="e.g. Payment to Supplier / Received from Customer" required>
+                            <input type="text" name="narration" id="narration" class="form-control" placeholder="e.g. Payment to Supplier / receiptd from Customer" required>
                         </div>
                     </div>
 
@@ -93,7 +93,7 @@
                     <div class="col-lg-12 mt-4">
                         <div class="form-group mb-0">
                             <button type="submit" class="btn btn-primary" id="submitBtn">Save Voucher</button>
-                            <a href="<?= $base_url; ?>accounts/payment_vouchers.php" class="btn btn-secondary">Cancel</a>
+                            <a href="<?= $base_url; ?>accounts/<?= $selected_type === 2 ? 'receipt_vouchers.php' : ($selected_type === 3 ? 'journal_vouchers.php' : 'payment_vouchers.php') ?>" class="btn btn-secondary">Cancel</a>
                         </div>
                     </div>
                 </form>
