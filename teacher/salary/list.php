@@ -40,7 +40,7 @@ $teacher_id = $_GET['teacher_id'] ?? 0;
             //         JOIN trainers t ON s.trainer_id = t.id 
             //         JOIN users u ON t.user_id = u.id 
             //         WHERE s.deleted_at IS NULL";
-            $sql = "SELECT `month`,sum(`basic_salary`) as basic_salary FROM `trainer_salary_payments` WHERE `month`='2026-08' GROUP BY `month`";
+            $sql = "SELECT `month`,sum(`net_payable`) as net_payable FROM `trainer_salary_payments` WHERE `month`='2026-08' GROUP BY `month`";
 
            
             $result = $crud->common_query($sql);
@@ -48,7 +48,7 @@ $teacher_id = $_GET['teacher_id'] ?? 0;
             ?>
             <tr>
                 <td><?= $row->month ?></td>
-                <td><?= number_format($row->basic_salary, 2) ?></td>
+                <td><?= number_format($row->net_payable, 2) ?></td>
                 <td>
                      <a href="view.php?month=<?= $row->month ?>" class="btn btn-sm btn-info">
                         <i class="fa-regular fa-eye"></i>
