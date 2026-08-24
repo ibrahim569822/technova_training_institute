@@ -29,7 +29,12 @@
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT `month`, sum(`net_payable`) as net_payable FROM `trainer_salary_payments` WHERE `month` LIKE '" . date('Y') . "%' GROUP BY `month`";
+                $sql = "SELECT `month`,
+               SUM(`net_payable`) AS `net_payable`
+        FROM `trainer_salary_payments`
+        GROUP BY `month`
+        ORDER BY `month`";
+
                 $result = $crud->common_query($sql);
                 foreach ($result['data'] as $row) {
                 ?>

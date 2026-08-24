@@ -31,7 +31,7 @@ foreach ($teachers['data'] as $t) {
     $loan = $crud->common_query("SELECT remaining_amount, installment_amount FROM trainer_loans WHERE trainer_id = {$t->id} AND status = 0")['data'][0] ?? null;
     $loan_deduction = 0;
     if ($loan) {
-        $loan_deduction = $loan->installment_amount;
+        $loan_deduction = $loan->remaining_amount < $loan->installment_amount ? $loan->remaining_amount : $loan->installment_amount;
         $new_remaining = $loan->remaining_amount - $loan_deduction;
         $crud->common_update("trainer_loans", ['remaining_amount' => $new_remaining], ['trainer_id' => $t->id]);
     }
