@@ -6,21 +6,27 @@
 <?php
 
 $income_query = $crud->common_query("
-    SELECT SUM(cr) as total 
-    FROM ledger 
-    WHERE account_head_id IN (
-        SELECT id FROM account_heads WHERE account_type = '3'
+    SELECT SUM(pvd.credit_amount) as total 
+    FROM payment_voucher_details pvd
+    JOIN payment_vouchers pv ON pv.id = pvd.payment_voucher_id
+    WHERE pvd.account_head_id IN (
+        SELECT id FROM account_heads WHERE account_type = 3 AND deleted_at IS NULL
     )
+    AND pvd.deleted_at IS NULL
+    AND pv.deleted_at IS NULL
 ");
 $total_income = $income_query['data'][0]->total ?? 0;
 
 
 $expense_query = $crud->common_query("
-    SELECT SUM(dr) as total 
-    FROM ledger 
-    WHERE account_head_id IN (
-        SELECT id FROM account_heads WHERE account_type = '4'
+    SELECT SUM(pvd.debit_amount) as total 
+    FROM payment_voucher_details pvd
+    JOIN payment_vouchers pv ON pv.id = pvd.payment_voucher_id
+    WHERE pvd.account_head_id IN (
+        SELECT id FROM account_heads WHERE account_type = 4 AND deleted_at IS NULL
     )
+    AND pvd.deleted_at IS NULL
+    AND pv.deleted_at IS NULL
 ");
 $total_expense = $expense_query['data'][0]->total ?? 0;
 
