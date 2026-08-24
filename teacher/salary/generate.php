@@ -1,59 +1,62 @@
-<?php
-require_once "../../component/connection.php";
+<?php require_once "../../component/header.php"; ?>
+<!-- Sidebar Start -->
+<?php require_once "../../component/sidebar.php"; ?>
+<!-- Sidebar End -->
 
-$teacher_id = $_GET['teacher_id'] ?? 0;
-$month = $_GET['month'] ?? date('Y-m');
-$year_month = substr($month, 0, 7);
-
-$check = $crud->common_query("SELECT COUNT(*) as total FROM trainer_salary_payments WHERE month = '$year_month'");
-$existing_count = $check['data'][0]->total ?? 0;
-
-if ($existing_count > 0) {
-   
-    $_SESSION['message'] = ['danger', 'Error', 'Salary already generated for this month!'];
-    echo "<script>window.location.href = '" . $base_url . "teacher/salary/list.php';</script>";
-    exit;
-}
-
-
-$teachers = $crud->common_query("SELECT trainers.id, users.full_name, trainers.salary FROM trainers JOIN users ON trainers.user_id = users.id WHERE trainers.deleted_at IS NULL");
-if ($teacher_id) {
-    $teachers['data'] = array_filter($teachers['data'], function($t) use ($teacher_id) {
-        return $t->id == $teacher_id;
-    });
- }
-
-foreach ($teachers['data'] as $t) {
-
-    $absent = $crud->common_query("SELECT COUNT(*) as total FROM trainer_attendance WHERE trainer_id = {$t->id} AND status = 1 AND attendance_date LIKE '$year_month%'")['data'][0]->total;
-
-    
-    $daily_salary = $t->salary / 30;
-    $absent_deduction = $daily_salary * $absent;
-    $net_salary = $t->salary - $absent_deduction;
-
-  
-    $loan = $crud->common_query("SELECT remaining_amount, installment_amount FROM trainer_loans WHERE trainer_id = {$t->id} AND status = 0")['data'][0] ?? null;
-    $loan_deduction = 0;
-    if ($loan) {
-        $loan_deduction = $loan->installment_amount;
-        $new_remaining = $loan->remaining_amount - $loan_deduction;
-        $crud->common_update("trainer_loans", ['remaining_amount' => $new_remaining], ['trainer_id' => $t->id]);
-    }
-
-    $net_payable = $net_salary - $loan_deduction;
-
-   
-    $crud->common_insert("trainer_salary_payments", [
-        'trainer_id' => $t->id,
-        'month' => $year_month,
-        'basic_salary' => $t->salary,
-        'absent_deduction' => $absent_deduction,
-        'loan_deduction' => $loan_deduction,
-        'net_payable' => $net_payable,
-        'payment_date' => date('Y-m-d')
-    ]);
-}
-
-$_SESSION['message'] = ['success', 'Success', 'Salary generated!'];
-echo "<script>window.location.href = '" . $base_url . "teacher/salary/list.php';</script>";
+<div class="main-content">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-lg-center flex-column flex-md-row flex-lg-row mt-3">
+                <div class="flex-grow-1">
+                    <h3 class="mb-2 text-size-26 text-color-2">Salary Generate</h3>
+                </div>
+                <div class="mt-3 mt-lg-0">
+                    <a href="list.php" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <form action="generate_process.php" method="POST">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="year" class="form-label">Year</label>
+                            <select name="year" id="year" class="form-select" required>
+                                <?php
+                                $current_year = date('Y');
+                                for ($y = $current_year; $y >= 2020; $y--) {
+                                    echo "<option value='$y' " . ($y == $current_year ? 'selected' : '') . ">$y</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="month" class="form-label">Month</label>
+                            <select name="month" id="month" class="form-select" required>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">&nbsp;</label>
+                            <button type="submit" class="btn btn-success w-100">Generate Salary</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php require_once "../../component/footer.php"; ?>
