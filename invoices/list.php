@@ -12,7 +12,7 @@
                     <h3 class="mb-2 text-size-26 text-color-2">Invoices</h3>
                 </div>
                 <div class="mt-3 mt-lg-0">
-                    <a href="<?= $base_url; ?>invoices/create.php" class="btn btn-primary">
+                    <a href="<?= $base_url; ?>invoices/create.php" class="btn btn-success">
                         <i class="fa-solid fa-plus me-2"></i> Add Invoice
                     </a>
                 </div>

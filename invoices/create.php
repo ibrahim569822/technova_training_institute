@@ -131,7 +131,7 @@
 
                     <div class="row">
                         <div class="col-md-12 mb-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-success">
                                 <i class="fa-solid fa-save"></i> Save Invoice
                             </button>
                             <a href="<?= $base_url; ?>invoices/list.php" class="btn btn-secondary">
