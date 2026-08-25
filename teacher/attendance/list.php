@@ -26,8 +26,7 @@
                         <thead class="table-primary">
                             <tr>
                                 <th>Date</th>
-                                <th>Teacher</th>
-                                <th>Status</th>
+                                
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -41,7 +40,8 @@
                                     FROM `trainer_attendance` 
                                     JOIN trainers ON trainer_attendance.trainer_id = trainers.id
                                     JOIN users ON trainers.user_id = users.id
-                                    WHERE trainer_attendance.deleted_at IS NULL 
+                                    WHERE trainer_attendance.deleted_at IS NULL
+                                    GROUP BY trainer_attendance.attendance_date 
                                     ORDER BY trainer_attendance.attendance_date DESC, users.full_name";
                             $result = $crud->common_query($sql);
                             if ($result['status']) {
@@ -51,12 +51,7 @@
                             ?>
                             <tr>
                                 <td><?= $att->attendance_date ?></td>
-                                <td><?= $att->teacher_name ?></td>
-                                <td>
-                                    <span class="badge <?= $badge_class ?>">
-                                        <?= $status_text ?>
-                                    </span>
-                                </td>
+                                
                                 <td>
                                     <a href="view.php?attendance_date=<?= $att->attendance_date; ?>" class="btn btn-sm btn-warning">
                                         <i class="fa-regular fa-eye"></i>
