@@ -56,9 +56,7 @@ $teacher_id = $_GET['teacher_id'] ?? 0;
                 <td><a href="loan_view.php?id=<?= $row->id ?>" class="btn btn-sm btn-info">
                         <i class="fa-regular fa-eye"></i>
                     </a>
-                    <a href="loan_pay.php?id=<?= $row->id ?>" class="btn btn-sm btn-success">
-                        <i class="fa-solid fa-money-bill-wave"></i>
-                    </a>
+                   
                     <a href="loan_edit.php?id=<?= $row->id ?>" class="btn btn-sm btn-primary">Edit</a>
                     <a href="loan_delete.php?id=<?= $row->id ?>" class="btn btn-sm btn-danger">Delete</a>
                 </td>
