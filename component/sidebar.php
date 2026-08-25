@@ -63,7 +63,7 @@
                             class="fa-solid fa-pen-to-square"></i>
                         <p>Exams</p>
                     </a></li>
-                <li><a href="<?php echo $base_url; ?>Certificates/list.php" class="sidebar-link"><i
+                <li><a href="<?php echo $base_url; ?>certificates/list.php" class="sidebar-link"><i
                             class="fa-solid fa-pen-to-square"></i>
                         <p>Certificates</p>
                     </a></li>
