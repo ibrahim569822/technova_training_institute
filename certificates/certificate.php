@@ -334,6 +334,11 @@ require_once "../component/connection.php";
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
     });
+
+    window.addEventListener('load', (event) => {
+      window.print();
+      window.location.href = '<?= $base_url; ?>certificates/list.php'
+    });
   </script>
 
 </body>
