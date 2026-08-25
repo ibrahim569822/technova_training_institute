@@ -10,6 +10,6 @@ $Cert_data['issue_date'] = $_POST['issue_date'];
 $Cert_data['status'] = $_POST['status'];
 $Cert_data['created_at'] = date('Y-m-d H:i:s');
 $Cert_data['created_by'] = $_SESSION['user_id'];
-$result = $crud->common_insert("Certificates", $Cert_data);
+$result = $crud->common_insert("certificates", $Cert_data);
 
-echo "<script>window.location.href = '" . $base_url . "Certificates/list.php';</script>";
+echo "<script>window.location.href = '" . $base_url . "certificates/list.php';</script>";
