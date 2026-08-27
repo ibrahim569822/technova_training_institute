@@ -1,12 +1,12 @@
 <?php
     require_once "../component/connection.php";
 
-    $result = $crud->common_delete("Certificates", ['id' => $_GET['id']]);
+    $result = $crud->common_delete("certificates", ['id' => $_GET['id']]);
     if ($result['status']) {
         $_SESSION['message'] = array('success','Success', $result['message']);
     } else {
         $_SESSION['message'] = array('danger','Error', $result['message']);
     }
 
-    echo "<script>window.location.href = '".$base_url."Certificates/list.php';</script>";
+    echo "<script>window.location.href = '".$base_url."certificates/list.php';</script>";
     
