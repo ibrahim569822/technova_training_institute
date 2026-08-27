@@ -35,7 +35,7 @@ $att = $data['data'][0];
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label>Attendance Date</label>
-                            <input type="date" class="form-control" value="<?= $att->attendance_date ?>" disabled>
+                            <input type="date" class="form-control" value="<?= $att->attendance_date ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label>Status</label>
