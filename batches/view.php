@@ -18,6 +18,7 @@ if (!$data['status'] || empty($data['data'])) {
     $_SESSION['message'] = array('danger', 'Error', 'Batch not found.');
    exit;
 }
+print_r($_SESSION['message']);
 $batch = $data['data'][0];
 ?>
 
