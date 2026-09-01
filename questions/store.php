@@ -9,6 +9,7 @@ $q_data = [
     'option_c' => $_POST['option_c'],
     'option_d' => $_POST['option_d'],
     'correct_answer' => $_POST['correct_answer'],
+    'mark' => $_POST['mark'],
     'created_by' => $_SESSION['user_id']
 ];
 

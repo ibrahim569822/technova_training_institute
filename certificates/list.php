@@ -56,7 +56,7 @@
                                     <td class="text-center">
                                         <a href="<?= $base_url; ?>certificates/certificate.php?id=<?= $Certificate->certificate_id ?>"
                                             class="btn btn-sm btn-primary mb-2"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="<?= $base_url; ?>certificates/certificate.php?id=<?= $Certificate->certificate_id ?>"
+                                        <a href="<?= $base_url; ?>certificates/certificate_prt.php?id=<?= $Certificate->certificate_id ?>"
                                             class="btn btn-sm btn-primary mb-2"><i class="fa-solid fa-print"></i></a>
                                         <a href="<?= $base_url; ?>certificates/edit.php?id=<?= $Certificate->certificate_id ?>"
                                             class="btn btn-sm btn-primary mb-2"><i class="fa-regular fa-pen-to-square"></i></a>
